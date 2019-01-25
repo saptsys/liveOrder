@@ -1,13 +1,16 @@
+@@ -0,0 +1,227 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2019 at 06:27 AM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.6.19
+-- Generation Time: Jan 25, 2019 at 11:35 AM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +20,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `liveorders`
+-- Database: `liveorder`
 --
 
 -- --------------------------------------------------------
@@ -113,10 +116,19 @@ CREATE TABLE `users` (
   `Id` int(2) NOT NULL,
   `FirstName` varchar(50) DEFAULT NULL,
   `LastName` varchar(50) DEFAULT NULL,
-  `UserName` varchar(50) NOT NULL,
+  `Username` varchar(50) NOT NULL,
   `Password` varchar(20) NOT NULL,
-  `Role` varchar(10) NOT NULL
+  `Role` enum('Waiter','Chef','Admin') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`Id`, `FirstName`, `LastName`, `Username`, `Password`, `Role`) VALUES
+(1, 'tony', 'stark', 'tonystark', 'tonystark', 'Waiter'),
+(2, 'bat', 'man', 'batman', 'batman', 'Chef'),
+(3, 'super', 'man', 'superman', 'superman', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -173,36 +185,44 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categories`
   MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `invoiceitems`
 --
 ALTER TABLE `invoiceitems`
   MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
   MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `livetableorders`
 --
 ALTER TABLE `livetableorders`
   MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
   MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
