@@ -24,6 +24,8 @@
                     $ok=true;
                     $data=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                     $data=$data[0];
+                    
+                    //redirection according their role and create cookie and sessions
                     echo "this is an ". $data['FirstName']." ".$data['LastName']." redirect to ".$data['Role'] ."Page";
                 }
             }else $ok=false;
