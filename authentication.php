@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if ($_SERVER["REQUEST_METHOD"] != "POST") exit();
     require 'config.php';
     class authenticate extends config{
@@ -15,20 +16,31 @@
             return $data;
         }
         public function checkdb($user,$pass){
-            $ok;
-            $con=$this->db();
-            $stmt=$con->prepare('SELECT * FROM users WHERE Username = ? AND Password = ? LIMIT 1');
-            $stmt->bind_param("ss",$user,$pass);
-            if($stmt->execute()){
-                if($stmt){
+            $ok=false;
+            $link=$this->db();
+            $pass=sha1(md5($pass));
+            $stmt="SELECT * FROM users WHERE Username = '$user' AND Password = '$pass' LIMIT 1";
+            if($fire=mysqli_query($link,$stmt)){
+                if(mysqli_affected_rows($link) == 1){
                     $ok=true;
-                    $data=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-                    $data=$data[0];
-                    
-                    //redirection according their role and create cookie and sessions
-                    echo "this is an ". $data['FirstName']." ".$data['LastName']." redirect to ".$data['Role'] ."Page";
-                }
-            }else $ok=false;
+                    $data=mysqli_fetch_assoc($fire);
+                    //cookie for remember user
+                    $user=(string)$data['Username'];
+                    $pass=(string)  $data['Password'];
+                    setcookie("user",$user,time() + (86400 * 365), "/");
+                    setcookie("pass",$pass,time() + (86400 * 365), "/");
+
+                    //sessions
+                    $_SESSION['user']=$user;
+                    $_SESSION['pass']=$pass;
+                    $_SESSION['role']=$data["Role"];
+
+                    //redirecting according their roles
+                    header ("Location: screens/".$data["Role"]);
+                } 
+            }else{ 
+                $ok=false;
+            }
         }
     }
     $allok=false;
