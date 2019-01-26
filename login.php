@@ -20,7 +20,7 @@
         <div id="page" class="col-lg-offset-4 col-lg-4 col-md-offset-4  col-md-4 col-sm-offset-3  col-sm-6 col-xs-offset-0 col-xs-12">
                 <h3 id="logIn-header-label">LogIn Here</h3>
                 <div id="fields">
-                <form action="authentication.php" method="post">
+                <form action="loginAuth.php" method="post">
                     <div class="form-group">
                         <div class="input-group">
                         <span class="input-group-addon" style="background:#eee;"> <i class="fa fa-user" style="font-size:14pt;"></i> </span>
