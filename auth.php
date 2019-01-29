@@ -35,7 +35,6 @@ class authenticate extends config{
         $link=$this->db();
         $user=$this->User;
         $pass=$this->Pass;
-        echo $pass;
         $stmt="SELECT * FROM users WHERE Username = '$user' AND Password = '$pass' LIMIT 1";
         if($fire=mysqli_query($link,$stmt)){
             if(mysqli_affected_rows($link) == 1){
