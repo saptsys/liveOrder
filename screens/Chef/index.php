@@ -1,9 +1,26 @@
 <?php
     session_start();
-
-    if( ! ( (isset($_SESSION["user"])) && (isset($_SESSION["pass"])) && (isset($_COOKIE["user"])) && (isset($_COOKIE["pass"])) ) ){
-        header('Location: ../../index.php');
+    if( ( (isset($_COOKIE['user'])) && (isset($_COOKIE['pass'])) ) ){
+        if( !( isset($_SESSION['user']) && isset($_SESSION['pass']) && isset($_SESSION['role']) ) ){
+            require_once '../../auth.php';
+            $auth = new authenticate($_COOKIE['user'],$_COOKIE['pass'],false,true);
+            if(!$auth->authenticated) header('Location: ../../');
+            else{
+                header('Location: ../../');
+                exit();
+            }
+        }else{
+            if(! ($_SESSION['role'] == "Chef") ){
+                header('Location: ../../');
+            }
+        }
+    }else{
+        header('Location: ../../');
+        exit();
     }
+    include "../../config.php";
+    $mycon = new config();
+    $con = $mycon->db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
