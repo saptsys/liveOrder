@@ -7,6 +7,7 @@
             $allok=true;
        }else $allok=false;
     }else $allok = false;
+    
     if($allok) {
         require_once "auth.php";
         $auth=new authenticate($_POST["username"],$_POST["password"],true,true);
