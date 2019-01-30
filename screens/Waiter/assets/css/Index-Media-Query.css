@@ -1,0 +1,20 @@
+@media only screen and (max-width: 767px) {
+    .dining-table div{
+        border: 2px solid #ddd;
+        padding: 10px 5px 0px 5px;
+        box-shadow: 2px 2px 3px #777;
+        transition: 0.01s linear;
+        border-radius: 5px;
+    }
+    .dining-table div:hover{
+       border: 3px solid #ddd;
+        box-shadow: 0px 0px 0px #444;
+    }
+    .dining-table h3{
+        margin-top:-9px;
+        font-size:10pt;
+    }
+    .Occupied h5{
+        display: none;
+}
+ }
