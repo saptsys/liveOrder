@@ -4,7 +4,7 @@
         $user=$_COOKIE['user'];
         $pass=$_COOKIE['pass'];
         require_once "auth.php";
-        $auth=new authenticate($user,$pass,false);
+        $auth=new authenticate($user,$pass,false,true);
         if($auth->authenticated) $ok=true;
     }
     if(!$ok) header('Location: login.php');
