@@ -1,0 +1,16 @@
+#main-page{
+    background-color: #fff !important;
+    padding:  0;
+}
+table td,th{
+    padding-left: 20px !important;
+    vertical-align: middle !important;
+}
+.wrapper{
+    display: none;
+}
+#loader{
+    position: absolute;
+    top: calc(50% - 20px);
+    left: 45%;
+}
