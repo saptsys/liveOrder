@@ -5,11 +5,14 @@ class authenticate extends config{
     private $User;
     private $Pass;
     public $authenticated=false;
-    public function __construct($user,$pass,$setSignature=true){
+    public function __construct($user,$pass,$setCookie=true,$SetSession=true){
         $this->User=$this->filter($user);
-        $this->Pass=($setSignature) ? sha1(md5($pass)) : $pass;
+        $this->Pass=($setCookie) ? sha1(md5($pass)) : $pass;
         $this->checkdb();
-        if($setSignature && $this->authenticated) $this->setCookiesAndSesions();
+        if($this->authenticated){
+            if($setCookie) $this->setCookies();
+            if($SetSession) $this->setSession();
+        }
     }
     //check that user is entered plain text or not
     public function filter($data) {
@@ -18,12 +21,16 @@ class authenticate extends config{
         $data = mysqli_real_escape_string($this->db(),$data);
         return $data;
     }
-    public function setCookiesAndSesions(){
+    public function setCookies(){
         //cookie for remember user
         $user=$this->User;
         $pass=$this->Pass;
         setcookie("user",$user,time() + (86400 * 365), "/");
         setcookie("pass",$pass,time() + (86400 * 365), "/");
+    }
+    public function setSession(){
+        $user=$this->User;
+        $pass=$this->Pass;
 
         //sessions
         $_SESSION['user']=$user;
