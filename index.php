@@ -9,7 +9,6 @@
     }
     if(!$ok) header('Location: login.php');
 ?>
-
 <!-- commented by keval -->
 <!-- <!DOCTYPE html>
 <html lang="en">
