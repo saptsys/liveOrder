@@ -14,7 +14,7 @@ class authenticate extends config{
             if($SetSession) $this->setSession();
         }
     }
-    //check that user is entered plain text or not
+    //check that user is entered plain text or not for avoiding SQL injection
     public function filter($data) {
         $data = trim(htmlentities(strip_tags($data)));
         if (get_magic_quotes_gpc()) $data = stripslashes($data);
@@ -54,7 +54,10 @@ class authenticate extends config{
         }else $ok=false;
         if(!$ok){
             $this->authenticated=false;
-            //header ('Location: ./index.php');
+            echo "<script>
+                alert('Invalid Username and Password')
+                window.location='login.php';
+            </script>";
         }
     }
 }

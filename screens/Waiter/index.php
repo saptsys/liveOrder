@@ -50,13 +50,14 @@
 <body>
     
 <?php require_once '../../component/header.php'?>
-
     <div id="main-page" class="container">
+
         <div id="tables-container" class="row"></div><!--#tables-container-->
 
         <center><div id="loader"><img src="../../assets/images/loader.gif" width=100px alt="Loading.."></div></center>
         <div id="dialog" title="Basic dialog">
         </div>
+        
     </div> <!-- #main-page .container .row -->
 
 <script src="assets/JS/Index-Script.js"></script>
