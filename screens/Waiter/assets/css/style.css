@@ -1,0 +1,38 @@
+#tables-container{
+    padding: 20px 0px;
+}
+
+.dining-table{
+    margin-top: 25px;
+}
+.dining-table div{
+    background-image: url('../images/table_image.png');
+    background-position-y: 8px;
+    background-size: cover;
+    border: 5px solid #ddd;
+    padding: 15px;
+    box-shadow: 2px 2px 3px #777;
+    transition: 0.1s linear;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.dining-table div:hover{
+   border: 10px solid #ddd;
+    box-shadow: 0px 0px 0px #444;
+}
+.Occupied div{
+    background-image: url('../images/table_image_black.png');
+    background-color: rgba(0, 0, 0,0.1);
+}
+.Occupied h5{
+    margin-top:-10px;
+    text-align: center;
+}
+
+.dining-table h3{
+    margin-top:-7px;
+    text-align: center;
+    font-weight: bold;
+    font-size:12pt;
+}
