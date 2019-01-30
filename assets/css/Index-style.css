@@ -1,23 +1,14 @@
-#header{
-    background: #8E2DE2;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: #f5f5f5;
-    padding: 1px 5px 5px 10px;
+body{
+    background: #FFEEEE;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #DDEFBB, #FFEEEE);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #DDEFBB, #FFEEEE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#header .about-btn{
-    background: rgba(0,0,0,0);
-    border: 2px solid #fff;
-    float:right;
-    border-radius:100px;
-    padding: 5px 20px 5px 20px;
-    font-weight: bold;
+#main-page{
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0px 0px 10px #aaa;
+    min-height: 80vh;
 }
-#header .about-btn:hover{
-    color: #8E2DE2;
-    background: #f5f5f5;
-    float:right;
-    border-radius:100px;
-    padding: 5px 20px 5px 20px;
-}
+
+
+
