@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2019 at 09:56 AM
+-- Generation Time: Jan 30, 2019 at 03:31 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.8
 
@@ -30,8 +30,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categories` (
   `Id` int(3) NOT NULL,
-  `Name` varchar(255) DEFAULT NULL
+  `productId` int(20) NOT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  `price` int(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`Id`, `productId`, `Name`, `price`) VALUES
+(1, 1, 'Margherita', 110),
+(2, 1, 'Calzone', 120),
+(3, 2, 'jain', 540),
+(4, 2, 'chinese', 150),
+(5, 3, 'burger cat 1', 140),
+(6, 3, 'burger cat 4', 170),
+(7, 9, 'batli', 20),
+(8, 9, 'kothli', 10),
+(9, 10, 'royal stag', 450),
+(10, 10, 'jack danials', 740);
 
 -- --------------------------------------------------------
 
@@ -73,11 +91,29 @@ CREATE TABLE `invoices` (
 
 CREATE TABLE `livetableorders` (
   `Id` int(3) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `TableId` int(3) NOT NULL,
-  `ProductId` int(3) NOT NULL,
+  `productId` int(3) NOT NULL,
+  `catId` int(20) NOT NULL,
   `Quantity` int(2) NOT NULL,
   `Pending` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `livetableorders`
+--
+
+INSERT INTO `livetableorders` (`Id`, `time`, `TableId`, `productId`, `catId`, `Quantity`, `Pending`) VALUES
+(1, '2019-01-30 13:21:00', 1, 1, 1, 2, 1),
+(2, '2019-01-30 02:41:08', 1, 1, 2, 2, 1),
+(3, '2019-01-30 13:10:00', 1, 6, 0, 0, 1),
+(4, '2019-01-30 12:21:00', 1, 7, 0, 0, 1),
+(5, '2019-01-30 13:21:00', 1, 8, 0, 0, 1),
+(6, '2019-01-30 13:21:00', 2, 4, 0, 0, 1),
+(7, '2019-01-30 13:21:00', 2, 9, 7, 5, 2),
+(8, '2019-01-30 13:21:00', 3, 2, 2, 0, 1),
+(9, '2019-01-30 13:21:00', 3, 10, 0, 0, 2),
+(10, '2019-01-30 13:21:00', 4, 6, 0, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -87,10 +123,26 @@ CREATE TABLE `livetableorders` (
 
 CREATE TABLE `products` (
   `Id` int(3) NOT NULL,
-  `CatId` int(3) NOT NULL,
   `Name` varchar(50) NOT NULL,
-  `Price` double NOT NULL
+  `haveCat` tinyint(1) NOT NULL DEFAULT '0',
+  `price` int(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`Id`, `Name`, `haveCat`, `price`) VALUES
+(1, 'Pizza', 1, 0),
+(2, 'Pav-Bhaji', 1, 0),
+(3, 'Burger', 1, 0),
+(4, 'Dabeli', 0, 0),
+(5, 'VadaPav', 0, 0),
+(6, 'Coke', 0, 0),
+(7, 'Rum', 0, 0),
+(8, 'Wine', 0, 0),
+(9, 'Desi', 1, 0),
+(10, 'Vilayati', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -111,7 +163,7 @@ CREATE TABLE `tables` (
 
 INSERT INTO `tables` (`Id`, `Name`, `Capacity`, `IsOccupied`) VALUES
 (1, '1', 5, 0),
-(2, '2', 6, 0);
+(2, '2', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -191,7 +243,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `invoiceitems`
@@ -209,13 +261,13 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT for table `livetableorders`
 --
 ALTER TABLE `livetableorders`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tables`
