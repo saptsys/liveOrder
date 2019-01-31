@@ -9,6 +9,12 @@ $(document).ready(function () {
     });
 });
 function orderReady(orderId) {
-    alert(orderId);
-    console.log(orderId);
+    $.post("action.php",{flag:"orderReady",id:orderId},function(data){
+        $("#row"+orderId).fadeOut();
+    });
+}
+function orderDeclined(orderId) {
+    $.post("action.php",{flag:"orderDeclined",id:orderId},function(data){
+        $("#row"+orderId).fadeOut();
+    });
 }
