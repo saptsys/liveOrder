@@ -40,7 +40,7 @@
             </div><!-- .dining-table -->";
         }
         echo "
-        <div class='totalItemLabel backArrow dining-table  $class col-lg-2 col-md-2 col-sm-2 col-xs-3'>
+        <div class='totalItemLabel backArrow dining-table $class col-lg-2 col-md-2 col-sm-2 col-xs-3'>
                 <div style='background:rgba(0,0,0,0.1);'>
                     <b>ITEMS <br> 6 </b>
                 </div>
@@ -52,9 +52,24 @@
 
     function getMenu($con)
     {
-        $data = mysqli_query($con,"SELECT * from `products`");
-        while($row = mysqli_fetch_array($data)){
-            print_r($row);
+        $data_categories = mysqli_query($con,"SELECT * from `categories`");
+        while($row_categories = mysqli_fetch_array($data_categories))
+        {
+            echo "
+            <div class='col-lg-3 col-md-3 col-sm-4 col-xs-6'>
+                <div class='catBox'>
+                    <div class='catName'>$row_categories[Name] <span><i class='fas fa-sort-down'></i></span>  </div class='catName'>
+                    <ul>";
+                        $data_products = mysqli_query($con,"SELECT * from `products` WHERE `CatId`=$row_categories[0]");
+                        while($row_products = mysqli_fetch_array($data_products))
+                        {
+                            echo "<li>$row_products[Name]</li>";
+                        }
+                    echo"
+                    </ul>
+                </div>
+            </div>";
         }
+        echo "</div>";
     }
 ?>

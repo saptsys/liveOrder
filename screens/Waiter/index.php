@@ -41,7 +41,7 @@
     <script src="../../assets/js/JQueryUi/jquery-ui.js"></script>
 
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/Index-Style.css">
+    <link rel="stylesheet" href="../../assets/css/Index-style.css">
     <link rel="stylesheet" href="assets/css/Index-Media-Query.css">
     <link rel="stylesheet" href="../../assets/css/header.css">
 

@@ -65,9 +65,38 @@
     font-size:12pt;
 }
 
-
-
 #menu-container{
-    display: none;
+    background: rgba(255,255,255,0.3);
+    padding: 20px 0px;
 }
 
+#menu-container .catBox{
+    background: rgba(200,200,200,0.4);
+    cursor: pointer;
+    margin: 0px -10px;
+}
+#menu-container .catBox:hover{
+    background: #eee;
+}
+#menu-container .catBox .catName{
+    font-size: 20pt;
+    padding: 5px;
+    border: 1px solid #aaa;
+    overflow: hidden;
+}
+#menu-container .catBox .catName span{
+    float: right;
+    padding-right:10px;
+    transition: 0.3s linear;
+}
+#menu-container .catBox ul{
+    display: none;
+    background: rgba(250,250,250,0.9);
+    border:1px solid #aaa;
+    border-top:0px;
+    padding: 20px;
+    position:absolute;
+    z-index:999999;
+    font-size: 12pt;
+    
+}
