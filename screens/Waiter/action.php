@@ -22,7 +22,7 @@
     {  
         echo "
         <div class=' backArrow col-lg-offset-3 col-lg-1 col-md-offset-3 col-md-1 col-sm-offset-3 col-sm-1 col-xs-offset-1 col-xs-2'>
-                <center><i class='fas fa-arrow-alt-circle-left arrows'></i></center>
+                <center><i title='BACK TO HOME' class='fas fa-arrow-alt-circle-left arrows'></i></center>
             </div>
         ";
         $data = mysqli_query($con,"SELECT * FROM `tables`");
@@ -46,13 +46,14 @@
                 </div>
             </div>
         <div class=' forwardArrow col-lg-1 col-md-1 col-sm-1 col-xs-2'>
-            <center><i class='fas fa-arrow-alt-circle-right arrows'></i></center>
+            <center><i title='INFORM TO COOCK' class='fas fa-arrow-alt-circle-right arrows'></i></center>
         </div>";
     }
 
     function getMenu($con)
     {
-        $data_categories = mysqli_query($con,"SELECT * from `categories`");
+        echo "<center><h3><i class='fas fa-cocktail'></i> MENU</h3></center> <br>";
+        $data_categories = mysqli_query($con,"SELECT * from `categories` ORDER BY `Name`");
         while($row_categories = mysqli_fetch_array($data_categories))
         {
             echo "
@@ -60,10 +61,16 @@
                 <div class='catBox'>
                     <div class='catName'>$row_categories[Name] <span><i class='fas fa-sort-down'></i></span>  </div class='catName'>
                     <ul>";
-                        $data_products = mysqli_query($con,"SELECT * from `products` WHERE `CatId`=$row_categories[0]");
+                        $data_products = mysqli_query($con,"SELECT * from `products` WHERE `CatId`=$row_categories[0] ORDER BY `Name`");
                         while($row_products = mysqli_fetch_array($data_products))
                         {
-                            echo "<li>$row_products[Name]</li>";
+                            echo "<li>$row_products[Name]
+                            <span>
+                                <i class='fa fa-minus'></i>
+                                <b>0</b>
+                                <i class='fa fa-plus'></i>
+                            </span>
+                            </li>";
                         }
                     echo"
                     </ul>

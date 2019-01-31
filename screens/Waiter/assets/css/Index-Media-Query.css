@@ -29,8 +29,17 @@
     #menu-container .catBox .catName{
         font-size: 12pt;
     }
+    .catBox ul div{
+        padding: 5px;
+    }
+    .catBox ul div span{
+        font-size: 10pt;
+    }
     
+    #menu-container .catBox ul div{
+    font-size: 11pt;
     
+}
     
     
     
