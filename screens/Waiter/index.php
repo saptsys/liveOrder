@@ -52,9 +52,7 @@
 <?php require_once '../../component/header.php'?>
     <div id="main-page" class="container">
         <div id="tables-container" class="row">
-            <div class=' backArrow col-lg-offset-3 col-lg-1 col-md-offset-3 col-md-1 col-sm-offset-3 col-sm-1 col-xs-offset-1 col-xs-2'>
-                <center><i class="fas fa-arrow-alt-circle-left arrows"></i></center>
-            </div>
+            
         </div><!--#tables-container-->
         <div id="menu-container" class="row">
 

@@ -17,7 +17,7 @@ function establishTables() //its fetch tables and code of onclick on tables
     $("#loader").show();
     $.post("action.php",{flag:"getTable"},function(data){
         $("#loader").hide();
-        $("#tables-container").html($("#tables-container").html()+data)
+        $("#tables-container").html(data)
         $(".dining-table div").height($(".dining-table div").width()); //it makes width == height of table div
         var height = $(".dining-table").height();
         $(".arrows").css({
