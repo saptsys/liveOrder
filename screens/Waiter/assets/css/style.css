@@ -1,3 +1,31 @@
+.fa-arrow-alt-circle-left{
+    font-size: 25pt;
+    margin-top:25px;
+    float: right;
+    cursor: pointer;
+}
+.fa-arrow-alt-circle-right{
+    font-size: 25pt;
+    margin-top:25px;
+    float: left;
+    cursor: pointer;
+}
+.backArrow{
+    display: none;
+}
+.forwardArrow{
+    display: none;
+}
+.totalItemLabel div{
+    color: #000;
+    text-align:center;
+}
+
+.totalItemLabel b{
+    font-weight: bold;
+    font-size: 15pt;
+}
+
 #tables-container{
     padding: 20px 0px;
 }
@@ -36,3 +64,10 @@
     font-weight: bold;
     font-size:12pt;
 }
+
+
+
+#menu-container{
+    display: none;
+}
+

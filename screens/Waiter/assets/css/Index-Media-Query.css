@@ -1,4 +1,11 @@
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 767px) {    
+    
+       
+    .totalItemLabel b{
+        font-weight: bold;
+        font-size: 12pt;
+    }
+    
     .dining-table div{
         border: 2px solid #ddd;
         padding: 10px 5px 0px 5px;
@@ -16,5 +23,6 @@
     }
     .Occupied h5{
         display: none;
-}
+    }
+    
  }
