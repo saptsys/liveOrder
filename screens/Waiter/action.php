@@ -20,6 +20,11 @@
     
     function getTable($con)
     {  
+        echo "
+        <div class=' backArrow col-lg-offset-3 col-lg-1 col-md-offset-3 col-md-1 col-sm-offset-3 col-sm-1 col-xs-offset-1 col-xs-2'>
+                <center><i class='fas fa-arrow-alt-circle-left arrows'></i></center>
+            </div>
+        ";
         $data = mysqli_query($con,"SELECT * FROM `tables`");
         while($row = mysqli_fetch_array($data))
         { 
