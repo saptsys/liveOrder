@@ -63,6 +63,14 @@ function tableSelected(tableName) //its fetch catagories and products
                 $(this).children("ul").css({    
                     "min-width":width+"px"
                 });
+                var val=0;
+                $(".fa-plus").click(function(val){
+                    val = parseInt($(this).parent().children("b").html());
+                    val=val+1;
+                    $(this).parent().children("b").html(val);
+                    val=0;
+                });
+
 
                 $(".catBox").mouseleave(function(){
                     $(".catBox ul").slideUp();

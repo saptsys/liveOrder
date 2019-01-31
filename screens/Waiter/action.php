@@ -77,6 +77,6 @@
                 </div>
             </div>";
         }
-        echo "</div>";
+        echo "</div> ";
     }
 ?>
