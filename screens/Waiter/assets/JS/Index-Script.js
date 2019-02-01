@@ -17,7 +17,7 @@ function establishTables() //its fetch tables and code of onclick on tables
     $("#loader").show();
     $.post("action.php",{flag:"getTable"},function(data){
         $("#loader").hide();
-        $("#tables-container").html($("#tables-container").html()+data)
+        $("#tables-container").html(data)
         $(".dining-table div").height($(".dining-table div").width()); //it makes width == height of table div
         var height = $(".dining-table").height();
         $(".arrows").css({
@@ -43,7 +43,7 @@ function establishTables() //its fetch tables and code of onclick on tables
         });
     });
 }
-function tableSelected(tableName)
+function tableSelected(tableName) //its fetch catagories and products
 {
     $("#loader").show();
     data="";
@@ -52,6 +52,37 @@ function tableSelected(tableName)
         if(status=="success"){
             $("#loader").hide();
             $("#menu-container").html(data);
+
+            $(".catBox").click(function(){
+                width = $(this).width();
+                $(this).children("ul").slideDown();
+                $(this).children("div").children("span").css({
+                    "transform": "rotate(180deg)",
+                    "padding-left":"10px"
+                });
+                $(this).children("ul").css({    
+                    "min-width":width+"px"
+                });
+                var val=0;
+                $(".fa-plus").click(function(val){
+                    val = parseInt($(this).parent().children("b").html());
+                    val=val+1;
+                    $(this).parent().children("b").html(val);
+                    val=0;
+                });
+
+
+                $(".catBox").mouseleave(function(){
+                    $(".catBox ul").slideUp();
+                    $(this).children("div").children("span").css({
+                        "transform": "rotate(0deg)",
+                        "padding-left":"10px"
+                    });
+                });
+            });
+            $("#tables-container").click(function(){
+                $(".catBox ul").slideUp();
+            });
         }
         
     });
