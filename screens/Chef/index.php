@@ -53,10 +53,10 @@
         </div>
         <div class="wrapper">
             <table class="table table-striped">
-                <thead>
-                    <tr>
+                <thead >
+                    <tr >
                         <th>Dish</th>
-                        <th>Quantity</th>
+                        <th>Pending</th>
                         <th>Action</th>
                     </tr>
                 </thead>
