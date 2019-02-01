@@ -63,14 +63,9 @@ function tableSelected(tableName) //its fetch catagories and products
                 $(this).children("ul").css({    
                     "min-width":width+"px"
                 });
-                var val=0;
-                $(".fa-plus").click(function(val){
-                    val = parseInt($(this).parent().children("b").html());
-                    val=val+1;
-                    $(this).parent().children("b").html(val);
-                    val=0;
-                });
-
+                // $(".plusBtn").click(function(val){
+                //     alert("clicked");
+                // });
 
                 $(".catBox").mouseleave(function(){
                     $(".catBox ul").slideUp();
@@ -86,4 +81,11 @@ function tableSelected(tableName) //its fetch catagories and products
         }
         
     });
+}
+function addQ(id){
+    Qid="Q"+id;
+    var val = 0;
+    val = parseInt($("#"+Qid).html());
+    if(val<10)
+        $("#"+Qid).html(++val);
 }

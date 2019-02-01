@@ -67,8 +67,8 @@
                             echo "<li>$row_products[Name]
                             <span>
                                 <i class='fa fa-minus'></i>
-                                <b>0</b>
-                                <i class='fa fa-plus'></i>
+                                <b id='Q$row_products[Id]'>0</b>
+                                <i class='fa fa-plus' onclick='addQ($row_products[Id])'></i>
                             </span>
                             </li>";
                         }
