@@ -32,7 +32,9 @@
                 $pData=mysqli_fetch_array($productSQL);
                 $catSQL=mysqli_query($con,"SELECT * FROM `categories` WHERE Id='$pData[CatId]'");
                 $cData=mysqli_fetch_array($catSQL);
-                $dish=$cData['Name']." / ".$pData['Name']." @ ".$row['TableId'];
+                $tabSQL=mysqli_query($con,"SELECT `Name` FROM `tables` WHERE Id='$row[TableId]' LIMIT 1");
+                $tabData=mysqli_fetch_array($tabSQL);
+                $dish=$cData['Name']." / ".$pData['Name'];
                 echo'
                     <tr id="row'.$row['Id'].'">
                         <td>'.$dish.'</td>
@@ -44,6 +46,9 @@
                             <button type="button" class="btn btn-danger" onclick="orderDeclined('.$row['Id'].')">
                                 <i class="fa fa-times"></i>
                             </button>
+                        </td>
+                        <td>
+                            @'.$tabData[0].'
                         </td>
                     </tr>
                 ';
