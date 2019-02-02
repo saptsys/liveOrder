@@ -10,9 +10,13 @@
         echo "<script>window.location='index.php';</script>";
     
         if($flag=="getTable")
-        getTable($con);    
+            getTable($con);    
         if($flag=="getMenu")
             getMenu($con);
+        if($flag=="itemSelected")
+            itemsSelected($con,$_POST['selectedItems'],$_POST['tableId']);
+        if($flag=="getOrderedList")
+            getOrderedList($con,$_POST['tableId']);
 
     
     
@@ -33,17 +37,15 @@
             else
                 $class="";
             echo"
-            <div class='dining-table  $class col-lg-2 col-md-2 col-sm-2 col-xs-3'>
-                <div>
+            <div id='dining-table$row[0]' class='dining-table  $class col-lg-2 col-md-2 col-sm-2 col-xs-3'>
+                <div onclick='setTableId($row[0])'>
                     <h3>$row[1]</h3>
                 </div>
             </div><!-- .dining-table -->";
         }
         echo "
         <div class='totalItemLabel backArrow dining-table $class col-lg-2 col-md-2 col-sm-2 col-xs-3'>
-                <div style='background:rgba(0,0,0,0.1);'>
-                    <b>ITEMS <br> 6 </b>
-                </div>
+                <P>Total Items <br><b>0</b></P>
             </div>
         <div class=' forwardArrow col-lg-1 col-md-1 col-sm-1 col-xs-2'>
             <center><i title='INFORM TO COOCK' class='fas fa-arrow-alt-circle-right arrows'></i></center>
@@ -66,8 +68,8 @@
                         {
                             echo "<li>$row_products[Name]
                             <span>
-                                <i class='fa fa-minus'></i>
-                                <b id='Q$row_products[Id]'>0</b>
+                                <i class='fa fa-minus' onclick='subtractQ($row_products[Id])'></i>
+                                <b id='Q$row_products[Id]' class='counter'>0</b>
                                 <i class='fa fa-plus' onclick='addQ($row_products[Id])'></i>
                             </span>
                             </li>";
@@ -78,5 +80,51 @@
             </div>";
         }
         echo "</div> ";
+    }
+
+    function itemsSelected($con,$items,$tableId)
+    {
+        mysqli_query($con,"UPDATE `tables` SET `IsOccupied`=1 WHERE `Id`=$tableId") or die("error to set is occupied = 1");
+        foreach ($items as $productId => $productQuantity) {
+            $data = mysqli_query($con,"SELECT `Id`,`ProductId` FROM `kitchen` WHERE `ProductId`=$productId AND `TableId`=$tableId LIMIT 1");
+            if(mysqli_num_rows($data)>0)
+            {   
+                $row = mysqli_fetch_array($data);
+                mysqli_query($con,"UPDATE `kitchen` SET Pending=Pending+$productQuantity WHERE `Id`=$row[0]") or die("error to increase available pending items");
+            }
+            else
+            {
+                mysqli_query($con,"INSERT INTO `kitchen`(`Id`, `TableId`, `ProductId`, `Pending`) VALUES (null,$tableId,$productId,$productQuantity)") or die("error to insert data in kitchen");
+            }
+        }
+    }
+
+    function getOrderedList($con,$tableId)
+    {
+        $data = mysqli_query($con,"SELECT c.Name `categories`, p.Name `products`, k.Pending `kitchen`, k.Quantity `kitchen`
+                                    FROM `categories` c, `products` p, `kitchen` k
+                                    WHERE k.TableId = $tableId AND k.ProductId = p.Id AND p.CatId=c.Id");
+        echo " <table class='table table-striped' > 
+        <thead class='thead-light'>
+            <tr>
+                <th>Item Name</th>
+                <th>Ordered</th>
+                <th>Served</th>
+            </tr>
+        </thead>
+        <tbody>
+        ";
+        while($row = mysqli_fetch_array($data))
+        {
+            echo "
+                <tr>
+                    <td>$row[0] $row[1]</td>
+                    <td> $row[2]</td>
+                    <td> $row[3]</td>
+                </tr>
+            ";
+        }
+        echo "</tbody>
+        </table>";
     }
 ?>

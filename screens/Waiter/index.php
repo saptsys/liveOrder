@@ -61,7 +61,8 @@
         <center><div id="loader"><img src="../../assets/images/loader.gif" width=100px alt="Loading.."></div></center>
         
     </div> <!-- #main-page .container .row -->
-
+    <div id="dialog" title="Ordered Items">
+    </div>
 <script src="assets/JS/Index-Script.js"></script>
 </body>
 </html>
