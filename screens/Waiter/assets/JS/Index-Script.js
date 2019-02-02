@@ -96,40 +96,42 @@ function tableSelected(tableName) //its fetch catagories and products
         }
         
     });
-
-    $(".forwardArrow").click(function(){
-        $(".counter").html(0);
-        $(".totalItemLabel b").html(totalItems=0);
-        if(!jQuery.isEmptyObject(selectedProducts))
-        {
-            $.ajax({
-                type: "POST",
-                url: "action.php",
-                data: {
-                    flag:"itemSelected",
-                    selectedItems:selectedProducts,
-                    tableId:selectedTableId
-                },
-                success: function(data){
-                    tId = "dining-table"+selectedTableId;
-                    $("#"+tId).addClass("Occupied");
-                    $("#dialog").html("<p>"+data+"</p>").dialog({
-                        modal: true,
-                        buttons: {
-                          Close: function() {
-                            $( this ).dialog( "close" );
-                            showOrderedList(selectedTableId);
-                          }
-                        },
-                        width:320
-                    });
-                    selectedProducts={};
-                }
-            });
-        }
-    });
-
 }
+function informToCoock(){
+    console.log("bhai bhai");
+    $(".counter").html(0);
+    $(".totalItemLabel b").html(totalItems=0);
+    if(!jQuery.isEmptyObject(selectedProducts))
+    {
+        $.ajax({
+            type: "POST",
+            url: "action.php",
+            data: {
+                flag:"itemSelected",
+                selectedItems:selectedProducts,
+                tableId:selectedTableId
+            },
+            success: function(data){
+                console.log(data);
+                console.log(selectedProducts);
+                tId = "dining-table"+selectedTableId;
+                $("#"+tId).addClass("Occupied");
+                $("#dialog").html("<p>"+data+"</p>").dialog({
+                    modal: true,
+                    buttons: {
+                      Close: function() {
+                        $( this ).dialog( "close" );
+                        showOrderedList(selectedTableId);
+                      }
+                    },
+                    width:320
+                });
+                selectedProducts={};
+            }
+        });
+    }
+}
+
 var selectedProducts = {}
 var totalItems = 0;
 function addQ(id){

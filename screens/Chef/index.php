@@ -28,7 +28,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LogIn</title>
+    <title>Home : Chef</title>
     <link rel="stylesheet" href="../../assets/css/header.css">
     <script src="../../assets/js/script.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -58,6 +58,7 @@
                         <th>Dish</th>
                         <th>Pending</th>
                         <th>Action</th>
+                        <th>Table</th>
                     </tr>
                 </thead>
                 <tbody id="content"> </tbody>

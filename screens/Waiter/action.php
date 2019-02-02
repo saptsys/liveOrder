@@ -47,7 +47,7 @@
         <div class='totalItemLabel backArrow dining-table $class col-lg-2 col-md-2 col-sm-2 col-xs-3'>
                 <P>Total Items <br><b>0</b></P>
             </div>
-        <div class=' forwardArrow col-lg-1 col-md-1 col-sm-1 col-xs-2'>
+        <div onclick='informToCoock()' class=' forwardArrow col-lg-1 col-md-1 col-sm-1 col-xs-2'>
             <center><i title='INFORM TO COOCK' class='fas fa-arrow-alt-circle-right arrows'></i></center>
         </div>";
     }
@@ -86,17 +86,19 @@
     {
         mysqli_query($con,"UPDATE `tables` SET `IsOccupied`=1 WHERE `Id`=$tableId") or die("error to set is occupied = 1");
         foreach ($items as $productId => $productQuantity) {
-            $data = mysqli_query($con,"SELECT `Id`,`ProductId` FROM `kitchen` WHERE `ProductId`=$productId AND `TableId`=$tableId LIMIT 1");
+            $data = mysqli_query($con,"SELECT `Id` FROM `kitchen` WHERE `ProductId`=$productId AND `TableId`=$tableId LIMIT 1");
             if(mysqli_num_rows($data)>0)
             {   
                 $row = mysqli_fetch_array($data);
-                mysqli_query($con,"UPDATE `kitchen` SET Pending=Pending+$productQuantity WHERE `Id`=$row[0]") or die("error to increase available pending items");
+                mysqli_query($con,"UPDATE `kitchen` SET Pending=Pending+$productQuantity WHERE `Id`=$row[0] AND `ProductId`=$productId AND `TableId`=$tableId") or die("error to increase available pending items");
             }
             else
             {
                 mysqli_query($con,"INSERT INTO `kitchen`(`Id`, `TableId`, `ProductId`, `Pending`) VALUES (null,$tableId,$productId,$productQuantity)") or die("error to insert data in kitchen");
             }
         }
+        print_r($items);
+        echo $tableId;
     }
 
     function getOrderedList($con,$tableId)

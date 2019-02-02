@@ -32,6 +32,8 @@
                 $pData=mysqli_fetch_array($productSQL);
                 $catSQL=mysqli_query($con,"SELECT * FROM `categories` WHERE Id='$pData[CatId]'");
                 $cData=mysqli_fetch_array($catSQL);
+                $tabSQL=mysqli_query($con,"SELECT `Name` FROM `tables` WHERE Id='$row[TableId]' LIMIT 1");
+                $tabData=mysqli_fetch_array($tabSQL);
                 $dish=$cData['Name']." / ".$pData['Name'];
                 echo'
                     <tr id="row'.$row['Id'].'">
@@ -44,6 +46,9 @@
                             <button type="button" class="btn btn-danger" onclick="orderDeclined('.$row['Id'].')">
                                 <i class="fa fa-times"></i>
                             </button>
+                        </td>
+                        <td>
+                            @'.$tabData[0].'
                         </td>
                     </tr>
                 ';
@@ -59,36 +64,5 @@
     function orderDeclined($con,$id)
     {
         $data = mysqli_query($con,"UPDATE `kitchen` SET Pending=0 WHERE id=$id");
-    }
-    //this function is under constructio..
-    function checkDb($con,$id){
-        $stmt="SELECT id FROM `livetableorder` WHERE id > $id";
-        if(mysqli_query($con,$stmt)){
-            if(msql_affected_rows($con) != 0){
-                $data = mysqli_query($con,"SELECT * FROM `kitchen` WHERE NOT(Pending = 0) AND time > $time ORDER BY time");
-                while($row = mysqli_fetch_array($data)) { 
-                    $dish="";
-                    $productSQL=mysqli_query($con,"SELECT * FROM `products` WHERE Id = '$row[ProductId]' ");
-                    $pData=mysqli_fetch_array($productSQL);
-                    $catSQL=mysqli_query($con,"SELECT * FROM `categories` WHERE Id='$pData[CatId]'");
-                    $cData=mysqli_fetch_array($catSQL);
-                    $dish=$cData['Name']."/".$pData['Name'];
-                    echo'
-                        <tr id="row'.$row['Id'].'">
-                            <td>'.$dish.'</td>
-                            <td>'.$row["Pending"].'</td>
-                            <td> 
-                                <button type="button" class="btn btn-primary" onclick="orderReady('.$row['Id'].')">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger" onclick="orderDeclined('.$row['Id'].')">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    ';
-                }
-            }else echo "null";
-        }else echo "null";
     }
 ?>
