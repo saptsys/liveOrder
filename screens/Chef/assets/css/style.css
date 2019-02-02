@@ -14,3 +14,21 @@ table td,th{
     top: calc(50% - 20px);
     left: 45%;
 }
+.noOrders{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    text-align: center
+}
+@media only screen and (max-width: 600px) {
+    table td,th{
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        vertical-align: middle !important;
+    }
+    #loader{
+        position: absolute;
+        top: calc(50% - 20px);
+        left: 40%;
+    }
+}
