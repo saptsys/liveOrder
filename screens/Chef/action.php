@@ -32,7 +32,7 @@
                 $pData=mysqli_fetch_array($productSQL);
                 $catSQL=mysqli_query($con,"SELECT * FROM `categories` WHERE Id='$pData[CatId]'");
                 $cData=mysqli_fetch_array($catSQL);
-                $dish=$cData['Name']."/".$pData['Name'];
+                $dish=$cData['Name']." / ".$pData['Name'];
                 echo'
                     <tr id="row'.$row['Id'].'">
                         <td>'.$dish.'</td>
