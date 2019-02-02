@@ -32,7 +32,7 @@
                 $pData=mysqli_fetch_array($productSQL);
                 $catSQL=mysqli_query($con,"SELECT * FROM `categories` WHERE Id='$pData[CatId]'");
                 $cData=mysqli_fetch_array($catSQL);
-                $dish=$cData['Name']." / ".$pData['Name']." @ ".$row['TableId'];
+                $dish=$cData['Name']." / ".$pData['Name'];
                 echo'
                     <tr id="row'.$row['Id'].'">
                         <td>'.$dish.'</td>
@@ -49,7 +49,7 @@
                 ';
             }
         }else{
-            echo "no orders...";
+            echo "<b class='noOrders'>There's No Orders, Take Rest!</b>";
         }
     }
     function orderReady($con,$id){
