@@ -1,0 +1,12 @@
+.panel-heading {
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+}
+.btn-primary-outline {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}

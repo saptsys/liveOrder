@@ -34,7 +34,7 @@
                 $cData=mysqli_fetch_array($catSQL);
                 $tabSQL=mysqli_query($con,"SELECT `Name` FROM `tables` WHERE Id='$row[TableId]' LIMIT 1");
                 $tabData=mysqli_fetch_array($tabSQL);
-                $dish=$cData['Name']." / ".$pData['Name'];
+                $dish=$cData['Name']."/ ".$pData['Name'].' @' .$tabData[0];
                 echo'
                     <tr id="row'.$row['Id'].'">
                         <td>'.$dish.'</td>
@@ -47,9 +47,7 @@
                                 <i class="fa fa-times"></i>
                             </button>
                         </td>
-                        <td>
-                            @'.$tabData[0].'
-                        </td>
+                       
                     </tr>
                 ';
             }

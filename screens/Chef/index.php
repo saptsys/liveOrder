@@ -58,7 +58,7 @@
                         <th>Dish</th>
                         <th>Pending</th>
                         <th>Action</th>
-                        <th>Table</th>
+                        <!-- <th>Table</th> -->
                     </tr>
                 </thead>
                 <tbody id="content"> </tbody>

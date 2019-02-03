@@ -20,6 +20,12 @@ table td,th{
     top: 50%;
     text-align: center
 }
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: middle;
+}
 @media only screen and (max-width: 600px) {
     table td,th{
         padding-left: 5px !important;

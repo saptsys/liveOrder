@@ -45,8 +45,8 @@
         }
         echo "
         <div class='totalItemLabel backArrow dining-table $class col-lg-2 col-md-2 col-sm-2 col-xs-3'>
-                <P>Total Items <br><b>0</b></P>
-            </div>
+            <P>Total Items <br><b>0</b></P>    
+        </div>
         <div onclick='informToCoock()' class=' forwardArrow col-lg-1 col-md-1 col-sm-1 col-xs-2'>
             <center><i title='INFORM TO COOCK' class='fas fa-arrow-alt-circle-right arrows'></i></center>
         </div>";
@@ -110,7 +110,7 @@
         <thead class='thead-light'>
             <tr>
                 <th>Item Name</th>
-                <th>Ordered</th>
+                <th>Pending</th>
                 <th>Served</th>
             </tr>
         </thead>
