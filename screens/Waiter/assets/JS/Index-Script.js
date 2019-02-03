@@ -1,6 +1,11 @@
+var selectedTableName="";
 $(document).ready(function(){
     /********************  AJAX  ****************** */
-      
+    
+    setInterval(function(){
+        if(selectedTableName=="")
+            establishTables();
+    },5000);
     establishTables();
 
     /*************************** JS ***********************/
@@ -8,10 +13,8 @@ $(document).ready(function(){
 
 
 
-
     /*************************** UI ***********************/
 });
-var selectedTableName;
 function establishTables() //its fetch tables and code of onclick on tables
 {
     $("#loader").show();
@@ -116,16 +119,7 @@ function informToCoock(){
                 console.log(selectedProducts);
                 tId = "dining-table"+selectedTableId;
                 $("#"+tId).addClass("Occupied");
-                $("#dialog").html("<p>"+data+"</p>").dialog({
-                    modal: true,
-                    buttons: {
-                      Close: function() {
-                        $( this ).dialog( "close" );
-                        showOrderedList(selectedTableId);
-                      }
-                    },
-                    width:320
-                });
+                showOrderedList(selectedTableId);
                 selectedProducts={};
             }
         });
