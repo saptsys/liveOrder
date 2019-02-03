@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "../../config.php";
     $mycon = new config();
     $con = $mycon->db();
@@ -17,6 +18,10 @@
             itemsSelected($con,$_POST['selectedItems'],$_POST['tableId']);
         if($flag=="getOrderedList")
             getOrderedList($con,$_POST['tableId']);
+        if($flag=="getInvoice")
+            getInvoice($con,$_POST['tableId']);
+        if($flag=="sendMail")
+            sendMail($_POST['emailId'],$_POST['content']);
 
     
     
@@ -128,5 +133,92 @@
         }
         echo "</tbody>
         </table>";
+    }
+
+    function getInvoice($con,$tableId)
+    {
+        $data = mysqli_query($con,"SELECT max(`Id`) FROM `invoices`");
+        $invoiceId = mysqli_fetch_array($data);
+        if($invoiceId[0]=='')
+            $invoiceId[0]=0;
+        $invoiceId[0]++; //pre invoices genrated id
+        //storing data kitchen to invoicesItems
+        mysqli_query($con,"INSERT INTO `invoiceitems`(`InvoiceId`,`ProductId`, `Quantity`, `Rate`, `Amount`) 
+                                                  SELECT $invoiceId[0], k.ProductId `kitchen`,k.Quantity `kitchen`,p.Price `products`,k.Quantity*p.Price 
+                                                  FROM `kitchen` k,`products` p 
+                                                  WHERE k.TableId=$tableId AND k.ProductId=p.Id");
+        //delete record from kitchen
+        mysqli_query($con,"DELETE FROM `kitchen` WHERE `TableId`=$tableId;");
+        //calculating gross amount from invoicesItem table
+        $grossAmount=0;
+        $data = mysqli_query($con,"SELECT `Amount` FROM `invoiceitems` WHERE `InvoiceId`=$invoiceId[0]") or die("grorss amount not calculated");
+        while($row = mysqli_fetch_array($data))
+        {
+            $grossAmount+=(int)$row[0];
+        }
+        //setting table to non occupied table
+        mysqli_query($con,"UPDATE `tables` SET `IsOccupied`=0 WHERE `Id`=$tableId") or die("error to set is occupied = 0");
+        //calculating GST by 18% and calculating totalamount
+        $gstAmount = $grossAmount*18/100; // gst by 18%
+        $totalAmount = $grossAmount + $gstAmount;
+        //getting the current waiter username
+        $waiterUsername = $_SESSION['user'];
+        //inserting to invoice.
+        mysqli_query($con,"INSERT INTO `invoices`(`Id`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`, `TotalAmount`, `Waiter`) 
+                           VALUES (null,$tableId,$grossAmount,18,$gstAmount ,$totalAmount,'$waiterUsername')") or die("Error to insert record into invoices");
+
+        $data_invoices = mysqli_query($con,"SELECT * FROM `invoices` WHERE `TableId`=$tableId ORDER BY `Id` DESC LIMIT 1");
+        $row_invoices = mysqli_fetch_array($data_invoices);
+
+        $data_invoiceItems = mysqli_query($con,"SELECT p.Name `products`,i.Quantity `invoiceitems`,i.Rate `invoiceitems`,i.Amount `invoiceitems`
+                                                FROM `invoiceitems` i,`products` p
+                                                WHERE i.InvoiceId=$row_invoices[0] AND p.Id=i.ProductId");
+        echo " <table class='table table-striped' > 
+        <thead class='thead-light'>
+            <tr>
+                <th>Item Name</th>
+                <th>Rate</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+        ";
+        while($row_invoiceItems = mysqli_fetch_array($data_invoiceItems))
+        {
+            echo "
+                <tr>
+                    <td>$row_invoiceItems[0] x$row_invoiceItems[1]</td>
+                    <td> $row_invoiceItems[2]</td>
+                    <td> $row_invoiceItems[3]</td>
+                </tr>
+            ";
+        }
+        echo "
+        <tr>
+            <th>Gross Amount</th>
+            <th>=</th>
+            <th>$grossAmount</th>
+        </tr>
+        <tr>
+            <th>GST 18%</th>
+            <th>=</th>
+            <th>$gstAmount</th>
+        </tr>
+        <tr>
+            <th>Total</th>
+            <th>=</th>
+            <th>$totalAmount</th>
+        </tr>
+        </tbody>
+        </table>";
+    }
+    function sendMail($emailId,$content)
+    {
+
+        // use wordwrap() if lines are longer than 70 characters
+        $content = wordwrap($content,70);
+
+        // send email
+        mail($emailId,"Your invoice is here",$content);
     }
 ?>

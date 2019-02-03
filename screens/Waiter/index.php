@@ -41,6 +41,7 @@
     <script src="../../assets/js/JQueryUi/jquery-ui.js"></script>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/print.css">
     <link rel="stylesheet" href="../../assets/css/Index-style.css">
     <link rel="stylesheet" href="assets/css/Index-Media-Query.css">
     <link rel="stylesheet" href="../../assets/css/header.css">
@@ -66,3 +67,48 @@
 <script src="assets/JS/Index-Script.js"></script>
 </body>
 </html>
+<div id="print_page_conainer"></div>
+
+<script language="VBScript">
+// THIS VB SCRIP REMOVES THE PRINT DIALOG BOX AND PRINTS TO YOUR DEFAULT PRINTER
+Sub window_onunload()
+On Error Resume Next
+Set WB = nothing
+On Error Goto 0
+End Sub
+
+Sub Print()
+OLECMDID_PRINT = 6
+OLECMDEXECOPT_DONTPROMPTUSER = 2
+OLECMDEXECOPT_PROMPTUSER = 1
+
+
+On Error Resume Next
+
+If DA Then
+call WB.ExecWB(OLECMDID_PRINT, OLECMDEXECOPT_DONTPROMPTUSER,1)
+
+Else
+call WB.IOleCommandTarget.Exec(OLECMDID_PRINT ,OLECMDEXECOPT_DONTPROMPTUSER,"","","")
+
+End If
+
+If Err.Number <> 0 Then
+If DA Then 
+Alert("Nothing Printed :" & err.number & " : " & err.description)
+Else
+HandleError()
+End if
+End If
+On Error Goto 0
+End Sub
+
+If DA Then
+wbvers="8856F961-340A-11D0-A96B-00C04FD705A2"
+Else
+wbvers="EAB22AC3-30C1-11CF-A7EB-0000C05BAE0B"
+End If
+
+document.write "<object ID=""WB"" WIDTH=0 HEIGHT=0 CLASSID=""CLSID:"
+document.write wbvers & """> </object>"
+</script>

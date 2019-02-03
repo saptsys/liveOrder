@@ -8,6 +8,7 @@ table td,th{
 }
 .wrapper{
     display: none;
+    margin-top:35px;
 }
 #loader{
     position: absolute;
