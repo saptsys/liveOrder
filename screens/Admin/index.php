@@ -49,6 +49,30 @@
     <?php require_once("../../component/header.php") ?>
     <div id="main-page" class="container">
         <div class="wrapper">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableWrapper">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div style="text-align:center" class="panel-heading" >
+                            <b style="width:100%">Invoices</b>
+                        </div>
+                        <!-- Table -->
+                        <table class="table-striped table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Table</th>
+                                    <th>Time</th>
+                                    <th>GrossAmount</th>
+                                    <th>Discount</th>
+                                    <th>GST</th>
+                                    <th>TotalAmount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceContent"></tbody>
+                        </table>
+                    </div>
+                </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
@@ -95,6 +119,7 @@
                     </table>
                 </div>
             </div>
+            
         </div>
         <div id="dialog"> </div>
     </div>

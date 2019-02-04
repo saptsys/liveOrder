@@ -20,6 +20,39 @@
     if($flag=="addTableDB") addTable($con,true);
     if($flag=="updateTable") addTable($con,true,true);
     if($flag=="updateUser") addUser($con,true,true);
+    if($flag=="getInvoices") getInvoices($con);
+    
+    function getInvoices($con){
+        $query=mysqli_query($con,"SELECT * FROM `invoices`");
+        if(mysqli_affected_rows($con) != 0){
+            while( $fetch=mysqli_fetch_assoc($query)){
+                echo'
+                    <tr id="invoice'.$fetch["Id"].'">
+                        <td class="srno">'.$fetch["Id"].'</td>
+                        <td class="srno">'.$fetch["TableId"].'</td>
+                        <td class="srno">'.$fetch["time"].'</td>
+                        <td class="name">'.$fetch["GrossAmount"].'</td>
+                        <td class="role">'.$fetch["DiscountRs"].'</td>
+                        <td class="role">'.$fetch["GSTRs"].'</td>
+                        <td class="role">'.$fetch["TotalAmount"].'</td>
+
+                        <td>
+                            <button onclick="viewInvoice('.$fetch["Id"].')" style="text-align:center" type="button" class="btn btn-primary-outline">
+                                <i style="color:orange" class="fa fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                ';
+            }
+        }else{
+            echo '
+                <tr>
+                    <td colspan=3><center> no  data</center></td>
+                </tr>
+            ';
+        }
+    }
+
     function getUsers($con){
         $query=mysqli_query($con,"SELECT * FROM `users`");
         if(mysqli_affected_rows($con) != 0){

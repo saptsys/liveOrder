@@ -1,11 +1,24 @@
 $(document).ready(function () {
     getUsers();
     getTables();
+    getInvoices();
     setInterval(() => {
         getUsers();
         getTables();
     }, 5000);
+    setInterval(() => {
+        getInvoices();
+    }, 10000);
 });
+function getInvoices(){
+    $.post("action.php", {flag:'getInvoices'},
+        function (data) {
+            console.log(data);
+            
+            $("#invoiceContent").html(data);
+        },
+    );
+}
 function getUsers() { 
     $.post("action.php",{flag:"getUsers"},function(data){
         $("#userContent").html(data);
@@ -69,7 +82,6 @@ function editTable(id){
         });
     });
 }
-
 function addUser (showDialog=true){
     if(showDialog){
         $.post("action.php",{flag:"addUser"},function(data){
@@ -127,7 +139,6 @@ function addTable(flag=false){
         });
     });
 }
-
 function deleteUser (id){
     $.post("action.php",{flag:"deleteUser",id:id},function(data){
         if(data=="1") $("#user"+id).fadeOut();
