@@ -7,7 +7,6 @@ $(document).ready(function(){
     $( "#tabs" ).tabs();
     $("#tablesTab").click(function(){
         tabsFlag=true;
-        $("#tables-container").html("")
         establishTables(true);
     });
     $("#kitchenTab").click(function(){
