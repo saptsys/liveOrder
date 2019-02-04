@@ -25,7 +25,15 @@ function editUser(id){
             },
             buttons: {
                 Submit: function() {
-                    $.post("action.php", {flag:"addUserDB"},
+                    $.post("action.php", {
+                        flag:"updateUser",
+                        id:id,
+                        firstName:$("#firstName").val(),
+                        lastName:$("#lastName").val(),
+                        role:$("#role").find(":selected").text(),
+                        password:$("#password").val(),
+                        userName:$("#userName").val()
+                    },
                         function (data) {
                             console.log(data);
                             if(data=="true") $("#dialog").dialog( "close" );
@@ -45,7 +53,12 @@ function editTable(id){
             },
             buttons: {
                 Submit: function() {
-                    $.post("action.php", {flag:"addTableDB"},
+                    $.post("action.php", {
+                        flag:"updateTable",
+                        id:id,
+                        tblName:$("#tblName").val(),
+                        capacity:$("#capacity").val()
+                    },
                         function (data) {
                             console.log(data);
                             if(data=="true") $("#dialog").dialog( "close" );
@@ -67,7 +80,14 @@ function addUser (showDialog=true){
             },
             buttons: {
                 Submit: function() {
-                    $.post("action.php", {flag:"addUserDB"},
+                    $.post("action.php", {
+                            flag:"addUserDB",
+                            firstName:$("#firstName").val(),
+                            lastName:$("#lastName").val(),
+                            role:$("#role").find(":selected").text(),
+                            password:$("#password").val(),
+                            userName:$("#userName").val()
+                        },
                         function (data) {
                             console.log(data);
                             if(data=="true") $("#dialog").dialog( "close" );
@@ -92,11 +112,15 @@ function addTable(flag=false){
             },
             buttons: {
                 Submit: function() {
-                    $.post("action.php", {flag:"addTableDB"},
-                        function (data) {
-                            console.log(data);
-                            if(data=="true") $("#dialog").dialog( "close" );
-                        }
+                    $.post("action.php", {
+                        flag:"addTableDB",
+                        tblName:$("#tblName").val(),
+                        capacity:$("#capacity").val(),
+                    },
+                    function (data) {
+                        console.log(data);
+                        if(data=="true") $("#dialog").dialog( "close" );
+                    }
                     );
                 }
             }
