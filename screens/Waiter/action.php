@@ -18,6 +18,7 @@
     if($flag=="sendMail") sendMail($_POST['emailId'],$_POST['content']);
     if($flag=="getKitchen") getKitchen($con);
     if($flag=="itemTaked") itemTaked($con,$_POST['id']);
+    if($flag=="countKitchen") countKitchen($con);
 
     
     
@@ -265,5 +266,11 @@
         echo $kitchenId;
     }
 
-
+    function countKitchen($con)
+    {
+        $sum=0;
+        $data = mysqli_query($con,"SELECT SUM(isReady) FROM `kitchen`");
+        $row = mysqli_fetch_array($data);
+        echo $row[0];
+    }
 ?>

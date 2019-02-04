@@ -17,6 +17,7 @@ $(document).ready(function(){
     });
 
     setInterval(function(){
+        totalReady();
         if(tabsFlag)
         {
             if(selectedTableName=="")
@@ -265,7 +266,6 @@ function getKitchen()
         success: function (kitchenList) {
             $("#loader").hide();
             $("#kitchen").html(kitchenList);
-            totalReady();
         }
     });
 }
@@ -281,24 +281,34 @@ function takedKitchen(kitchenId)
         success: function (kitchenList) {
             console.log("kitchen id : "+kitchenList+" setted as isReady = 0");
             $("#ktchen"+kitchenId).fadeOut();
-            totalReady();
         }
     });
 }
 
 function totalReady()
 {
-    var len = $("#kitchenTable tr").length-1;
-    if(len==0)
-    {
-        $("#noItemText").show();
-        $("#totalReady").html("");
-    }
-    else
-    {
-        $("#totalReady").html("("+len+")");
-        $("#noItemText").hide();
-    }
+    var len=50;
+    $.ajax({
+        type: "POST",
+        url: "action.php",
+        data: {
+            flag:"countKitchen"
+          },
+        success: function(data){
+            console.log(data);
+            len=parseInt(data);
+            if(data=="")
+            {
+                $("#noItemText").show();
+                $("#totalReady").html("");
+            }
+            else
+            {
+                $("#totalReady").html("("+data+")");
+                $("#noItemText").hide();
+            } 
+          }
+    });
 }
 
 
@@ -322,11 +332,11 @@ function validateEmail(email) {
             flag:"sendMail",
             emailId:email,
             content:$("#print_page_conainer").html()
-        },
+          },
         success: function(data){
             console.log("Mail was sent..  ");
-        }
-    });
+          }
+        });
 
     } else {
       $result.text(email + " is not valid :(");
