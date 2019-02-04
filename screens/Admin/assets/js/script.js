@@ -70,7 +70,6 @@ function editUser(id){
                         userName:$("#userName").val()
                     },
                         function (data) {
-                            console.log(data);
                             if(data=="true") $("#dialog").dialog( "close" );
                         }
                     );
@@ -95,7 +94,6 @@ function editTable(id){
                         capacity:$("#capacity").val()
                     },
                         function (data) {
-                            console.log(data);
                             if(data=="true") $("#dialog").dialog( "close" );
                         }
                     );
@@ -123,7 +121,6 @@ function addUser (showDialog=true){
                             userName:$("#userName").val()
                         },
                         function (data) {
-                            console.log(data);
                             if(data=="true") $("#dialog").dialog( "close" );
                         }
                     );
@@ -133,7 +130,6 @@ function addUser (showDialog=true){
         });
     }else{
         $.post("action.php",{flag:"addUserDB"},function(data){
-            console.log(data);
         });
     }
 }
@@ -152,7 +148,6 @@ function addTable(flag=false){
                         capacity:$("#capacity").val(),
                     },
                     function (data) {
-                        console.log(data);
                         if(data=="true") $("#dialog").dialog( "close" );
                     }
                     );

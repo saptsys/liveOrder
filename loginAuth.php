@@ -9,7 +9,7 @@
     }else $allok = false;
     
     if($allok) {
-        require_once "auth.php";
+        require_once "userAuth.php";
         $auth=new authenticate($_POST["username"],$_POST["password"],true,true);
     }else{
         header('Location: login.php');

@@ -40,7 +40,7 @@ $(document).ready(function(){
 });
 function establishTables(firstTime=true) //its fetch tables and code of onclick on tables
 {
-    console.log("fetching tables");
+   //console.log("fetching tables");
     if(firstTime)
         $("#loader").show();
     $.post("action.php",{flag:"getTable"},function(data){
@@ -77,7 +77,7 @@ function establishTables(firstTime=true) //its fetch tables and code of onclick 
             selectedProducts={};
             selectedTableName='';
         });
-        console.log("tables fetched.");
+        //console.log("tables fetched.");
     });
 }
 var selectedTableId = selectedTableIsOcuupied = 0;
@@ -135,7 +135,7 @@ function tableSelected(tableName) //its fetch catagories and products
     });
 }
 function informToCoock(){
-    console.log("bhai bhai");
+    //console.log("bhai bhai");
     $(".counter").html(0);
     $(".totalItemLabel b").html(totalItems=0);
     if(!jQuery.isEmptyObject(selectedProducts))
@@ -149,8 +149,8 @@ function informToCoock(){
                 tableId:selectedTableId
             },
             success: function(data){
-                console.log(data);
-                console.log(selectedProducts);
+                //console.log(data);
+                //console.log(selectedProducts);
                 tId = "dining-table"+selectedTableId;
                 $("#"+tId).addClass("Occupied");
                 showOrderedList(selectedTableId);
@@ -250,7 +250,7 @@ function getInvoice(tableId){
                 'title':"Invoice Generated"
             });
             $("#dialog").animate({scrollTop:1000},1000);
-            console.log("invoice stored into table");
+            //console.log("invoice stored into table");
         }
     });
 }
@@ -279,7 +279,7 @@ function takedKitchen(kitchenId)
             id:kitchenId
         },
         success: function (kitchenList) {
-            console.log("kitchen id : "+kitchenList+" setted as isReady = 0");
+            //.log("kitchen id : "+kitchenList+" setted as isReady = 0");
             $("#ktchen"+kitchenId).fadeOut();
         }
     });
@@ -294,7 +294,7 @@ function totalReady()
             flag:"countKitchen"
           },
         success: function(data){
-            console.log(data);
+            //console.log(data);
             if(data=="")
             {
                 $("#totalReady").html("");
@@ -330,7 +330,7 @@ function validateEmail(email) {
             content:$("#print_page_conainer").html()
           },
         success: function(data){
-            console.log("Mail was sent..  ");
+            //console.log("Mail was sent..  ");
           }
         });
 
