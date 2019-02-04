@@ -61,9 +61,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Table</th>
-                                    <th>Time</th>
+                                    <th>Waiter</th>
+                                    <th class="tym">Time</th>
                                     <th>GrossAmount</th>
-                                    <th>Discount</th>
                                     <th>GST</th>
                                     <th>TotalAmount</th>
                                     <th>Action</th>
