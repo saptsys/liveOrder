@@ -62,6 +62,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Role</th>
                                 <th>Action</th>
@@ -84,6 +85,7 @@
                     <table class="table-striped table">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Table</th>
                                 <th>Capacity</th>
                                 <th>Action</th>

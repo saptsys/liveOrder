@@ -24,6 +24,7 @@
             while( $fetch=mysqli_fetch_assoc($query)){
                 echo'
                     <tr id="user'.$fetch["Id"].'">
+                        <td>'.$fetch["Id"].'</td>
                         <td class="name">'.$fetch["FirstName"].' '.$fetch["LastName"].'</td>
                         <td class="role">'.$fetch["Role"].'</td>
                         <td>
@@ -51,6 +52,7 @@
             while( $fetch=mysqli_fetch_assoc($query)){
                 echo'
                     <tr id="table'.$fetch["Id"].'">
+                        <td>'.$fetch["Id"].'</td>
                         <td>'.$fetch["Name"].'</td>
                         <td>'.$fetch["Capacity"].'</td>
                         <td>

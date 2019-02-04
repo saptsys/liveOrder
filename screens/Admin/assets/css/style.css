@@ -1,3 +1,6 @@
+#main-page{
+    padding-top: 30px;
+}
 .panel-heading {
     padding: 5px 5px 5px 5px;
     display: flex;
@@ -13,9 +16,6 @@
 .wrapper{
     margin-top: 30px;
 }
-td,th{
-    width:33%;
-}
 /* th,td{
     text-align: center;
 } */
@@ -26,9 +26,14 @@ td,th{
 td:first-child{
     text-align: left;
 } */
+td:first-child{
+    width: 10%;
+}
 td{
     padding: 5px !important;
     vertical-align: middle !important;
+    width: 30%;
+    padding-left:10px !important;;
 }
 .panel{
     
