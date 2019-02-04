@@ -11,6 +11,7 @@ $(document).ready(function(){
         establishTables(true);
     });
     $("#kitchenTab").click(function(){
+        $(".backArrow").trigger('click');
         tabsFlag=false;
         $("#tables-container").html("")
         establishTables(true);
