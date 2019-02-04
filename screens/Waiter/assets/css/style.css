@@ -144,3 +144,8 @@
 #print_page_conainer{
     display: none;
 }
+
+#printing_row{
+    display:none;
+}
+

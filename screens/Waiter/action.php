@@ -173,12 +173,12 @@
         $data_invoiceItems = mysqli_query($con,"SELECT p.Name `products`,i.Quantity `invoiceitems`,i.Rate `invoiceitems`,i.Amount `invoiceitems`
                                                 FROM `invoiceitems` i,`products` p
                                                 WHERE i.InvoiceId=$row_invoices[0] AND p.Id=i.ProductId");
-        echo " <table class='table table-striped' > 
+        echo " <table class='table table-striped'> 
         <thead class='thead-light'>
             <tr>
-                <th>Item Name</th>
-                <th>Rate</th>
-                <th>Amount</th>
+                <td><b>Item Name</b></td>
+                <td><b>Rate</b></td>
+                <td><b>Amount</b></td>
             </tr>
         </thead>
         <tbody>
@@ -194,20 +194,22 @@
             ";
         }
         echo "
+        <tr id='printing_row'><td colspan='3'><hr></td></tr>
         <tr>
-            <th>Gross Amount</th>
-            <th>=</th>
-            <th>$grossAmount</th>
+            <td><b>Gross Amount</b></td>
+            <td><b>=</td>
+            <td><b>$grossAmount</b></td>
         </tr>
         <tr>
-            <th>GST 18%</th>
-            <th>=</th>
-            <th>$gstAmount</th>
+            <td><b>GST 18%</b></td>
+            <td><b>=</b></td>
+            <td><b>$gstAmount</b></td>
         </tr>
+        <tr id='printing_row'><td colspan='3'><hr></td></tr>
         <tr>
-            <th>Total</th>
-            <th>=</th>
-            <th>$totalAmount</th>
+            <td><b>Total</b></td>
+            <td><b>=</b></td>
+            <td><b>$totalAmount</b></td>
         </tr>
         </tbody>
         </table>";
@@ -218,7 +220,9 @@
         // use wordwrap() if lines are longer than 70 characters
         $content = wordwrap($content,70);
 
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
         // send email
-        mail($emailId,"Your invoice is here",$content);
+        mail($emailId,"Your invoice is here",$content,$headers);
     }
 ?>
