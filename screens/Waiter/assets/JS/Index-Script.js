@@ -1,12 +1,33 @@
 var selectedTableName="";
 var firstTime;
+var tabsFlag=true;
 $(document).ready(function(){
     /********************  AJAX  ****************** */
     
+    $( "#tabs" ).tabs();
+    $("#tablesTab").click(function(){
+        tabsFlag=true;
+        $("#tables-container").html("")
+        establishTables(true);
+    });
+    $("#kitchenTab").click(function(){
+        tabsFlag=false;
+        $("#tables-container").html("")
+        establishTables(true);
+    });
+
     setInterval(function(){
-        if(selectedTableName=="")
-            establishTables(false);
+        if(tabsFlag)
+        {
+            if(selectedTableName=="")
+                establishTables(false);
+        }
+        else
+        {
+            getKitchen();
+        }
     },5000);
+    getKitchen();
     establishTables();
 
     /*************************** JS ***********************/
@@ -22,7 +43,8 @@ function establishTables(firstTime=true) //its fetch tables and code of onclick 
     if(firstTime)
         $("#loader").show();
     $.post("action.php",{flag:"getTable"},function(data){
-        $("#loader").hide();
+        if(firstTime)
+            $("#loader").hide();
         $("#tables-container").html(data)
         $(".dining-table div").height($(".dining-table div").width()); //it makes width == height of table div
         var height = $(".dining-table").height();
@@ -78,16 +100,23 @@ function tableSelected(tableName) //its fetch catagories and products
             $("#loader").hide();
             $("#menu-container").html(data);
 
-            $(".catBox").click(function(){
-                width = $(this).width();
-                $(this).children("ul").slideDown();
-                $(this).children("div").children("span").css({
-                    "transform": "rotate(180deg)",
-                    "padding-left":"10px"
-                });
-                $(this).children("ul").css({    
-                    "min-width":width+"px"
-                });
+            $(".catName").click(function(){
+                if($(this).parent().children("ul").is(":visible"))
+                {
+                    $(".catBox").trigger('mouseleave');
+                }
+                else
+                {
+                    width = $(this).parent().width();
+                    $(this).parent().children("ul").slideDown();
+                    $(this).parent().children("div").children("span").css({
+                        "transform": "rotate(180deg)",
+                        "padding-left":"10px"
+                    });
+                    $(this).parent().children("ul").css({    
+                        "min-width":width+"px"
+                    });
+                }
 
                 $(".catBox").mouseleave(function(){
                     $(".catBox ul").slideUp();
@@ -160,7 +189,7 @@ function subtractQ(id){
 }
 
 function showOrderedList(TId){
-
+    $("#dialog").html("<br><center>Loadning...</center>").dialog();
     $.ajax({
         type: "POST",
         url: "action.php",
@@ -169,6 +198,7 @@ function showOrderedList(TId){
             tableId:selectedTableId
         },
         success: function(data){
+            $("#dialog").dialog("close");
             $("#dialog").html("<p>"+data+"</p>").dialog({
                 modal: true,
                 buttons: {
@@ -223,6 +253,53 @@ function getInvoice(tableId){
     });
 }
 
+function getKitchen()
+{
+    $.ajax({
+        type: "post",
+        url: "action.php",
+        data: {
+            flag:"getKitchen"
+        },
+        success: function (kitchenList) {
+            $("#loader").hide();
+            $("#kitchen").html(kitchenList);
+            totalReady();
+        }
+    });
+}
+function takedKitchen(kitchenId)
+{
+    totalReady(-1);
+    $.ajax({
+        type: "post",
+        url: "action.php",
+        data: {
+            flag:"itemTaked",
+            id:kitchenId
+        },
+        success: function (kitchenList) {
+            console.log("kitchen id : "+kitchenList+" setted as isReady = 0");
+            $("#ktchen"+kitchenId).fadeOut();
+        }
+    });
+}
+
+function totalReady(l=0)
+{
+    var len = $("#kitchenTable tr").length-1;
+    len+l;
+    if(len==0)
+    {
+        $("#noItemText").show();
+        $("#totalReady").html("");
+    }
+    else
+    {
+        $("#totalReady").html("("+len+")");
+        $("#noItemText").hide();
+    }
+}
 
 
 function validateEmail(email) {

@@ -10,25 +10,21 @@
     else
         echo "<script>window.location='index.php';</script>";
     
-        if($flag=="getTable")
-            getTable($con);    
-        if($flag=="getMenu")
-            getMenu($con);
-        if($flag=="itemSelected")
-            itemsSelected($con,$_POST['selectedItems'],$_POST['tableId']);
-        if($flag=="getOrderedList")
-            getOrderedList($con,$_POST['tableId']);
-        if($flag=="getInvoice")
-            getInvoice($con,$_POST['tableId']);
-        if($flag=="sendMail")
-            sendMail($_POST['emailId'],$_POST['content']);
+    if($flag=="getTable") getTable($con);    
+    if($flag=="getMenu") getMenu($con);
+    if($flag=="itemSelected") itemsSelected($con,$_POST['selectedItems'],$_POST['tableId']);
+    if($flag=="getOrderedList") getOrderedList($con,$_POST['tableId']);
+    if($flag=="getInvoice") getInvoice($con,$_POST['tableId']);
+    if($flag=="sendMail") sendMail($_POST['emailId'],$_POST['content']);
+    if($flag=="getKitchen") getKitchen($con);
+    if($flag=="itemTaked") itemTaked($con,$_POST['id']);
 
     
     
     
     
     function getTable($con)
-    {  
+    {
         echo "
         <div class=' backArrow col-lg-offset-3 col-lg-1 col-md-offset-3 col-md-1 col-sm-offset-3 col-sm-1 col-xs-offset-1 col-xs-2'>
                 <center><i title='BACK TO HOME' class='fas fa-arrow-alt-circle-left arrows'></i></center>
@@ -107,7 +103,7 @@
     }
 
     function getOrderedList($con,$tableId)
-    {
+    {sleep(3);
         $data = mysqli_query($con,"SELECT c.Name `categories`, p.Name `products`, k.Pending `kitchen`, k.Quantity `kitchen`
                                     FROM `categories` c, `products` p, `kitchen` k
                                     WHERE k.TableId = $tableId AND k.ProductId = p.Id AND p.CatId=c.Id");
@@ -225,4 +221,49 @@
         // send email
         mail($emailId,"Your invoice is here",$content,$headers);
     }
+
+
+    function getKitchen($con)
+    {
+        $data = mysqli_query($con,"SELECT t.Name `tables`,p.Name `products`,c.Name `categories`,k.Quantity,k.Id
+                           FROM `tables` t,`products` p,`categories` c,`kitchen` k
+                           WHERE k.isReady=1 AND k.TableId=t.Id AND k.ProductId=p.Id AND p.CatId=c.Id");
+        echo "
+            <table id='kitchenTable' style='text-align:center;' class='table table-striped'>
+                <tr>
+                    <td><b>Table</b></td>
+                    <td><b>Item</b></td>
+                    <td><b>Quantity</b></td>
+                    <td><b>Action</b></td>
+                </tr>
+        ";
+        while($row = mysqli_fetch_array($data))
+        {
+            echo "<tr id='ktchen$row[4]'>
+            <td>$row[0]</td>
+            <td>$row[2] $row[1]</td>
+            <td>$row[3]</td>
+            <td><button class='btn btn-success' onclick='takedKitchen($row[4])'>Take it</button></td>
+            </tr>";
+        }
+        echo "
+        </table>        
+        ";
+        if(mysqli_affected_rows($con)==0)
+        {
+            echo "
+            <p id='noItemText'>
+                <br><br><br><br>
+                <center><h4>No item available !</h4></center>
+            </p>
+            ";
+        }
+    }
+    function itemTaked($con,$kitchenId)
+    {
+        mysqli_query($con,"UPDATE `kitchen` SET `isReady`=0 WHERE `Id`=$kitchenId");
+        echo $kitchenId;
+    }
+
+
 ?>

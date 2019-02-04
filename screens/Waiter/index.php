@@ -52,15 +52,22 @@
     
 <?php require_once '../../component/header.php'?>
     <div id="main-page" class="container">
-        <div id="tables-container" class="row">
-            
-        </div><!--#tables-container-->
-        <div id="menu-container" class="row">
-
-        </div>
         <hr>
-        <center><div id="loader"><img src="../../assets/images/loader.gif" width=100px alt="Loading.."></div></center>
-        
+
+        <div id="tabs">
+            <ul>
+                <li><a id="tablesTab" href="#tables">Tables</a></li>
+                <li><a id="kitchenTab" href="#kitchen">Kitchen <span id='totalReady'></span></a></li>
+            </ul>
+            <div id="tables">
+                <div id="tables-container" class="row"></div><!--#tables-container-->
+                <center><div id="loader"><img src="../../assets/images/loader.gif" width=100px alt="Loading.."></div></center>
+                <div id="menu-container" class="row"></div>
+            </div>
+            <div id='kitchen'>
+            </div>
+        </div>
+
     </div> <!-- #main-page .container .row -->
     <div id="dialog" title="Ordered Items">
     </div>

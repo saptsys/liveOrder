@@ -148,4 +148,33 @@
 #printing_row{
     display:none;
 }
+.ui-tabs-panel{
+    min-height: 100vh;
+    overflow: auto;
+}
+.ui-state-active:focus{
+    border-width:0px;
+     outline-width:0px;
+}
+.ui-state-active{
+    /*background: rgba(0, 102, 255,0.7)!important;*/
+    background: #fff !important;
+    border-color: #aaa !important;
+}
+.ui-tabs-anchor{
+    color: #000 !important;;
+}
 
+.ui-tabs-tab a{
+    width:100%;
+}
+.ui-tabs-tab{
+    width:50%;
+    margin: 0px !important;
+    margin-bottom: -1px !important;
+    font-weight: bold !important;
+}
+
+#noItemText{
+    display: none;
+}
