@@ -92,7 +92,7 @@
             if(mysqli_num_rows($data)>0)
             {   
                 $row = mysqli_fetch_array($data);
-                mysqli_query($con,"UPDATE `kitchen` SET Pending=Pending+$productQuantity WHERE `Id`=$row[0] AND `ProductId`=$productId AND `TableId`=$tableId") or die("error to increase available pending items");
+                mysqli_query($con,"UPDATE `kitchen` SET Pending=Pending+$productQuantity,isReady=0 WHERE `Id`=$row[0] AND `ProductId`=$productId AND `TableId`=$tableId") or die("error to increase available pending items");
             }
             else
             {
@@ -105,14 +105,14 @@
 
     function getOrderedList($con,$tableId)
     {
-        $data = mysqli_query($con,"SELECT c.Name `categories`, p.Name `products`, k.Pending `kitchen`, k.Quantity `kitchen`
+        $data = mysqli_query($con,"SELECT c.Name `categories`, p.Name `products`, k.Quantity `kitchen`, k.Pending `kitchen`,k.isReady `kitchen`
                                     FROM `categories` c, `products` p, `kitchen` k
                                     WHERE k.TableId = $tableId AND k.ProductId = p.Id AND p.CatId=c.Id");
         echo " <table class='table table-striped' > 
         <thead class='thead-light'>
             <tr>
                 <th>Item Name</th>
-                <th>Pending</th>
+                <th>Quantity</th>
                 <th>Served</th>
             </tr>
         </thead>
@@ -120,11 +120,16 @@
         ";
         while($row = mysqli_fetch_array($data))
         {
+            if($row[4]==0 && $row[2]>0)
+                $served="Yes";
+            else
+                $served="No";
+            $q = $row[2]+$row[3];
             echo "
                 <tr>
                     <td>$row[0] $row[1]</td>
-                    <td> $row[2]</td>
-                    <td> $row[3]</td>
+                    <td> $q</td>
+                    <td> $served</td>
                 </tr>
             ";
         }

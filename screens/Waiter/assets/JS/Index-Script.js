@@ -287,7 +287,6 @@ function takedKitchen(kitchenId)
 
 function totalReady()
 {
-    var len=50;
     $.ajax({
         type: "POST",
         url: "action.php",
@@ -296,16 +295,13 @@ function totalReady()
           },
         success: function(data){
             console.log(data);
-            len=parseInt(data);
             if(data=="")
             {
-                $("#noItemText").show();
                 $("#totalReady").html("");
             }
             else
             {
                 $("#totalReady").html("("+data+")");
-                $("#noItemText").hide();
             } 
           }
     });
