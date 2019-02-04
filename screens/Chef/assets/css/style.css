@@ -27,6 +27,13 @@ table td,th{
         padding-right: 5px !important;
         vertical-align: middle !important;
     }
+    td:last-child{
+        display: flex;
+        justify-content: space-between
+    }
+    td button:last-child{
+        margin-left: 5px;
+    }
     #loader{
         position: absolute;
         top: calc(50% - 20px);
