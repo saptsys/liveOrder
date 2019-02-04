@@ -19,11 +19,11 @@ function getData(flag,firstTime=true) {
 }
 function orderReady(orderId) {
     $.post("action.php",{flag:"orderReady",id:orderId},function(data){
-        $("#row"+orderId).fadeOut();
+        $("#row"+orderId).fadeOut(300);
     });
 }
 function orderDeclined(orderId) {
     $.post("action.php",{flag:"orderDeclined",id:orderId},function(data){
-        $("#row"+orderId).fadeOut();
+        $("#row"+orderId).fadeOut(300);
     });
 }
