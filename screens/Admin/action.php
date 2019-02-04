@@ -21,20 +21,76 @@
     if($flag=="updateTable") addTable($con,true,true);
     if($flag=="updateUser") addUser($con,true,true);
     if($flag=="getInvoices") getInvoices($con);
-    
+    if($flag=="getInvoiceData") getInvoiceData($con,$_POST['id']);
+
+    function getInvoiceData($con,$id){
+        $sql = mysqli_query($con,"SELECT p.Name `products`,i.Quantity `invoiceitems`,i.Rate `invoiceitems`,i.Amount `invoiceitems`
+            FROM `invoiceitems` i,`products` p
+            WHERE i.InvoiceId=$id AND p.Id=i.ProductId");
+        if($sql){
+            echo " <table class='table table-striped'> 
+        <thead class='thead-light'>
+            <tr>
+                <td><b>Item Name</b></td>
+                <td><b>Rate</b></td>
+                <td><b>Amount</b></td>
+            </tr>
+        </thead>
+        <tbody>
+        ";
+        while($row_invoiceItems = mysqli_fetch_array($sql))
+        {
+            echo "
+                <tr>
+                    <td>$row_invoiceItems[0] x$row_invoiceItems[1]</td>
+                    <td> $row_invoiceItems[2]</td>
+                    <td> $row_invoiceItems[3]</td>
+                </tr>
+            ";
+        }
+        $query=mysqli_query($con,"SELECT * FROM invoices WHERE id=$id LIMIT 1");
+        if($query){
+            $fetch=mysqli_fetch_assoc($query);
+            echo "
+            <tr id='printing_row'><td colspan='3'><hr></td></tr>
+            <tr>
+                <td><b>Gross Amount</b></td>
+                <td><b>=</td>
+                <td><b>".$fetch['GrossAmount']."</b></td>
+            </tr>
+            <tr>
+                <td><b>GST 18%</b></td>
+                <td><b>=</b></td>
+                <td><b>".$fetch['GSTRs']."</b></td>
+            </tr>
+            <tr id='printing_row'><td colspan='3'><hr></td></tr>
+            <tr>
+                <td><b>Total</b></td>
+                <td><b>=</b></td>
+                <td><b>".$fetch['TotalAmount']."</b></td>
+            </tr>
+            ";
+        }
+        echo"
+            </tbody>
+            </table>";
+        }else{
+            echo "false";
+        }
+    }
     function getInvoices($con){
         $query=mysqli_query($con,"SELECT * FROM `invoices`");
         if(mysqli_affected_rows($con) != 0){
             while( $fetch=mysqli_fetch_assoc($query)){
                 echo'
                     <tr id="invoice'.$fetch["Id"].'">
-                        <td class="srno">'.$fetch["Id"].'</td>
-                        <td class="srno">'.$fetch["TableId"].'</td>
-                        <td class="srno">'.$fetch["time"].'</td>
-                        <td class="name">'.$fetch["GrossAmount"].'</td>
-                        <td class="role">'.$fetch["DiscountRs"].'</td>
-                        <td class="role">'.$fetch["GSTRs"].'</td>
-                        <td class="role">'.$fetch["TotalAmount"].'</td>
+                        <td>'.$fetch["Id"].'</td>
+                        <td>'.$fetch["TableId"].'</td>
+                        <td>'.$fetch["Waiter"].'</td>
+                        <td class="tym">'.$fetch["Time"].'</td>
+                        <td>'.$fetch["GrossAmount"].'</td>
+                        <td>'.$fetch["GSTRs"].'</td>
+                        <td>'.$fetch["TotalAmount"].'</td>
 
                         <td>
                             <button onclick="viewInvoice('.$fetch["Id"].')" style="text-align:center" type="button" class="btn btn-primary-outline">
