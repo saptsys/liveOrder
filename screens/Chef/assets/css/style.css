@@ -33,9 +33,10 @@ table td,th{
         left: 40%;
     }
     .noOrders{
-        position: absolute;
+        position: fixed;
         width: 100%;
         top: 50%;
         text-align: center;
+        left: 0;
     }
 }
