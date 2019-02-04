@@ -103,7 +103,7 @@
     }
 
     function getOrderedList($con,$tableId)
-    {sleep(3);
+    {
         $data = mysqli_query($con,"SELECT c.Name `categories`, p.Name `products`, k.Pending `kitchen`, k.Quantity `kitchen`
                                     FROM `categories` c, `products` p, `kitchen` k
                                     WHERE k.TableId = $tableId AND k.ProductId = p.Id AND p.CatId=c.Id");

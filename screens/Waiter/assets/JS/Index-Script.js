@@ -26,7 +26,7 @@ $(document).ready(function(){
         {
             getKitchen();
         }
-    },5000);
+    },2000);
     getKitchen();
     establishTables();
 
@@ -242,6 +242,7 @@ function getInvoice(tableId){
                     'Close': function() {
                       $( this ).dialog( "close" );
                       $("#print_page_conainer").html("");
+                      $(".backArrow").trigger('click');
                     }
                 },
                 width:320,
@@ -270,7 +271,6 @@ function getKitchen()
 }
 function takedKitchen(kitchenId)
 {
-    totalReady(-1);
     $.ajax({
         type: "post",
         url: "action.php",
@@ -281,14 +281,14 @@ function takedKitchen(kitchenId)
         success: function (kitchenList) {
             console.log("kitchen id : "+kitchenList+" setted as isReady = 0");
             $("#ktchen"+kitchenId).fadeOut();
+            totalReady();
         }
     });
 }
 
-function totalReady(l=0)
+function totalReady()
 {
     var len = $("#kitchenTable tr").length-1;
-    len+l;
     if(len==0)
     {
         $("#noItemText").show();

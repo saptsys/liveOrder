@@ -51,7 +51,7 @@
         }
     }
     function orderReady($con,$id){
-        $data = mysqli_query($con,"UPDATE `kitchen` SET Quantity=Quantity+Pending,Pending=0 WHERE id=$id");
+        $data = mysqli_query($con,"UPDATE `kitchen` SET Quantity=Quantity+Pending,Pending=0,isReady=1 WHERE id=$id");
     
     }
     function orderDeclined($con,$id)
