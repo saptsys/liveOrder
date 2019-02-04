@@ -14,24 +14,23 @@
     margin-top: 30px;
 }
 td,th{
-    width:33%;
+    /* width:33%; */
 }
 /* th,td{
     text-align: center;
 } */
-/* th:first-child{
-    padding-right: 20px !important;
+ th:first-child{
     text-align: left;
+    width:auto;
 }
 td:first-child{
     text-align: left;
-} */
+} 
 td{
     padding: 5px !important;
     vertical-align: middle !important;
 }
 .panel{
-    
     height: 400px;
     overflow: auto;
 }
