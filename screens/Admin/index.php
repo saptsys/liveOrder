@@ -52,12 +52,12 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableWrapper">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div style="text-align:center" class="panel-heading" >
+                        <div style="text-align:center" class="panel-heading heading invoiceHeading">
                             <b style="width:100%">Invoices</b>
                         </div>
                         <!-- Table -->
                         <table class="table-striped table">
-                            <thead>
+                            <thead class="tableheading">
                                 <tr>
                                     <th>#</th>
                                     <th>Table</th>
@@ -76,7 +76,7 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">
+                    <div class="panel-heading heading">
                         <b>Manage Users</b>
                         <button onclick="addUser()" style="text-align:center" type="button"  class="btn btn-primary-outline">
                             <i style="color:green" class="fa fa-lg fa-plus-circle"></i>
@@ -84,7 +84,7 @@
                     </div>
                     <!-- Table -->
                     <table class="table table-striped">
-                        <thead>
+                        <thead class="tableheading">
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
@@ -99,7 +99,7 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">
+                    <div class="panel-heading heading">
                         <b>Manage Tables</b>
                         <button onclick="addTable(true)" style="text-align:center" type="button"  class="btn btn-primary-outline">
                             <i style="color:green" class="fa fa-lg fa-plus-circle"></i>
@@ -107,7 +107,7 @@
                     </div>
                     <!-- Table -->
                     <table class="table-striped table">
-                        <thead>
+                        <thead class="tableheading">
                             <tr>
                                 <th>#</th>
                                 <th>Table</th>
