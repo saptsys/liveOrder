@@ -1,10 +1,11 @@
 var selectedTableName="";
+var firstTime;
 $(document).ready(function(){
     /********************  AJAX  ****************** */
     
     setInterval(function(){
         if(selectedTableName=="")
-            establishTables();
+            establishTables(false);
     },5000);
     establishTables();
 
@@ -15,9 +16,11 @@ $(document).ready(function(){
 
     /*************************** UI ***********************/
 });
-function establishTables() //its fetch tables and code of onclick on tables
+function establishTables(firstTime=true) //its fetch tables and code of onclick on tables
 {
-    $("#loader").show();
+    console.log("fetching tables");
+    if(firstTime)
+        $("#loader").show();
     $.post("action.php",{flag:"getTable"},function(data){
         $("#loader").hide();
         $("#tables-container").html(data)
@@ -51,6 +54,7 @@ function establishTables() //its fetch tables and code of onclick on tables
             selectedProducts={};
             selectedTableName='';
         });
+        console.log("tables fetched.");
     });
 }
 var selectedTableId = selectedTableIsOcuupied = 0;
@@ -168,12 +172,88 @@ function showOrderedList(TId){
             $("#dialog").html("<p>"+data+"</p>").dialog({
                 modal: true,
                 buttons: {
-                  Close: function() {
-                    $( this ).dialog( "close" );
-                  }
+                    'Get Bill': function() {
+                      getInvoice(selectedTableId);
+                    },
+                    'Close': function() {
+                      $( this ).dialog( "close" );
+                    }
                 },
-                width:320
+                width:320,
+                maxHeight:400
             });
         }
     });
 }
+
+function getInvoice(tableId){
+    $.ajax({
+        type: "POST",
+        url: "action.php",
+        data: {
+            flag:"getInvoice",
+            tableId:selectedTableId
+        },
+        success: function(data){
+            inputEmailCode = "<hr> Email : <input id='customerEmail' type='email' name='customermail' placeholder='email address (optional)'/>";
+            $("#dialog").html("<p>"+data+"</p>"+inputEmailCode).dialog({
+                modal: true,
+                buttons: {
+                    'Print': function() {
+                    $("#print_page_conainer").html(data);
+                      $( this ).dialog( "close" );
+                      var email = $("#customerEmail").val();
+                      validateEmail(email);
+                      validate();
+                      window.print();
+                      $(".backArrow").trigger('click');
+                    },
+                    'Close': function() {
+                      $( this ).dialog( "close" );
+                      $("#print_page_conainer").html("");
+                    }
+                },
+                width:320,
+                'title':"Invoice Generated"
+            });
+            $("#dialog").animate({scrollTop:1000},1000);
+            console.log("invoice stored into table");
+        }
+    });
+}
+
+
+
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+  
+  function validate() {
+    var $result = $("#customerEmail");
+    var email = $("#customerEmail").val();
+    if (validateEmail(email)) {
+      $result.text(email + " is valid :)");
+      $result.parent("p").val("Email was sent");
+      $result.css("color", "green");
+
+      $.ajax({
+        type: "POST",
+        url: "action.php",
+        data: {
+            flag:"sendMail",
+            emailId:email,
+            content:$("#print_page_conainer").html()
+        },
+        success: function(data){
+            console.log("Mail was sent..  ");
+        }
+    });
+
+    } else {
+      $result.text(email + " is not valid :(");
+      $result.css("color", "red");
+      $result.val("");
+    }
+    return false;
+  }

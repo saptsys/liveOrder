@@ -1,0 +1,33 @@
+@media print {
+    /* styles here */
+    @page { size: auto;  margin: 0mm; }
+    
+    #print_page_conainer{
+        display: block;
+    }
+    body{
+        background: #fff !important;
+    }
+    title{
+        display: none;
+    }
+    #print_page_conainer{
+        width: 300px;
+    }
+    #header{
+        display: none !important;  
+    }
+    #tables-container{
+        display: none !important;
+    }
+    #menu-container{
+        display: none !important;
+    }
+    #main-page{
+        display: none !important;
+    }
+    #dialog{
+        height: 100px !important;
+    }
+
+}

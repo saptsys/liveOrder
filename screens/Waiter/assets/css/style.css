@@ -140,3 +140,7 @@
 .fa-plus:hover{
     color: green;
 }
+
+#print_page_conainer{
+    display: none;
+}
