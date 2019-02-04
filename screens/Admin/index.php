@@ -76,7 +76,7 @@
                     <!-- Default panel contents -->
                     <div class="panel-heading">
                         <b>Manage Tables</b>
-                        <button onclick="addTable()" style="text-align:center" type="button"  class="btn btn-primary-outline">
+                        <button onclick="addTable(true)" style="text-align:center" type="button"  class="btn btn-primary-outline">
                             <i style="color:green" class="fa fa-lg fa-plus-circle"></i>
                         </button>
                     </div>
@@ -94,21 +94,7 @@
                 </div>
             </div>
         </div>
-        <div id="dialog">
-            <form>
-                <fieldset>
-                    <input type='text' name='firstName' id='firstName' class='text ui-widget-content ui-corner-all'>
-                    <input type='text' name='lastName' id='lastName'  class='text ui-widget-content ui-corner-all'>
-                    <select name='role' id="role">
-                        <option value='Admin'>Admin</option>
-                        <option value='Chef'>Chef</option>
-                        <option value='Waiter'>Waiter</option>
-                    </select> 
-                    <input type='password' name='password' id='password' placeholder='*******' class='text ui-widget-content ui-corner-all'>
-                    <input type='submit' tabindex='-1' style='position:absolute; top:-1000px'>
-                </fieldset>
-            </form>
-        </div>
+        <div id="dialog"> </div>
     </div>
     <script src="./assets/js/script.js"></script>
 </body>
