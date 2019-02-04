@@ -10,3 +10,66 @@
     border-color: transparent;
     box-shadow: none;
 }
+.wrapper{
+    margin-top: 30px;
+}
+td,th{
+    width:33%;
+}
+/* th,td{
+    text-align: center;
+} */
+/* th:first-child{
+    padding-right: 20px !important;
+    text-align: left;
+}
+td:first-child{
+    text-align: left;
+} */
+td{
+    padding: 5px !important;
+    vertical-align: middle !important;
+}
+.panel{
+    
+    height: 400px;
+    overflow: auto;
+}
+.panel-heading {
+    position: sticky;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+}
+thead{
+    position: sticky !important;
+    width: 100% !important;
+    top: 0 !important;
+}
+th:last-child{
+    padding-right: 20px !important;
+    text-align: right;
+}
+td:last-child{
+    text-align: right;
+    padding-bottom: 0px !important;
+}
+#dialog{
+    display: none;
+    z-index: 11;  
+}
+#dialog label, input ,select{ display:block; }
+#dialog input.text ,select { margin-bottom:12px; width:95%; padding: .4em; }
+#dialog fieldset { padding:0; border:0;}
+#dialog select{border: 1px solid #dddddd; background: #ffffff;  color: #333333;}
+#dialog h1 { font-size: 1.2em; margin: .6em 0; }
+@media only screen and (max-width: 600px) {
+    .tableWrapper{
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+    .panel{
+        height: 300px;
+        overflow: auto;
+    }
+}

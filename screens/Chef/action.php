@@ -9,11 +9,6 @@
     
     if($flag=="getOrders") getOrders($con);
 
-    //under construction
-    if($flag=="checkDb"){
-        $id=$_POST['id'];
-        checkDb($con,$id);
-    } 
     if($flag=="orderReady"){
         $id=$_POST['id'];
         orderReady($con,$id);

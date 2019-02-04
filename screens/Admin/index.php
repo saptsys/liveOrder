@@ -36,6 +36,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="../../assets/js/script.js"></script>
 
+    <link rel="stylesheet" href="../../assets/js/JQueryUi/jquery-ui.css">
+    <link rel="stylesheet" href="../../assets/js/jquery-ui.structure.css">
+    <link rel="stylesheet" href="../../assets/js/jquery-ui.theme.css">
+    <script src="../../assets/js/JQueryUi/jquery-ui.js"></script>
+
     <link rel="stylesheet" href="../../assets/css/header.css">
     <link rel="stylesheet" href="../../assets/css/Index-style.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -43,42 +48,54 @@
 <body>
     <?php require_once("../../component/header.php") ?>
     <div id="main-page" class="container">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading">
-                    <b>Manage Users</b>
-                    <button style="text-align:center" type="button"  class="btn btn-primary-outline">
-                        <i style="color:green" class="fa fa-lg fa-plus-circle"></i>
-                    </button>
-                </div>
+        <div class="wrapper">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <b>Manage Users</b>
+                        <button onclick="addUser()" style="text-align:center" type="button"  class="btn btn-primary-outline">
+                            <i style="color:green" class="fa fa-lg fa-plus-circle"></i>
+                        </button>
+                    </div>
                     <!-- Table -->
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>name</th>
-                                <th>role</th>
-                                <th>action</th>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>batman</td>
-                                <td>chef</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning">Edit</button>
-                                    <button type="button" class="btn btn-warning">Remove</button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="userContent"></tbody>
                     </table>
+                </div>
             </div>
-            
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <b>Manage Tables</b>
+                        <button onclick="addTable(true)" style="text-align:center" type="button"  class="btn btn-primary-outline">
+                            <i style="color:green" class="fa fa-lg fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    <!-- Table -->
+                    <table class="table-striped table">
+                        <thead>
+                            <tr>
+                                <th>Table</th>
+                                <th>Capacity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableContent"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            hello
-        </div>
+        <div id="dialog"> </div>
     </div>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

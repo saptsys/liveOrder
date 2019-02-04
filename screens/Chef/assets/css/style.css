@@ -14,18 +14,12 @@ table td,th{
     position: absolute;
     top: calc(50% - 20px);
     left: 45%;
-}
+}   
 .noOrders{
-    position: absolute;
+    position: fixed;
     width: 100%;
     top: 50%;
-    text-align: center
-}
-.panel-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    vertical-align: middle;
+    left: 42%;
 }
 @media only screen and (max-width: 600px) {
     table td,th{
@@ -37,5 +31,11 @@ table td,th{
         position: absolute;
         top: calc(50% - 20px);
         left: 40%;
+    }
+    .noOrders{
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        text-align: center;
     }
 }
