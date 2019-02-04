@@ -12,10 +12,32 @@ $(document).ready(function () {
 });
 function getInvoices(){
     $.post("action.php", {flag:'getInvoices'},
-        function (data) {
-            console.log(data);
-            
+        function (data) {            
             $("#invoiceContent").html(data);
+        },
+    );
+}
+function viewInvoice(id){
+    $.post("action.php", {
+            flag:'getInvoiceData',
+            id:id
+        },
+        function (data) { 
+            $("#dialog").html(data);
+            $("#dialog").animate({scrollTop:0},10);
+            $('#dialog').dialog({
+                open : function() {
+                    $('#dialog').dialog( "option" , "title" ,"Invoice");
+                },
+                buttons: {
+                    'Close': function() {
+                      $( this ).dialog( "close" );
+                    }
+                },
+                width:320,
+                maxHeight:400
+            });
+            $("#dialog").animate({scrollTop:1000},1000);
         },
     );
 }
