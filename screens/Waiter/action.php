@@ -223,6 +223,11 @@
             <td><b>=</b></td>
             <td><b>$gstAmount</b></td>
         </tr>
+        <tr>
+            <td><b>Discount 10%</b></td>
+            <td><b>=</b></td>
+            <td><b>121</b></td>
+        </tr>
         <tr id='printing_row'><td colspan='3'><hr></td></tr>
         <tr>
             <td><b>Total</b></td>
