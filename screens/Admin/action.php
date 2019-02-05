@@ -22,7 +22,36 @@
     if($flag=="updateUser") addUser($con,true,true);
     if($flag=="getInvoices") getInvoices($con);
     if($flag=="getInvoiceData") getInvoiceData($con,$_POST['id']);
+    if($flag=="getRate") getRate($con);
+    if($flag=="getRateAvg") getRateAvg($con);
 
+    function getRateAvg($con){
+        $sql="SELECT SUM(Rate),COUNT(*) FROM `customer`";
+        if($query=mysqli_query($con,$sql)){
+            $fetch=mysqli_fetch_array($query);
+               echo $fetch[0]/$fetch[1];
+        }
+    }
+    function getRate($con){
+        $sql="SELECT * FROM `customer`";
+        if($query=mysqli_query($con,$sql)){
+            while($fetch = mysqli_fetch_array($query)) {
+                echo "
+                    <tr>
+                        <td>$fetch[0]</td>
+                        <td> $fetch[1]</td>
+                        <td> $fetch[2] Star</td>
+                    </tr>
+                ";
+            }
+        }else{
+            echo '
+                <tr>
+                    <td colspan=3><center> no  data</center></td>
+                </tr>
+            ';
+        }
+    }
     function getInvoiceData($con,$id){
         $sql = mysqli_query($con,"SELECT p.Name `products`,i.Quantity `invoiceitems`,i.Rate `invoiceitems`,i.Amount `invoiceitems`
             FROM `invoiceitems` i,`products` p

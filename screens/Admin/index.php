@@ -120,6 +120,27 @@
                     </table>
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableWrapper">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading heading">
+                        <b>Rating</b>
+                        <b>all Over Rating <b id="avg"></b></b>
+                    </div>
+                    <!-- Table -->
+                    <table class="table-striped table">
+                        <thead>
+                            <tr>
+                                <th>#   </th>
+                                <th>mobile</th>
+                                <th>rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rateContent"></tbody>
+                    </table>
+                </div>
+            </div>
+            
             
         </div>
         <div id="dialog"> </div>
