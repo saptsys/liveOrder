@@ -17,13 +17,15 @@ $(document).ready(function(){
     });
 
     setInterval(function(){
-        totalReady();
         if(tabsFlag)
         {
             if(selectedTableName=="")
                 establishTables(false);
         }
-        else
+    },5000);
+    setInterval(function(){
+        totalReady();
+        if(!tabsFlag)
         {
             getKitchen();
         }
