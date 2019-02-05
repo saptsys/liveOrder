@@ -1,6 +1,7 @@
 var selectedTableName="";
 var firstTime;
 var tabsFlag=true;
+var mobile;
 $(document).ready(function(){
     /********************  AJAX  ****************** */
     
@@ -207,6 +208,7 @@ function showOrderedList(TId){
                 buttons: {
                     'Get Bill': function() {
                       getInvoice(selectedTableId);
+                      mobile = $('#mobile').val();
                     },
                     'Close': function() {
                       $( this ).dialog( "close" );
@@ -218,7 +220,6 @@ function showOrderedList(TId){
         }
     });
 }
-
 function getInvoice(tableId){
     $.ajax({
         type: "POST",
@@ -229,10 +230,26 @@ function getInvoice(tableId){
         },
         success: function(data){
             inputEmailCode = "<hr> Email : <input id='customerEmail' type='email' name='customermail' placeholder='email address (optional)'/>";
-            $("#dialog").html("<p>"+data+"</p>"+inputEmailCode).dialog({
+            $("#feedbackWrapper").css('display', 'block');
+            feedback=$("#feedbackWrapper").html();
+            $("#dialog").html("<p>"+data+"</p>"+inputEmailCode+feedback).dialog({
                 modal: true,
                 buttons: {
                     'Print': function() {
+                    
+                    //send feedback
+                    var msg = $('#feedbackarea').val();
+                    console.log(msg,mobile);
+                    
+                    $.post("actoin.php",{
+                        flag:'feedback',
+                        msg:msg,
+                        mobile:mobile
+                    },
+                    function (data) {
+                        console.log(data);
+                    }
+                    );
                     $("#print_page_conainer").html(data);
                       $( this ).dialog( "close" );
                       window.print();

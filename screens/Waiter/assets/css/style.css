@@ -185,3 +185,13 @@ h4{
     text-align: center;
     left: 0;
 }
+#feedbackWrapper{
+    display: none;
+    margin: 10px;
+}
+textarea {
+    border-radius: 3px;
+    border: #ccc 1px solid;
+    resize: none !important;
+    width: 100% !important;
+}

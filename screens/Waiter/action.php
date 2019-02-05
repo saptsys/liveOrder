@@ -19,11 +19,11 @@
     if($flag=="getKitchen") getKitchen($con);
     if($flag=="itemTaked") itemTaked($con,$_POST['id']);
     if($flag=="countKitchen") countKitchen($con);
-
+    if($flag=="feedback") feedback($con);
     
-    
-    
-    
+    function feedback($con){
+        print_r($_POST);
+    }
     function getTable($con)
     {
         echo "
@@ -133,6 +133,11 @@
                 </tr>
             ";
         }
+        echo'
+            <div class="mobile" >
+                <input placeholder="Mobile.." type="number" name="" id="mobile" class="form-control" value="" min={5} max="" step="" required="required" title="">
+            </div>
+        ';
         echo "</tbody>
         </table>";
     }
