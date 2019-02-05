@@ -220,17 +220,19 @@ function showOrderedList(TId){
         }
     });
 }
-function rating(rate,mobile){
-    console.log(rate);
-        $.post("actoin.php",{
-            flag:'feedback',
-            msg:msg,
-            mobile:mobile
+function rating(rate){
+    $.ajax({
+        type: "POST",
+        url: "action.php",
+        data: {
+            flag:"rate",
+            rating:rate,
+            mobileNo:mobile
         },
-        function (data) {
+        success: function(data){
             console.log(data);
         }
-    );
+    });
 }
 function getInvoice(tableId){
     $.ajax({
@@ -251,9 +253,7 @@ function getInvoice(tableId){
                 buttons: {
                     'Print': function() {
                     //send feedback
-                    var msg = $('#feedbackarea').val();
-                    console.log(msg,mobile);
-                    rating();
+                    rating($("#rate").val());
                     $("#print_page_conainer").html(data);
                       $( this ).dialog( "close" );
                       window.print();
@@ -267,7 +267,7 @@ function getInvoice(tableId){
                       $( this ).dialog( "close" );
                       $("#print_page_conainer").html("");
                       $(".backArrow").trigger('click');
-                    rating();
+                        rating($("#rate").val());
                     }
                 },
                 width:320,

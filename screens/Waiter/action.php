@@ -19,15 +19,15 @@
     if($flag=="getKitchen") getKitchen($con);
     if($flag=="itemTaked") itemTaked($con,$_POST['id']);
     if($flag=="countKitchen") countKitchen($con);
-    if($flag=="feedback") feedback($con);
+    if($flag=="rate") rate($con,$_POST['rating'],$_POST['mobileNo']);
     if($flag=="ChangePending") ChangePending($con,$_POST['kitchenId'],$_POST['actionFlag']);
 
     
     
     
     
-    function feedback($con){
-        print_r($_POST);
+    function rate($con,$rate,$mobile){
+        mysqli_query($con,"INSERT INTO `customer` VALUES (null,$mobile,$rate)");
     }
     function getTable($con)
     {
@@ -259,11 +259,11 @@
             <div class="form-group">
                 <label for="rate">Rate Us... </label>
                 <select class="form-control" id="rate">
-                    <option>1 Star</option>
-                    <option>2 Star</option>
-                    <option>3 Star</option>
-                    <option>4 Star</option>
-                    <option>5 Star</option>
+                    <option value=1>1 Star</option>
+                    <option value=2>2 Star</option>
+                    <option value=3>3 Star</option>
+                    <option value=4>4 Star</option>
+                    <option value=5>5 Star</option>
                 </select>
             </div> 
         </div>
