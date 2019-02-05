@@ -360,3 +360,58 @@ function validateEmail(email) {
     }
     return false;
   }
+
+  function addPending(id)
+  {
+      console.log("add Pending"+id);
+      Pid="P"+id;
+      var val = 0;
+      val = parseInt($("#"+Pid).html());
+      if(val<10)
+    {
+        val++;
+        $("#"+Pid).html(val);
+        $(".totalItemLabel b").html(++totalItems);
+        $.ajax({
+            type: "post",
+            url: "action.php",
+            data: {
+                flag:"ChangePending",
+                kitchenId:id,
+                actionFlag:"add"
+            },
+            success: function (data) {
+                console.log("from addPending : "+data);
+            }
+        });
+    }
+    
+
+  }
+  function subtractPending(id)
+  {
+        console.log("sub Pending"+id);
+        Pid="P"+id;
+        var val = 0;
+        val = parseInt($("#"+Pid).html());
+        if(val>0)
+        {
+            val--;
+            $("#"+Pid).html(val);
+            selectedProducts[id]=val;
+            $(".totalItemLabel b").html(--totalItems);
+            $.ajax({
+                type: "post",
+                url: "action.php",
+                data: {
+                    flag:"ChangePending",
+                    kitchenId:id,
+                    actionFlag:"sub"
+                },
+                success: function (data) {
+                    console.log("from addPending : "+data);
+                }
+            });
+        }
+        
+  }
