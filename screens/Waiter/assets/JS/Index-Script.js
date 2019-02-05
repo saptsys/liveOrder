@@ -207,8 +207,8 @@ function showOrderedList(TId){
                 modal: true,
                 buttons: {
                     'Get Bill': function() {
+                     mobile = $('#mobile').val();
                       getInvoice(selectedTableId);
-                      mobile = $('#mobile').val();
                     },
                     'Close': function() {
                       $( this ).dialog( "close" );
@@ -238,7 +238,8 @@ function getInvoice(tableId){
         url: "action.php",
         data: {
             flag:"getInvoice",
-            tableId:selectedTableId
+            tableId:selectedTableId,
+            mobileNumber:mobile
         },
         success: function(data){
             inputEmailCode = "<hr> Email : <input id='customerEmail' type='email' name='customermail' placeholder='email address (optional)'/>";
@@ -249,9 +250,10 @@ function getInvoice(tableId){
                 modal: true,
                 buttons: {
                     'Print': function() {
-                        rating()
-                    var rate = $('#rate').val();
-                    
+                    //send feedback
+                    var msg = $('#feedbackarea').val();
+                    console.log(msg,mobile);
+                    rating();
                     $("#print_page_conainer").html(data);
                       $( this ).dialog( "close" );
                       window.print();
@@ -265,11 +267,13 @@ function getInvoice(tableId){
                       $( this ).dialog( "close" );
                       $("#print_page_conainer").html("");
                       $(".backArrow").trigger('click');
+                    rating();
                     }
                 },
                 width:320,
                 'title':"Invoice Generated"
             });
+            
             $("#dialog").animate({scrollTop:1000},1000);
             //console.log("invoice stored into table");
         }
@@ -362,3 +366,59 @@ function validateEmail(email) {
     }
     return false;
   }
+
+  function addPending(id)
+  {
+      console.log("add Pending"+id);
+      Pid="P"+id;
+      var val = 0;
+      val = parseInt($("#"+Pid).html());
+      if(val<10)
+    {
+        val++;
+        $("#"+Pid).html(val);
+        $(".totalItemLabel b").html(++totalItems);
+        $.ajax({
+            type: "post",
+            url: "action.php",
+            data: {
+                flag:"ChangePending",
+                kitchenId:id,
+                actionFlag:"add"
+            },
+            success: function (data) {
+                console.log("from addPending : "+data);
+            }
+        });
+    }
+    
+
+  }
+  function subtractPending(id)
+  {
+        console.log("sub Pending"+id);
+        Pid="P"+id;
+        var val = 0;
+        val = parseInt($("#"+Pid).html());
+        if(val>0)
+        {
+            val--;
+            $("#"+Pid).html(val);
+            selectedProducts[id]=val;
+            $(".totalItemLabel b").html(--totalItems);
+            $.ajax({
+                type: "post",
+                url: "action.php",
+                data: {
+                    flag:"ChangePending",
+                    kitchenId:id,
+                    actionFlag:"sub"
+                },
+                success: function (data) {
+                    console.log("from addPending : "+data);
+                }
+            });
+        }
+        
+  }
+  

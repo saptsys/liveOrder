@@ -14,7 +14,7 @@
     if($flag=="getMenu") getMenu($con);
     if($flag=="itemSelected") itemsSelected($con,$_POST['selectedItems'],$_POST['tableId']);
     if($flag=="getOrderedList") getOrderedList($con,$_POST['tableId']);
-    if($flag=="getInvoice") getInvoice($con,$_POST['tableId']);
+    if($flag=="getInvoice") getInvoice($con,$_POST['tableId'],$_POST['mobileNumber']);
     if($flag=="sendMail") sendMail($_POST['emailId'],$_POST['content']);
     if($flag=="getKitchen") getKitchen($con);
     if($flag=="itemTaked") itemTaked($con,$_POST['id']);
@@ -159,7 +159,7 @@
         </table>";
     }
 
-    function getInvoice($con,$tableId)
+    function getInvoice($con,$tableId,$mobile)
     {
         $data = mysqli_query($con,"SELECT max(`Id`) FROM `invoices`");
         $invoiceId = mysqli_fetch_array($data);
@@ -189,10 +189,18 @@
         $waiterUsername = $_SESSION['user'];
 
         //counting costomertime
-        //$cTime = mysqli_query($con,"SELECT `Mobile` FROM `customer` WHERE ")
+        $cTime_data = mysqli_query($con,"SELECT `Mobile` FROM `customer` WHERE `Mobile`=$mobile");
+        $ctime = mysqli_affected_rows($con);
+        if($ctime>=5)
+        {
+            $discount = $totalAmount*10/100;
+        }
+        else
+            $discount=0;
+        $totalAmount -= $discount;
         //inserting to invoice.
-        mysqli_query($con,"INSERT INTO `invoices`(`Id`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`, `TotalAmount`, `Waiter`) 
-                           VALUES (null,$tableId,$grossAmount,18,$gstAmount ,$totalAmount,'$waiterUsername')") or die("Error to insert record into invoices");
+        mysqli_query($con,"INSERT INTO `invoices`(`Id`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`,`Discount`, `TotalAmount`, `Waiter`) 
+                           VALUES (null,$tableId,$grossAmount,18,$gstAmount, $discount ,$totalAmount,'$waiterUsername')") or die("Error to insert record into invoices");
 
         $data_invoices = mysqli_query($con,"SELECT * FROM `invoices` WHERE `TableId`=$tableId ORDER BY `Id` DESC LIMIT 1");
         $row_invoices = mysqli_fetch_array($data_invoices);
@@ -200,6 +208,7 @@
         $data_invoiceItems = mysqli_query($con,"SELECT p.Name `products`,i.Quantity `invoiceitems`,i.Rate `invoiceitems`,i.Amount `invoiceitems`
                                                 FROM `invoiceitems` i,`products` p
                                                 WHERE i.InvoiceId=$row_invoices[0] AND p.Id=i.ProductId");
+        $discount=0-$discount;
         echo " <table class='table table-striped'> 
         <thead class='thead-light'>
             <tr>
@@ -231,6 +240,11 @@
             <td><b>GST 18%</b></td>
             <td><b>=</b></td>
             <td><b>$gstAmount</b></td>
+        </tr>
+        <tr>
+            <td><b>Discount 10%</b></td>
+            <td><b>=</b></td>
+            <td><b>$discount</b></td>
         </tr>
         <tr id='printing_row'><td colspan='3'><hr></td></tr>
         <tr>
