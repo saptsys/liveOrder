@@ -19,6 +19,7 @@
     if($flag=="getKitchen") getKitchen($con);
     if($flag=="itemTaked") itemTaked($con,$_POST['id']);
     if($flag=="countKitchen") countKitchen($con);
+    if($flag=="ChangePending") ChangePending($con,$_POST['kitchenId'],$_POST['actionFlag']);
 
     
     
@@ -105,14 +106,14 @@
 
     function getOrderedList($con,$tableId)
     {
-        $data = mysqli_query($con,"SELECT c.Name `categories`, p.Name `products`, k.Quantity `kitchen`, k.Pending `kitchen`,k.isReady `kitchen`
+        $data = mysqli_query($con,"SELECT c.Name `categories`, p.Name `products`, k.Quantity `kitchen`, k.Pending `kitchen`,k.isReady `kitchen`,k.Id `kitchen`
                                     FROM `categories` c, `products` p, `kitchen` k
                                     WHERE k.TableId = $tableId AND k.ProductId = p.Id AND p.CatId=c.Id");
         echo " <table class='table table-striped' > 
         <thead class='thead-light'>
             <tr>
                 <th>Item Name</th>
-                <th>Quantity</th>
+                <th>Ordered</th>
                 <th>Served</th>
             </tr>
         </thead>
@@ -121,15 +122,27 @@
         while($row = mysqli_fetch_array($data))
         {
             if($row[4]==0 && $row[2]>0)
+            {
                 $served="Yes";
+            }
             else
+            {
                 $served="No";
-            $q = $row[2]+$row[3];
+            }
+
+            $content="
+                <span>
+                <i class='fa fa-minus' onclick='subtractPending($row[5])'></i>
+                    <b id='P$row[5]' class='counter'>$row[3]</b>
+                    <i class='fa fa-plus' onclick='addPending($row[5])'></i>
+                </span>
+            ";
+
             echo "
                 <tr>
                     <td>$row[0] $row[1]</td>
-                    <td> $q</td>
-                    <td> $served</td>
+                    <td>$content</td>
+                    <td> $served : $row[2]</td>
                 </tr>
             ";
         }
@@ -165,6 +178,9 @@
         $totalAmount = $grossAmount + $gstAmount;
         //getting the current waiter username
         $waiterUsername = $_SESSION['user'];
+
+        //counting costomertime
+        //$cTime = mysqli_query($con,"SELECT `Mobile` FROM `customer` WHERE ")
         //inserting to invoice.
         mysqli_query($con,"INSERT INTO `invoices`(`Id`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`, `TotalAmount`, `Waiter`) 
                            VALUES (null,$tableId,$grossAmount,18,$gstAmount ,$totalAmount,'$waiterUsername')") or die("Error to insert record into invoices");
@@ -277,5 +293,17 @@
         $data = mysqli_query($con,"SELECT SUM(isReady) FROM `kitchen`");
         $row = mysqli_fetch_array($data);
         echo $row[0];
+    }
+
+    function ChangePending($con,$kitchenId,$action)
+    {
+        if($action=="add"){
+            mysqli_query($con,"UPDATE `kitchen` SET `Pending`=`Pending`+1 WHERE `Id`=$kitchenId");
+        }
+        if($action=="sub")
+        {
+            mysqli_query($con,"UPDATE `kitchen` SET `Pending`=`Pending`-1 WHERE `Id`=$kitchenId");
+        }
+        echo $kitchenId;
     }
 ?>
