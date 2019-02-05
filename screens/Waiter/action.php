@@ -240,6 +240,20 @@
         </tr>
         </tbody>
         </table>";
+        echo'
+        <div id="feedbackOpen"style="margin-top:5px" >
+            <div class="form-group">
+                <label for="rate">Rate Us... </label>
+                <select class="form-control" id="rate">
+                    <option>1 Star</option>
+                    <option>2 Star</option>
+                    <option>3 Star</option>
+                    <option>4 Star</option>
+                    <option>5 Star</option>
+                </select>
+            </div> 
+        </div>
+        ';
     }
     function sendMail($emailId,$content)
     {

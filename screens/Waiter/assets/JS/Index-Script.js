@@ -4,7 +4,7 @@ var tabsFlag=true;
 var mobile;
 $(document).ready(function(){
     /********************  AJAX  ****************** */
-    
+    $( "input" ).checkboxradio();
     $( "#tabs" ).tabs();
     $("#tablesTab").click(function(){
         tabsFlag=true;
@@ -220,6 +220,18 @@ function showOrderedList(TId){
         }
     });
 }
+function rating(rate,mobile){
+    console.log(rate);
+        $.post("actoin.php",{
+            flag:'feedback',
+            msg:msg,
+            mobile:mobile
+        },
+        function (data) {
+            console.log(data);
+        }
+    );
+}
 function getInvoice(tableId){
     $.ajax({
         type: "POST",
@@ -230,26 +242,16 @@ function getInvoice(tableId){
         },
         success: function(data){
             inputEmailCode = "<hr> Email : <input id='customerEmail' type='email' name='customermail' placeholder='email address (optional)'/>";
-            $("#feedbackWrapper").css('display', 'block');
-            feedback=$("#feedbackWrapper").html();
-            $("#dialog").html("<p>"+data+"</p>"+inputEmailCode+feedback).dialog({
+            //$("#feedbackWrapper").css('display', 'block');
+            //feedback=$("#feedbackWrapper").html();
+            
+            $("#dialog").html("<p>"+data+"</p>"+inputEmailCode).dialog({
                 modal: true,
                 buttons: {
                     'Print': function() {
+                        rating()
+                    var rate = $('#rate').val();
                     
-                    //send feedback
-                    var msg = $('#feedbackarea').val();
-                    console.log(msg,mobile);
-                    
-                    $.post("actoin.php",{
-                        flag:'feedback',
-                        msg:msg,
-                        mobile:mobile
-                    },
-                    function (data) {
-                        console.log(data);
-                    }
-                    );
                     $("#print_page_conainer").html(data);
                       $( this ).dialog( "close" );
                       window.print();
@@ -359,59 +361,4 @@ function validateEmail(email) {
       $result.val("");
     }
     return false;
-  }
-
-  function addPending(id)
-  {
-      console.log("add Pending"+id);
-      Pid="P"+id;
-      var val = 0;
-      val = parseInt($("#"+Pid).html());
-      if(val<10)
-    {
-        val++;
-        $("#"+Pid).html(val);
-        $(".totalItemLabel b").html(++totalItems);
-        $.ajax({
-            type: "post",
-            url: "action.php",
-            data: {
-                flag:"ChangePending",
-                kitchenId:id,
-                actionFlag:"add"
-            },
-            success: function (data) {
-                console.log("from addPending : "+data);
-            }
-        });
-    }
-    
-
-  }
-  function subtractPending(id)
-  {
-        console.log("sub Pending"+id);
-        Pid="P"+id;
-        var val = 0;
-        val = parseInt($("#"+Pid).html());
-        if(val>0)
-        {
-            val--;
-            $("#"+Pid).html(val);
-            selectedProducts[id]=val;
-            $(".totalItemLabel b").html(--totalItems);
-            $.ajax({
-                type: "post",
-                url: "action.php",
-                data: {
-                    flag:"ChangePending",
-                    kitchenId:id,
-                    actionFlag:"sub"
-                },
-                success: function (data) {
-                    console.log("from addPending : "+data);
-                }
-            });
-        }
-        
   }
