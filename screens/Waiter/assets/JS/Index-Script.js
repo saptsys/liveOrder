@@ -237,7 +237,6 @@ function getInvoice(tableId){
                 modal: true,
                 buttons: {
                     'Print': function() {
-                    
                     //send feedback
                     var msg = $('#feedbackarea').val();
                     console.log(msg,mobile);
@@ -264,6 +263,7 @@ function getInvoice(tableId){
                       $( this ).dialog( "close" );
                       $("#print_page_conainer").html("");
                       $(".backArrow").trigger('click');
+                    saveCustomer();
                     }
                 },
                 width:320,
@@ -417,3 +417,4 @@ function validateEmail(email) {
         }
         
   }
+  
