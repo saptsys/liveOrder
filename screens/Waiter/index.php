@@ -72,6 +72,12 @@
     </div> <!-- #main-page .container .row -->
     <div id="dialog" title="Ordered Items">
     </div>
+
+    <div id="feedbackWrapper">
+        <div id="feedbackOpen"style="margin-top:5px" >
+            <textarea class="form-control" placeholder="Feedback Here..." style="resize: none;" id="feedbackarea" cols="30" rows="3"></textarea>
+        </div>
+    </div>
 <script src="assets/JS/Index-Script.js"></script>
 </body>
 </html>
