@@ -16,9 +16,6 @@
 .wrapper{
     margin-top: 30px;
 }
-/* th,td{
-    text-align: center;
-} */
  th:first-child{
     text-align: left;
     width:auto;
@@ -51,10 +48,6 @@ td{
 .invoiceHeading{
     height: 45px;
 }
-.panel-heading {
-    
-}
-
 th:last-child{
     padding-right: 20px !important;
     text-align: right;
