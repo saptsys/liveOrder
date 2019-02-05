@@ -79,7 +79,7 @@
         }
     }
     function getInvoices($con){
-        $query=mysqli_query($con,"SELECT * FROM `invoices`");
+        $query=mysqli_query($con,"SELECT * FROM `invoices` ORDER BY Time DESC");
         if(mysqli_affected_rows($con) != 0){
             while( $fetch=mysqli_fetch_assoc($query)){
                 echo'
