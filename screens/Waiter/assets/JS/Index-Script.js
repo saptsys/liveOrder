@@ -207,8 +207,8 @@ function showOrderedList(TId){
                 modal: true,
                 buttons: {
                     'Get Bill': function() {
+                     mobile = $('#mobile').val();
                       getInvoice(selectedTableId);
-                      mobile = $('#mobile').val();
                     },
                     'Close': function() {
                       $( this ).dialog( "close" );
@@ -226,7 +226,8 @@ function getInvoice(tableId){
         url: "action.php",
         data: {
             flag:"getInvoice",
-            tableId:selectedTableId
+            tableId:selectedTableId,
+            mobileNumber:mobile
         },
         success: function(data){
             inputEmailCode = "<hr> Email : <input id='customerEmail' type='email' name='customermail' placeholder='email address (optional)'/>";
@@ -268,6 +269,7 @@ function getInvoice(tableId){
                 width:320,
                 'title':"Invoice Generated"
             });
+            
             $("#dialog").animate({scrollTop:1000},1000);
             //console.log("invoice stored into table");
         }
