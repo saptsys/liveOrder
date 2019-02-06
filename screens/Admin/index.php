@@ -125,7 +125,7 @@
                     <!-- Default panel contents -->
                     <div class="panel-heading heading">
                         <b>Rating</b>
-                        <b>all Over Rating <b id="avg"></b></b>
+                        <b>all Over Rating <span id="avg" style="padding-right:10px;">0</span></b>
                     </div>
                     <!-- Table -->
                     <table class="table-striped table">
