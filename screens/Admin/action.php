@@ -26,7 +26,7 @@
     if($flag=="getRateAvg") getRateAvg($con);
 
     function getRateAvg($con){
-        $sql="SELECT SUM(Rating),COUNT(*) FROM `customer`";
+        $sql="SELECT SUM(Rate),COUNT(*) FROM `customer`";
         if($query=mysqli_query($con,$sql)){
             $fetch=mysqli_fetch_array($query);
                echo $fetch[0]/$fetch[1];
@@ -40,7 +40,7 @@
                     <tr>
                         <td>$fetch[0]</td>
                         <td> $fetch[1]</td>
-                        <td style='padding-right:20px;'> $fetch[2] Star</td>
+                        <td> $fetch[2] Star</td>
                     </tr>
                 ";
             }
