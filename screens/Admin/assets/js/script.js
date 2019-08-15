@@ -2,33 +2,14 @@ $(document).ready(function () {
     getUsers();
     getTables();
     getInvoices();
-    getRate();
-    getRateAvg();
     setInterval(() => {
         getUsers();
         getTables();
     }, 5000);
     setInterval(() => {
         getInvoices();
-        getRate();
     }, 10000);
 });
-function getRateAvg(){
-    $.post("action.php", {flag:'getRateAvg'},
-        function (data) {
-            $('#avg').html(parseInt(data));
-        //  console.log(data);
-           
-        }
-    );
-}
-function getRate(){
-    $.post("action.php", {flag:'getRate'},
-        function (data) {
-            $("#rateContent").html(data);
-        }
-    );
-}
 function getInvoices(){
     $.post("action.php", {flag:'getInvoices'},
         function (data) {            

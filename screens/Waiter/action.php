@@ -14,21 +14,17 @@
     if($flag=="getMenu") getMenu($con);
     if($flag=="itemSelected") itemsSelected($con,$_POST['selectedItems'],$_POST['tableId']);
     if($flag=="getOrderedList") getOrderedList($con,$_POST['tableId']);
-    if($flag=="getInvoice") getInvoice($con,$_POST['tableId'],$_POST['mobileNumber']);
+    if($flag=="getInvoice") getInvoice($con,$_POST['tableId']);
     if($flag=="sendMail") sendMail($_POST['emailId'],$_POST['content']);
     if($flag=="getKitchen") getKitchen($con);
     if($flag=="itemTaked") itemTaked($con,$_POST['id']);
     if($flag=="countKitchen") countKitchen($con);
-    if($flag=="rate") rate($con,$_POST['rating'],$_POST['mobileNo']);
     if($flag=="ChangePending") ChangePending($con,$_POST['kitchenId'],$_POST['actionFlag']);
 
     
     
     
     
-    function rate($con,$rate,$mobile){
-        mysqli_query($con,"INSERT INTO `customer` VALUES (null,$mobile,$rate)");
-    }
     function getTable($con)
     {
         echo "
@@ -150,16 +146,11 @@
                 </tr>
             ";
         }
-        echo'
-            <div class="mobile" >
-                <input placeholder="Mobile.." type="number" name="" id="mobile" class="form-control" value="" min={5} max="" step="" required="required" title="">
-            </div>
-        ';
         echo "</tbody>
         </table>";
     }
 
-    function getInvoice($con,$tableId,$mobile)
+    function getInvoice($con,$tableId)
     {
         $data = mysqli_query($con,"SELECT max(`Id`) FROM `invoices`");
         $invoiceId = mysqli_fetch_array($data);
@@ -189,18 +180,10 @@
         $waiterUsername = $_SESSION['user'];
 
         //counting costomertime
-        $cTime_data = mysqli_query($con,"SELECT `Mobile` FROM `customer` WHERE `Mobile`=$mobile");
-        $ctime = mysqli_affected_rows($con);
-        if($ctime>=5)
-        {
-            $discount = $totalAmount*10/100;
-        }
-        else
-            $discount=0;
-        $totalAmount -= $discount;
+        //$cTime = mysqli_query($con,"SELECT `Mobile` FROM `customer` WHERE ")
         //inserting to invoice.
-        mysqli_query($con,"INSERT INTO `invoices`(`Id`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`,`Discount`, `TotalAmount`, `Waiter`) 
-                           VALUES (null,$tableId,$grossAmount,18,$gstAmount, $discount ,$totalAmount,'$waiterUsername')") or die("Error to insert record into invoices");
+        mysqli_query($con,"INSERT INTO `invoices`(`Id`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`, `TotalAmount`, `Waiter`) 
+                           VALUES (null,$tableId,$grossAmount,18,$gstAmount ,$totalAmount,'$waiterUsername')") or die("Error to insert record into invoices");
 
         $data_invoices = mysqli_query($con,"SELECT * FROM `invoices` WHERE `TableId`=$tableId ORDER BY `Id` DESC LIMIT 1");
         $row_invoices = mysqli_fetch_array($data_invoices);
@@ -208,7 +191,6 @@
         $data_invoiceItems = mysqli_query($con,"SELECT p.Name `products`,i.Quantity `invoiceitems`,i.Rate `invoiceitems`,i.Amount `invoiceitems`
                                                 FROM `invoiceitems` i,`products` p
                                                 WHERE i.InvoiceId=$row_invoices[0] AND p.Id=i.ProductId");
-        $discount=0-$discount;
         echo " <table class='table table-striped'> 
         <thead class='thead-light'>
             <tr>
@@ -241,11 +223,6 @@
             <td><b>=</b></td>
             <td><b>$gstAmount</b></td>
         </tr>
-        <tr>
-            <td><b>Discount 10%</b></td>
-            <td><b>=</b></td>
-            <td><b>$discount</b></td>
-        </tr>
         <tr id='printing_row'><td colspan='3'><hr></td></tr>
         <tr>
             <td><b>Total</b></td>
@@ -254,20 +231,6 @@
         </tr>
         </tbody>
         </table>";
-        echo'
-        <div id="feedbackOpen"style="margin-top:5px" >
-            <div class="form-group">
-                <label for="rate">Rate Us... </label>
-                <select class="form-control" id="rate">
-                    <option value=1>1 Star</option>
-                    <option value=2>2 Star</option>
-                    <option value=3>3 Star</option>
-                    <option value=4>4 Star</option>
-                    <option value=5>5 Star</option>
-                </select>
-            </div> 
-        </div>
-        ';
     }
     function sendMail($emailId,$content)
     {

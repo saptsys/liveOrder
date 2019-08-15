@@ -1,10 +1,9 @@
 var selectedTableName="";
 var firstTime;
 var tabsFlag=true;
-var mobile;
 $(document).ready(function(){
     /********************  AJAX  ****************** */
-    $( "input" ).checkboxradio();
+    
     $( "#tabs" ).tabs();
     $("#tablesTab").click(function(){
         tabsFlag=true;
@@ -207,7 +206,6 @@ function showOrderedList(TId){
                 modal: true,
                 buttons: {
                     'Get Bill': function() {
-                     mobile = $('#mobile').val();
                       getInvoice(selectedTableId);
                     },
                     'Close': function() {
@@ -220,40 +218,21 @@ function showOrderedList(TId){
         }
     });
 }
-function rating(rate){
-    $.ajax({
-        type: "POST",
-        url: "action.php",
-        data: {
-            flag:"rate",
-            rating:rate,
-            mobileNo:mobile
-        },
-        success: function(data){
-            console.log(data);
-        }
-    });
-}
+
 function getInvoice(tableId){
     $.ajax({
         type: "POST",
         url: "action.php",
         data: {
             flag:"getInvoice",
-            tableId:selectedTableId,
-            mobileNumber:mobile
+            tableId:selectedTableId
         },
         success: function(data){
             inputEmailCode = "<hr> Email : <input id='customerEmail' type='email' name='customermail' placeholder='email address (optional)'/>";
-            //$("#feedbackWrapper").css('display', 'block');
-            //feedback=$("#feedbackWrapper").html();
-            
             $("#dialog").html("<p>"+data+"</p>"+inputEmailCode).dialog({
                 modal: true,
                 buttons: {
                     'Print': function() {
-                    //send feedback
-                    rating($("#rate").val());
                     $("#print_page_conainer").html(data);
                       $( this ).dialog( "close" );
                       window.print();
@@ -267,13 +246,11 @@ function getInvoice(tableId){
                       $( this ).dialog( "close" );
                       $("#print_page_conainer").html("");
                       $(".backArrow").trigger('click');
-                        rating($("#rate").val());
                     }
                 },
                 width:320,
                 'title':"Invoice Generated"
             });
-            
             $("#dialog").animate({scrollTop:1000},1000);
             //console.log("invoice stored into table");
         }
@@ -421,4 +398,3 @@ function validateEmail(email) {
         }
         
   }
-  

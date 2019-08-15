@@ -70,7 +70,8 @@
         </div>
 
     </div> <!-- #main-page .container .row -->
-    <div id="dialog" title="Ordered Items"> </div>
+    <div id="dialog" title="Ordered Items">
+    </div>
 <script src="assets/JS/Index-Script.js"></script>
 </body>
 </html>
