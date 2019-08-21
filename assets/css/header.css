@@ -4,7 +4,7 @@
 #header{
     position: fixed;
     top: 0;
-    z-index: 9999999;
+    z-index: 10;
     width: 100%;
     background: #8E2DE2;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */

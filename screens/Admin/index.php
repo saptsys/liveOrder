@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="../../assets/js/script.js"></script>
 
     <link rel="stylesheet" href="../../assets/js/JQueryUi/jquery-ui.css">
@@ -49,32 +49,64 @@
 <body>
     <?php require_once("../../component/header.php") ?>
     <div id="main-page" class="container">
-        <div class="wrapper">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableWrapper">
-                    <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        <div style="text-align:center" class="panel-heading heading invoiceHeading">
-                            <b style="width:100%">Invoices</b>
-                        </div>
-                        <!-- Table -->
-                        <table class="table-striped table">
-                            <thead class="tableheading">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Table</th>
-                                    <th>Waiter</th>
-                                    <th class="tym">Time</th>
-                                    <th>GrossAmount</th>
-                                    <th>GST</th>
-                                    <th>TotalAmount</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="invoiceContent"></tbody>
-                        </table>
+       <!--  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#menu0">Menu 0</a></li>
+                <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+                <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+                <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+              </ul>
+        </div> -->
+            <div id="menu0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableWrapper">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading heading">
+                        <b>Manage Products</b>
+                        <button onclick="addProducts()" style="text-align:center" type="button"  class="btn btn-primary-outline">
+                            <i style="color:green" class="fa fa-lg fa-plus-circle"></i>
+                        </button>
                     </div>
+                    <!-- Table -->
+                    <table class="table table-striped table-hover">
+                        <thead class="tableheading">
+                            <tr>
+                                <th>#</th>
+                                <th>Category</th>
+                                <th>No. of Products</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products"></tbody>
+                    </table>
                 </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
+            </div>
+
+
+
+            <div id="menu1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableWrapper ">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div style="text-align:center" class="panel-heading heading invoiceHeading">
+                        <b style="width:100%">Invoices</b>
+                    </div>
+                    <!-- Table  -->
+                    <table class="table-striped table">
+                        <thead class="tableheading">
+                            <tr>
+                                <th>#</th>
+                                <th>Table</th>
+                                <th>Waiter</th>
+                                <th class="tym">Time</th>
+                                <th>GrossAmount</th>
+                                <th>GST</th>
+                                <th>TotalAmount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoiceContent"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="menu2" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
                     <div class="panel-heading heading">
@@ -97,7 +129,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper">
+            <div id="menu3" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 tableWrapper ">
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
                     <div class="panel-heading heading">
@@ -121,8 +153,29 @@
                 </div>
             </div>
             
+          <!-- Modal -->
+          <div class="modal fade" id="modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title" id="modelHeader">Modal Header</h4>
+                </div>
+                <div class="modal-body" id="modelBody">
+                  <p>ModelBody</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
         </div>
         <div id="dialog"> </div>
+
+
     </div>
     <script src="./assets/js/script.js"></script>
 </body>

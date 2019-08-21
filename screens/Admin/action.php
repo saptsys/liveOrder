@@ -22,6 +22,58 @@
     if($flag=="updateUser") addUser($con,true,true);
     if($flag=="getInvoices") getInvoices($con);
     if($flag=="getInvoiceData") getInvoiceData($con,$_POST['id']);
+    if($flag=="getProducts") getProducts($con);
+    if($flag=="getAllProducts") getAllProducts($con,$_POST['id'],$_POST['catName']);
+
+
+
+    function getAllProducts($con,$catId,$catName){
+        $query = mysqli_query($con,"select * FROM products where CatId =".$catId);
+        echo'
+                <table class="table-striped table">
+                    <thead class="tableheading">
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            ';
+        while($fetch = mysqli_fetch_assoc($query)){
+            echo'
+                <tr>
+                    <td>'.$fetch["Name"].'</td>
+                    <td>'.$fetch["Price"].'</td>
+                </tr>
+            ';
+        }
+        echo '</tbody></table>';
+    }
+
+    function getProducts($con){
+        $query = mysqli_query($con,"select * from categories");
+        if(mysqli_affected_rows($con) != 0){
+            while( $fetch=mysqli_fetch_assoc($query)){
+                $query2 = mysqli_query($con,"select Id FROM products where CatId =".$fetch['Id']);
+                $totalCats = mysqli_affected_rows($con);
+                echo'
+                    <tr id="product_'.$fetch["Id"].'" 
+                    onclick="productClicked('.$fetch['Id'].','.'\''.$fetch['Name'].'\''.')">
+                        <td>'.$fetch["Id"].'</td>
+                        <td>'.$fetch["Name"].'</td>
+                        <td>'.$totalCats.'</td>
+                    </tr>
+                ';
+            }
+        }else{
+            echo '
+                <tr>
+                    <td colspan=3><center>no  data</center></td>
+                </tr>
+            ';
+        }
+
+    }
 
     function getInvoiceData($con,$id){
         $sql = mysqli_query($con,"SELECT p.Name `products`,i.Quantity `invoiceitems`,i.Rate `invoiceitems`,i.Amount `invoiceitems`
@@ -165,7 +217,7 @@
             ';
         }
     }
-    function addUser($con,$db=false,$update=false){
+    function addUser($con, $db=false,$update=false){
         if($db){
             $firstName=$_POST['firstName'];
             $lastName=$_POST['lastName'];

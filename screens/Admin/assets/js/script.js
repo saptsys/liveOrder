@@ -2,6 +2,7 @@ $(document).ready(function () {
     getUsers();
     getTables();
     getInvoices();
+    getProducts();
     setInterval(() => {
         getUsers();
         getTables();
@@ -10,6 +11,53 @@ $(document).ready(function () {
         getInvoices();
     }, 10000);
 });
+
+
+async function productClicked(id,name){
+   try{
+    await $.ajax({
+            url: 'action.php',
+            type: 'POST',
+            data: {
+                flag: 'getAllProducts',
+                id: id,
+                catName:name
+            },
+        })
+        .done(function(data) {
+           $("#modal #modelBody").html(data)
+           $("#modal #modelHeader").html(name)
+           $("#modal").modal('show');
+        }).fail(function(data) {
+            console.log(data);
+        })
+        .always(function() {
+            console.log("getAllProducts load complete");
+        });
+   }catch(e){
+       console.log(e)
+   }finally{
+       console.log("getAllProducts load finally complete");
+   }
+}
+
+function getProducts(){
+    $.ajax({
+        url: 'action.php',
+        type: 'POST',
+        data: {flag: 'getProducts'},
+    })
+    .done(function(data) {
+       $("#products").html(data)
+    }).fail(function() {
+        console.log("error");
+        })
+    .always(function() {
+        console.log("products load complete");
+    });
+    
+}
+
 function getInvoices(){
     $.post("action.php", {flag:'getInvoices'},
         function (data) {            
