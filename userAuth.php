@@ -36,6 +36,7 @@ class authenticate extends config{
         $_SESSION['user']=$user;
         $_SESSION['pass']=$pass;
         $_SESSION['role']=$this->Data["Role"];
+        $_SESSION['fullName']=$this->Data["FirstName"].' '.$this->Data["LastName"];
     }
     public function checkdb(){
         $ok=false;
