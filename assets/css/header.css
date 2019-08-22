@@ -1,18 +1,6 @@
 #main-page{
     margin-top: 50px;
-}
-#header{
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    background: #8E2DE2;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: #f5f5f5;
-    padding: 1px 5px 5px 10px;
-}
-#header .logout-btn{
+}#header .logout-btn{
     background: rgba(0,0,0,0);
     border: 2px solid #fff;
     float:right;
@@ -30,6 +18,7 @@
 body {margin: 0; padding: 0;}
 
 #header {
+    background: #8E2DE2;  /* fallback for old browsers */
     background: rgba(255, 0, 89, 1);
     background: -webkit-linear-gradient(45deg, rgba(255, 0, 89, 1) 0%, rgba(0, 179, 255, 1) 33%, rgba(255, 0, 89, 1) 66%, rgba(0, 179, 255, 1) 100%);
     background: -moz-linear-gradient(45deg, rgba(255, 0, 89, 1) 0%, rgba(0, 179, 255, 1) 33%, rgba(255, 0, 89, 1) 66%, rgba(0, 179, 255, 1) 100%);
@@ -40,6 +29,13 @@ body {margin: 0; padding: 0;}
     -webkit-animation: errorBg 10s linear infinite;
     -moz-animation: errorBg 10s linear infinite;
     animation: errorBg 10s linear infinite;
+
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    color: #f5f5f5;
+    padding: 1px 5px 5px 10px;
 }
 
 @-webkit-keyframes errorBg {
