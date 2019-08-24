@@ -73,14 +73,13 @@
                                 <th>#</th>
                                 <th>Category</th>
                                 <th>No. of Products</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="products"></tbody>
                     </table>
                 </div>
             </div>
-
-
 
             <div id="menu1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableWrapper ">
                 <div class="panel panel-default">

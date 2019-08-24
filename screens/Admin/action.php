@@ -31,7 +31,7 @@
         $query = mysqli_query($con,"select * FROM products where CatId =".$catId);
         echo'
                 <table class="table-striped table">
-                    <thead class="tableheading">
+                    <thead class="thead-light">
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
@@ -58,10 +58,15 @@
                 $totalCats = mysqli_affected_rows($con);
                 echo'
                     <tr id="product_'.$fetch["Id"].'" 
-                    onclick="productClicked('.$fetch['Id'].','.'\''.$fetch['Name'].'\''.')">
+                    param="'.$fetch['Id'].','.''.$fetch['Name'].''.'">
                         <td>'.$fetch["Id"].'</td>
                         <td>'.$fetch["Name"].'</td>
                         <td>'.$totalCats.'</td>
+                        <td>
+                            <button id='.$fetch["Id"].' style="text-align:center" type="button" class="btn btn-primary-outline">
+                                <i style="color:orange" class="fa fa-pencil-alt"></i>
+                            </button>
+                        </td>
                     </tr>
                 ';
             }

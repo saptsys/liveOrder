@@ -12,10 +12,58 @@ $(document).ready(function () {
     }, 10000);
 });
 
+$('#products').on('click', 'tr', function() {
+    param = $(this).attr('param').split(',');
+    productClicked(param[0],param[1])
+});
 
-async function productClicked(id,name){
+$('#products').on('click','td button', function(e) {
+    alert($(this).attr('id'))
+    e.stopPropagation();
+});
+
+
+$("#addProductInputBtn").click(function(event) {
+   addProductInputForm()
+});
+
+
+function addProductInputForm(){
+    markup = `   
+      <div class="col-md-12 col-sm-12 col-xs-12 productFormX">
+        <div class="col-md-9 col-sm-9 col-xs-12">
+          <label class=control-label>Product</label>
+          <input class="form-control" id="pro1" type="text" placeholder="Product1">
+        </div>
+        <div class="col-md-2  col-sm-2 col-xs-6 ">
+          <label class=control-label>Price</label>
+          <input class="form-control" id="pri1" type="text" placeholder="Price1">
+        </div>
+        <div class="col-md-1  col-sm-1 col-xs-1 ">
+          <label class=control-label>Remove</label>
+          <button onclick="removeProductInputForm()" style="text-align:center" type="button"  class="form-control btn btn-primary">
+            <i class="fa fa-lg fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      `
+      markup = $("#productInputWrapper :last-child").html()
+      console.log(markup)
+    $("#productInputWrapper").append(markup)
+}
+
+function addProducts(){
+    $.get('addProductModal.html', function(data) {
+        $("#modal #modelBody").html(data)
+        $("#modal").modal('show')
+        $("#modal #modelHeader").html("Add Product")
+    });
+    
+}
+
+function productClicked(id,name){         
    try{
-    await $.ajax({
+    $.ajax({
             url: 'action.php',
             type: 'POST',
             data: {
@@ -25,9 +73,25 @@ async function productClicked(id,name){
             },
         })
         .done(function(data) {
-           $("#modal #modelBody").html(data)
-           $("#modal #modelHeader").html(name)
-           $("#modal").modal('show');
+            $("#dialog").html(data);
+            $("#dialog").animate({scrollTop:0},10);
+            $('#dialog').dialog({
+                open : function() {
+                    $('#dialog').dialog( "option" , "title" ,name);
+                },
+                buttons: {
+                    'Close': function() {
+                      $( this ).dialog( "close" );
+                    }
+                },
+                width:320,
+                maxHeight:400
+            });
+
+
+            // $("#modal #modelBody").html(data)
+            // $("#modal #modelHeader").html(name)
+            // $("#modal").modal('show');
         }).fail(function(data) {
             console.log(data);
         })

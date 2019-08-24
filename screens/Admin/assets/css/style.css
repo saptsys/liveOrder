@@ -95,3 +95,9 @@ td:last-child{
     left: 0;
     z-index: 10000;
 }
+
+.padding-0{
+    padding-right:2px;
+    padding-left:0;
+}
+label
