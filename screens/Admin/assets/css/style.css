@@ -100,4 +100,11 @@ td:last-child{
     padding-right:2px;
     padding-left:0;
 }
-label
+.productFormX{
+    padding-top: 5px;
+}
+
+#productInputWrapper{
+    max-height: 52vh;
+    overflow-y: auto;
+}

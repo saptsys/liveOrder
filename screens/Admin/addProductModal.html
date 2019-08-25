@@ -6,22 +6,20 @@
         </div>
     </div>
     <div class="form-group" id="productInputWrapper">
-      <div>
-        <div class="col-md-12 col-sm-12 col-xs-12 productFormX ">
-          <div class="col-md-9 col-sm-9 col-xs-9 padding-0">
-            <label class=control-label>Product</label>
-            <input class="form-control productX" id="Product1" type="text" placeholder="Product1">
-          </div>
-          <div class="col-md-2  col-sm-2 col-xs-2 padding-0">
-            <label class=control-label>Price</label>
-            <input class="form-control priceX" id="Price1" type="text" placeholder="Price1">
-          </div>
-          <div class="col-md-1  col-sm-1 col-xs-1 padding-0">
-            <label class=control-label>Remove</label>
-            <button onclick="removeProductInputForm()" type="button"  class="form-control btn btn-primary">
-              <i class="fa fa-sm fa-trash"></i>
-            </button>
-          </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 productFormX" id="form_1">
+        <div class="col-md-9 col-sm-9 col-xs-7 padding-0">
+          <!-- <label class=control-label>Product</label> -->
+          <input class="form-control productX" id="Product_1" name="productNames[]" type="text" placeholder="Product1">
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-3 padding-0">
+          <!-- <label class=control-label>Price</label> -->
+          <input class="form-control priceX" id="Price_1" name="productPrices[]" type="text" placeholder="Price1">
+        </div>
+        <div class="col-md-1  col-sm-1 col-xs-2 padding-0">
+          <!-- <label class=control-label>Remove</label> -->
+          <button type="button"  class="form-control btn btn-primary removeProductInputForm">
+            <i class="fa fa-sm fa-trash"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -29,7 +27,7 @@
   
 <center>
   <div class="input-group">
-    <button onclick="addProductInputForm()" style="text-align:center" type="button"  class="btn btn-primary">
+    <button id="addProductInputBtn" style="text-align:center" type="button"  class="btn btn-primary">
       Add Product
       <i class="fa fa-lg fa-plus-circle"></i>
     </button>

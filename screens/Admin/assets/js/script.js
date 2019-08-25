@@ -1,19 +1,27 @@
 $(document).ready(function () {
-    getUsers();
-    getTables();
-    getInvoices();
+    // getUsers();
+    // getTables();
+    // getInvoices(); 
     getProducts();
-    setInterval(() => {
-        getUsers();
-        getTables();
-    }, 5000);
-    setInterval(() => {
-        getInvoices();
-    }, 10000);
+    // setInterval(() => {
+    //     getUsers();
+    //     getTables();
+    // }, 5000);
+    // setInterval(() => {
+    //     getInvoices();
+    // }, 10000);
 });
 
+
+$("#modelBody").on('click', '#productInputWrapper .removeProductInputForm', function(e){
+    e.preventDefault()
+    if($("#productInputWrapper").children().length !== 1) $(this).parents('.productFormX').remove()
+    else alert("can't delete last element")
+});
+
+
 $('#products').on('click', 'tr', function() {
-    param = $(this).attr('param').split(',');
+    let param = $(this).attr('param').split(',');
     productClicked(param[0],param[1])
 });
 
@@ -22,34 +30,19 @@ $('#products').on('click','td button', function(e) {
     e.stopPropagation();
 });
 
-
-$("#addProductInputBtn").click(function(event) {
-   addProductInputForm()
+$("#modelBody").on('click', '#addProductInputBtn', function(e){
+    addProductInputForm()
 });
 
 
+
 function addProductInputForm(){
-    markup = `   
-      <div class="col-md-12 col-sm-12 col-xs-12 productFormX">
-        <div class="col-md-9 col-sm-9 col-xs-12">
-          <label class=control-label>Product</label>
-          <input class="form-control" id="pro1" type="text" placeholder="Product1">
-        </div>
-        <div class="col-md-2  col-sm-2 col-xs-6 ">
-          <label class=control-label>Price</label>
-          <input class="form-control" id="pri1" type="text" placeholder="Price1">
-        </div>
-        <div class="col-md-1  col-sm-1 col-xs-1 ">
-          <label class=control-label>Remove</label>
-          <button onclick="removeProductInputForm()" style="text-align:center" type="button"  class="form-control btn btn-primary">
-            <i class="fa fa-lg fa-trash"></i>
-          </button>
-        </div>
-      </div>
-      `
-      markup = $("#productInputWrapper :last-child").html()
-      console.log(markup)
+    let markup = $($("#productInputWrapper").children().last().prop('outerHTML'))
+    let id = parseInt($(markup).attr('id').split('_')[1]) + 1 
+    markup.attr('id', 'form_'+id);
     $("#productInputWrapper").append(markup)
+    let wtf = $('#productInputWrapper');
+    wtf.scrollTop(wtf[0].scrollHeight);
 }
 
 function addProducts(){
@@ -58,7 +51,7 @@ function addProducts(){
         $("#modal").modal('show')
         $("#modal #modelHeader").html("Add Product")
     });
-    
+
 }
 
 function productClicked(id,name){         
@@ -87,8 +80,6 @@ function productClicked(id,name){
                 width:320,
                 maxHeight:400
             });
-
-
             // $("#modal #modelBody").html(data)
             // $("#modal #modelHeader").html(name)
             // $("#modal").modal('show');
