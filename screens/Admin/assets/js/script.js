@@ -15,7 +15,11 @@ $(document).ready(function () {
 
 $("#modelBody").on('click', '#productInputWrapper .removeProductInputForm', function(e){
     e.preventDefault()
-    if($("#productInputWrapper").children().length !== 1) $(this).parents('.productFormX').remove()
+    if($("#productInputWrapper").children().length !== 1){
+       elem = $(this).parents('.productFormX').hide('fast', function() {
+           elem.remove()
+       });
+    } 
     else alert("can't delete last element")
 });
 
@@ -34,15 +38,47 @@ $("#modelBody").on('click', '#addProductInputBtn', function(e){
     addProductInputForm()
 });
 
+$("#modelFooter").on('click', '#submitProductsBtn', function(e){
+    submitProducts();
+});
 
+function submitProducts(){
+    let productsList = {}
+    productsList.catName = $('#catName').val();
+    productsList.product = $("input[name='productNames[]']").map(function(){return $(this).val();}).get();
+    productsList.prices = $("input[name='productPrices[]']").map(function(){return $(this).val();}).get();
+    $.ajax({
+        url: 'action.php',
+        type: 'POST',
+        data: {flag: 'submitProducts',
+               'data':productsList
+           },
+    })
+    .done(function(data) {
+        console.log(data);
+    })
+    .fail(function() {
+        console.log("error");
+    })
+    .always(function() {
+        console.log("complete");
+    });
+        
+}
 
 function addProductInputForm(){
+
     let markup = $($("#productInputWrapper").children().last().prop('outerHTML'))
-    let id = parseInt($(markup).attr('id').split('_')[1]) + 1 
+    let id = parseInt($(markup).attr('id').split('_')[1]) + 1
     markup.attr('id', 'form_'+id);
-    $("#productInputWrapper").append(markup)
-    let wtf = $('#productInputWrapper');
-    wtf.scrollTop(wtf[0].scrollHeight);
+    $("#addProductInputBtn").attr('id', 'addProductInputBtnX');
+    markup.hide().appendTo('#productInputWrapper').show('fast', function() {
+        let wtf = $('#productInputWrapper');
+        wtf.scrollTop(wtf[0].scrollHeight);
+        $("#addProductInputBtnX").attr('id', 'addProductInputBtn');
+    });
+
+        
 }
 
 function addProducts(){

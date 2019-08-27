@@ -163,18 +163,23 @@
                 <div class="modal-body" id="modelBody">
                   <p>ModelBody</p>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer" id="modelFooter">
+                    <div class="input-group">
+                        <button id="submitProductsBtn"  type="button"  class="btn-block btn btn-success">
+                            Sumbit
+                            <i class="fa fa-sm fa-check-circle"></i>
+                        </button>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn-block btn btn-danger" data-dismiss="modal">
+                                Close
+                            </button>
+                        </span>
+                    </div>
                 </div>
               </div>
             </div>
           </div>
-        
-
-        </div>
         <div id="dialog"> </div>
-
-
     </div>
     <script src="./assets/js/script.js"></script>
 </body>

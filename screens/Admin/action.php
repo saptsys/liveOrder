@@ -24,8 +24,12 @@
     if($flag=="getInvoiceData") getInvoiceData($con,$_POST['id']);
     if($flag=="getProducts") getProducts($con);
     if($flag=="getAllProducts") getAllProducts($con,$_POST['id'],$_POST['catName']);
+    if($flag=="submitProducts") submitProducts($con,$_POST['data']);
 
 
+    function submitProducts($con,$data){
+        print_r($data);
+    }
 
     function getAllProducts($con,$catId,$catName){
         $query = mysqli_query($con,"select * FROM products where CatId =".$catId);
@@ -165,7 +169,6 @@
             ';
         }
     }
-
     function getUsers($con){
         $query=mysqli_query($con,"SELECT * FROM `users`");
         if(mysqli_affected_rows($con) != 0){

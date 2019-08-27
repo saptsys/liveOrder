@@ -100,11 +100,23 @@ td:last-child{
     padding-right:2px;
     padding-left:0;
 }
-.productFormX{
-    padding-top: 5px;
+.padding0{
+    padding: 0 !important;
 }
-
 #productInputWrapper{
     max-height: 52vh;
     overflow-y: auto;
+    margin: 3px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+.productFormX{
+    padding: 2.5px;
+    padding-top:1.5px;
+    padding-bottom:2.5px;
+    border-bottom: 1px solid #ddd;
+}
+
+#productInputWrapper .productFormX:nth-child(odd){
+    background-color: #bfb9b95c; 
 }
