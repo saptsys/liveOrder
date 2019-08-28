@@ -103,7 +103,7 @@ td:last-child{
 .padding0{
     padding: 0 !important;
 }
-#productInputWrapper{
+.productInputWrapper{
     max-height: 52vh;
     overflow-y: auto;
     margin: 3px;
@@ -117,6 +117,6 @@ td:last-child{
     border-bottom: 1px solid #ddd;
 }
 
-#productInputWrapper .productFormX:nth-child(odd){
+.productInputWrapper .productFormX:nth-child(odd){
     background-color: #bfb9b95c; 
 }

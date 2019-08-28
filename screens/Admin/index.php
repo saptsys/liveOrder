@@ -165,10 +165,12 @@
                 </div>
                 <div class="modal-footer" id="modelFooter">
                     <div class="input-group">
-                        <button id="submitProductsBtn"  type="button"  class="btn-block btn btn-success">
+                        <span id="ExtraBtnModal">
+                            <button id="submitProductsBtn"  type="button"  class="btn-block btn btn-success">
                             Sumbit
-                            <i class="fa fa-sm fa-check-circle"></i>
-                        </button>
+                                <i class="fa fa-sm fa-check-circle"></i>
+                            </button>
+                        </span>
                         <span class="input-group-btn">
                             <button type="button" class="btn-block btn btn-danger" data-dismiss="modal">
                                 Close

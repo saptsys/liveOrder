@@ -25,10 +25,40 @@
     if($flag=="getProducts") getProducts($con);
     if($flag=="getAllProducts") getAllProducts($con,$_POST['id'],$_POST['catName']);
     if($flag=="submitProducts") submitProducts($con,$_POST['data']);
+    if($flag=="getProductsObject") getProductsObject($con,$_POST['id']);
 
+
+    function getProductsObject($con,$id){
+        $id = filter($id);
+        $obj = Array();
+        $obj['category']['name'] = mysqli_fetch_assoc(mysqli_query($con,"SELECT Name FROM categories WHERE id=$id"))['Name'];
+        $obj['category']['id'] = $id;
+        
+        $fire = mysqli_query($con,"SELECT Id,Name,Price FROM products WHERE CatId = $id");
+        while ($fetch = mysqli_fetch_assoc($fire)) $obj['products'][] = $fetch;
+        echo json_encode($obj);
+    }
 
     function submitProducts($con,$data){
-        print_r($data);
+        $catName = filter($data['catName']);
+        $products = filter($data['product']);
+        $prices = filter($data['prices']);
+
+        $sql = "INSERT INTO categories (Name) VALUES ('$catName')";
+        if (mysqli_query($con, $sql)) {
+            $cat_id = mysqli_insert_id($con);
+            for($i=0;$i<count($products);$i++){
+                $query = "INSERT INTO products (CatId,Name,Price) VALUES ('$cat_id','$products[$i]','$prices[$i]')";
+                if(mysqli_query($con,$query)){
+                    echo $products[$i]." - ".$prices[$i]." Inserterd\n";
+                }else echo "fck";
+            }
+        } else echo 'False'; 
+    }
+
+    function filter($data){
+        // apply filters
+        return $data;
     }
 
     function getAllProducts($con,$catId,$catName){
