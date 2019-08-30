@@ -30,10 +30,11 @@ $('#products').on('click', 'tr', function() {
 });
 $("#modelBody").on('click', '#addProductInputBtn', function(e){addProductInputForm()});
 $("#modelFooter").on('click', '#submitProductsBtn', function(e){submitProducts();});
+$("#modelFooter").on('click', '#submitEditProductsBtn', function(e){submitProducts(true);});
 
 
 
-$('#products').on('click','td button', function(e) {
+$('#products').on('click','td .productEdit', function(e) {
     let id = $(this).attr('id')
     $.ajax({
         url: 'action.php',
@@ -50,22 +51,46 @@ $('#products').on('click','td button', function(e) {
     e.stopPropagation();
 });
 
+$('#products').on('click','td .productDelete', function(e) {
+    if(confirm("Are You Sure.\nThis Action Can Not Be undone")){
+        let id = $(this).attr('id')
+        $.ajax({
+            url: 'action.php',
+            type: 'POST',
+            data: {flag: 'deleteProduct',id:id},
+        })
+        .done(function() {
+            
+        })
+        $(this).parents('tr').hide('fast', function() {
+                $(this).remove();
+        });
+    }
+
+    e.stopPropagation();
+});
+
 function showEditProductModal(obj){
     console.log(obj)
     $.get('addProductModal.html', function(markup) {
         markup = $(markup)
         $('#ExtraBtnModal button').attr('id', 'submitEditProductsBtn');
-        markup.children('center').remove()
-        markup.find('#catName').val(obj.category.name)
+        // markup.children('center').remove()
+        markup.find('#catName').val(obj.category.name).attr('data', obj.category.id);
 
         productForm = $(markup.find("#productInputWrapper").html())
         markup.find("#productInputWrapper").html("")
         proForm = "";
 
         for(k in obj.products){
-            productForm.find('.productX').attr('value',obj.products[k]['Name'])
-            productForm.find('.priceX').attr('value',obj.products[k]['Price'])
-
+            productForm.find('.productX').attr({
+                value: obj.products[k]['Name'],
+                data:  obj.products[k]['Id']
+            });
+            productForm.find('.priceX').attr({
+                value: obj.products[k]['Price'],
+                data:  obj.products[k]['Id']
+            });
             proForm += productForm.prop('outerHTML')
         }
         markup.find("#productInputWrapper").html(proForm)
@@ -76,25 +101,65 @@ function showEditProductModal(obj){
     });
 }
 
-function submitProducts(){
+
+function submitProducts(edit=false){
     let productsList = {}
+    productsList.isEdit = false
     productsList.catName = $('#catName').val();
     productsList.product = $("input[name='productNames[]']").map(function(){return $(this).val();}).get();
     productsList.prices = $("input[name='productPrices[]']").map(function(){return $(this).val();}).get();
-    $.ajax({
-        url: 'action.php',
-        type: 'POST',
-        data: {flag: 'submitProducts',
-               'data':productsList
-           },
-    })
-    .done(function(data) {
-        console.log(data);
-    })
-    .fail(function() {
-        console.log("error");
-    })
-        
+
+
+    let ok=false;
+    if(productsList.catName !== ""){
+        for(i in productsList.product){
+            if( (productsList.product[i] !== "") && (productsList.prices[i] !== "") ){
+                ok=true;
+                continue;
+            }else{
+                ok=false;
+                break;
+            }
+        }
+    }
+    if(ok){
+        if(edit){
+            productsList.isEdit = true;
+            productsList.proId = $('#catName').attr('data');
+            $.ajax({
+                url: 'action.php',
+                type: 'POST',
+                data: {flag : 'submitEditProducts',
+                       'data' : productsList
+                   },
+            })
+            .done(function(data) {
+                console.log(data);
+                getProducts();
+            })
+            .fail(function() {
+                console.log("error");
+            })
+        }else{
+             $.ajax({
+                url: 'action.php',
+                type: 'POST',
+                data: {flag: 'submitProducts',
+                       'data':productsList
+                   },
+            })
+            .done(function(data) {
+                console.log(data);
+                getProducts();
+            })
+            .fail(function() {
+                console.log("error");
+            })
+        }
+        $('#modal').modal('hide');
+    }else{
+        alert("Invalid")
+    }
 }
 
 function addProductInputForm(){
@@ -102,7 +167,8 @@ function addProductInputForm(){
     let markup = $($("#productInputWrapper").children().last().prop('outerHTML'))
     let id = parseInt($(markup).attr('id').split('_')[1]) + 1
     markup.attr('id', 'form_'+id);
-    $("#addProductInputBtn").attr('id', 'addProductInputBtnX');
+    markup.find('input').attr('value', '');
+    // $("#addProductInputBtn").attr({id:'addProductInputBtnX',data:0});
     markup.hide().appendTo('#productInputWrapper').show('fast', function() {
         let wtf = $('#productInputWrapper');
         wtf.scrollTop(wtf[0].scrollHeight);
@@ -114,19 +180,14 @@ function addProductInputForm(){
 
 function addProducts(){
     $.get('addProductModal.html', function(data) {
-
-        // btn = `<button id="submitProductsBtn"  type="button"  class="btn-block btn btn-success">
-        //                     Sumbit
-        //                     <i class="fa fa-sm fa-check-circle"></i>
-        //         </button>`
-        // $("#ExtraBtnModal").html(btn)
         $("#modal #modelBody").html(data)
         $("#modal").modal('show')
         $("#modal #modelHeader").html("Add Product")
+        $('#ExtraBtnModal button').attr('id', 'submitProductsBtn');
     });
 }
 
-function productClicked(id,name){         
+function productClicked(id,name){
    try{
     $.ajax({
             url: 'action.php',
@@ -152,9 +213,6 @@ function productClicked(id,name){
                 width:320,
                 maxHeight:400
             });
-            // $("#modal #modelBody").html(data)
-            // $("#modal #modelHeader").html(name)
-            // $("#modal").modal('show');
         }).fail(function(data) {
             console.log(data);
         })
@@ -301,7 +359,7 @@ function addUser (showDialog=true){
                     );
                 }
             }
-        });
+            });
         });
     }else{
         $.post("action.php",{flag:"addUserDB"},function(data){

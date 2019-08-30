@@ -26,7 +26,24 @@
     if($flag=="getAllProducts") getAllProducts($con,$_POST['id'],$_POST['catName']);
     if($flag=="submitProducts") submitProducts($con,$_POST['data']);
     if($flag=="getProductsObject") getProductsObject($con,$_POST['id']);
+    if($flag=="submitEditProducts") submitEditProducts($con,$_POST['data']);
+    if($flag=="deleteProduct") deleteProduct($con,$_POST['id']);
 
+    function submitEditProducts($con,$data){
+        deleteProduct($con,$data['proId']);
+        submitProducts($con,$data);
+    }
+
+    function deleteProduct($con,$id){
+        $sql = "DELETE FROM categories WHERE Id=$id";
+        $deleted = false;
+        if(mysqli_query($con,$sql)){
+            $deleted = true;
+            mysqli_query($con,"DELETE FROM products WHERE catId=$id");
+        }
+        echo "true";
+        return true;
+    }
 
     function getProductsObject($con,$id){
         $id = filter($id);
@@ -50,10 +67,11 @@
             for($i=0;$i<count($products);$i++){
                 $query = "INSERT INTO products (CatId,Name,Price) VALUES ('$cat_id','$products[$i]','$prices[$i]')";
                 if(mysqli_query($con,$query)){
-                    echo $products[$i]." - ".$prices[$i]." Inserterd\n";
-                }else echo "fck";
+                    // echo $products[$i]." - ".$prices[$i]." Inserterd\n";
+                }else return;
             }
-        } else echo 'False'; 
+        } else return;
+        echo $cat_id;
     }
 
     function filter($data){
@@ -85,7 +103,7 @@
     }
 
     function getProducts($con){
-        $query = mysqli_query($con,"select * from categories");
+        $query = mysqli_query($con,"select * from categories order by Id DESC");
         if(mysqli_affected_rows($con) != 0){
             while( $fetch=mysqli_fetch_assoc($query)){
                 $query2 = mysqli_query($con,"select Id FROM products where CatId =".$fetch['Id']);
@@ -97,8 +115,11 @@
                         <td>'.$fetch["Name"].'</td>
                         <td>'.$totalCats.'</td>
                         <td>
-                            <button id='.$fetch["Id"].' style="text-align:center" type="button" class="btn btn-primary-outline">
+                            <button id='.$fetch["Id"].' style="text-align:center" type="button" class="btn btn-primary-outline productEdit">
                                 <i style="color:orange" class="fa fa-pencil-alt"></i>
+                            </button>
+                            <button id='.$fetch["Id"].' style="text-align:center" type="button"  class="btn btn-primary-outline productDelete">
+                                <i style="color:#ff6666" class="fa fa-trash"></i>
                             </button>
                         </td>
                     </tr>
