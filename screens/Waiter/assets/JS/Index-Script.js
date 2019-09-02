@@ -3,7 +3,9 @@ var firstTime;
 var tabsFlag=true;
 $(document).ready(function(){
     /********************  AJAX  ****************** */
-    
+
+    this.hide();
+
     $( "#tabs" ).tabs();
     $("#tablesTab").click(function(){
         tabsFlag=true;
