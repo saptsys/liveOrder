@@ -50,8 +50,8 @@
                 <center>
                     <img src="../../assets/images/keval.jpg" alt="">
                     <h4><b>KEVAL H DHOLAKIYA</b></h4>
-                    <h6>Mobile : 8780484874</h6>
-                    <h6>E-Mail : kd.kevaldholakiya@gmail.com</h6>
+                    <h6>Mobile : 7096823708</h6>
+                    <h6>E-Mail : kevald47@gmail.com</h6>
                 </center>
             </div>
         </div>
