@@ -6,11 +6,11 @@ function logout(){
 
 $(document).ready(function(){
 
-    $("#header").hover(function(){
-        $("#iBtn").fadeIn(1500);
-    },function(){
-        $("#iBtn").fadeOut(1500);
-    });
+    // $("#iBtn").hover(function(){
+    //     $("#iBtn").css("opacity","1");
+    // },function(){
+    //     $("#iBtn").css("opacity",".4");
+    // });
 
     var iBtn_State = true;
     var header_height = $("#header").height();
@@ -22,16 +22,16 @@ $(document).ready(function(){
             $("#header").css("overflow","auto");
             $("#header").animate({
                 height:"100vh",
-                opacity:"0.9",
+                opacity:"0.97",
             },function(){
-                $("#info-page").show();
+                $("#info-page").slideDown(500);
             });
 
         }
         else
         {
             iBtn_State = true;
-            $("#info-page").hide();
+            $("#info-page").slideUp(500);
             $("#header").css("overflow","hidden");
             $("#header").animate({
                 height:header_height,

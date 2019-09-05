@@ -119,6 +119,7 @@
         </thead>
         <tbody>
         ";
+        $canGenerateBill = "yes";
         while($row = mysqli_fetch_array($data))
         {
             if($row[4]==0 && $row[2]>0)
@@ -127,6 +128,7 @@
             }
             else
             {
+                $canGenerateBill = "no";
                 $served="No";
             }
 
@@ -147,7 +149,9 @@
             ";
         }
         echo "</tbody>
-        </table>";
+        </table>
+        <input id='canGenerateBill' type='hidden' name='canGenerateBill' value=$canGenerateBill />
+        ";
     }
 
     function getInvoice($con,$tableId)
@@ -302,7 +306,7 @@
         }
         if($action=="sub")
         {
-            mysqli_query($con,"UPDATE `kitchen` SET `Pending`=`Pending`-1 WHERE `Id`=$kitchenId");
+            mysqli_query($con,"UPDATE `kitchen` SET `Pending`=`Pending`-1 WHERE `Id`=$kitchenId AND `Pending` != 0");
         }
         echo $kitchenId;
     }

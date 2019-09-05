@@ -4,8 +4,6 @@ var tabsFlag=true;
 $(document).ready(function(){
     /********************  AJAX  ****************** */
 
-    this.hide();
-
     $( "#tabs" ).tabs();
     $("#tablesTab").click(function(){
         tabsFlag=true;
@@ -204,19 +202,37 @@ function showOrderedList(TId){
         },
         success: function(data){
             $("#dialog").dialog("close");
-            $("#dialog").html("<p>"+data+"</p>").dialog({
-                modal: true,
-                buttons: {
-                    'Get Bill': function() {
-                      getInvoice(selectedTableId);
+            var Box = $("#dialog").html("<p>"+data+"</p>");
+            console.log($("#canGenerateBill").val());
+            if($("#canGenerateBill").val() == "yes")
+            {
+                Box.dialog({
+                    modal: true,
+                    buttons: {
+                        'Get Bill': function() {
+                        getInvoice(selectedTableId);
+                        },
+                        'Close': function() {
+                        $( this ).dialog( "close" );
+                        }
                     },
-                    'Close': function() {
-                      $( this ).dialog( "close" );
-                    }
-                },
-                width:320,
-                maxHeight:400
-            });
+                    width:320,
+                    maxHeight:400
+                });
+            }
+            else
+            {
+                Box.dialog({
+                    modal: true,
+                    buttons: {
+                        'Close': function() {
+                        $( this ).dialog( "close" );
+                        }
+                    },
+                    width:320,
+                    maxHeight:400
+                });
+            }
         }
     });
 }

@@ -41,8 +41,8 @@
                 <center>
                     <img src="../../assets/images/vaitul.jpg" alt="">
                     <h4><b>VAITUL B BHAYANI</b></h4>
-                    <h6>Mobile : 994021519</h6>
-                    <h6>E-Mail : vaitulb@gmail.com</h6>
+                    <h6>Mobile : 9904021519</h6>
+                    <h6>E-Mail : personal.vaitul@gmail.com</h6>
                 </center>
                 <br>
             </div>
