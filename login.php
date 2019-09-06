@@ -45,7 +45,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                    <center ><button type="submit" name="submit" class="btn btn-primary" style="font-size:12pt; width:90px;border-radius:100px;">Login <i class="fa fa-arrow-right"></i></button></center>
+                    <center >
+                        <a href='index.php' class="btn btn-danger" style="font-size:12pt; width:90px;border-radius:100px;" onclick="cancel()"><i class="fa fa-arrow-left"></i>Cancel</a>
+                        <button type="submit" name="submit" class="btn btn-primary" style="font-size:12pt; width:90px;border-radius:100px;">Login <i class="fa fa-arrow-right"></i></button>
+                    </center>
                 </div>
 
                 </form>
@@ -54,3 +57,11 @@
     </div>
 </body>
 </html>
+
+<script>
+    function cancel()
+    {
+        console.log("Hello");
+        window.location = "../";
+    }
+</script>

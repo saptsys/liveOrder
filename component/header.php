@@ -2,7 +2,18 @@
         <h1>
             <i class="fas fa-glass-cheers"></i><b> Live Orders</b>
             <span class='fas fa-info-circle' id="iBtn"></span>
-            <button onclick="logout()" class='logout-btn btn'>Logout <br>  <?php echo ucwords($_SESSION['fullName']); ?>
+
+            <?php
+                if(!(isset($_SESSION['user']) && isset($_SESSION['pass']) && isset($_SESSION['role'])))
+                {
+                    echo "<button onclick='login()' class='login-btn btn'>Login";
+                }
+                else
+                {
+                    echo "<button onclick='logout()' class='logout-btn btn'>Logout <br>".ucwords(@$_SESSION['fullName']);
+                }
+            ?>
+
             </button>
         </h1>
 
@@ -16,7 +27,7 @@
             </div>
         </div>
 
-        <br/>
+        <!-- <br/>
         <br/>
         
         <div class="row">
@@ -27,7 +38,7 @@
                     <h4>Fork Repository <a href="https://github.com/liveOrder">https://github.com/liveOrder</a></h4>
                 </blockquote>
             </div>
-        </div>
+        </div> -->
 
         <br/>
         <br/>

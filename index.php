@@ -7,5 +7,5 @@
         $auth=new authenticate($user,$pass,false,true);
         if($auth->authenticated) $ok=true;
     }
-    if(!$ok) header('Location: login.php');
+    if(!$ok) header('Location: screens/Menu');
 ?>

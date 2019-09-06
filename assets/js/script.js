@@ -1,6 +1,9 @@
 function logout(){
     window.location="../../lib/logout.php";
 }
+function login(){
+    window.location="../../login.php";
+}
 
 
 

@@ -69,12 +69,16 @@
                         $data_products = mysqli_query($con,"SELECT * from `products` WHERE `CatId`=$row_categories[0] ORDER BY `Name`");
                         while($row_products = mysqli_fetch_array($data_products))
                         {
-                            echo "<li>$row_products[Name]
+                            $class="
                             <span>
                                 <i class='fa fa-minus' onclick='subtractQ($row_products[Id])'></i>
                                 <b id='Q$row_products[Id]' class='counter'>0</b>
                                 <i class='fa fa-plus' onclick='addQ($row_products[Id])'></i>
-                            </span>
+                            </span>";
+                            if(!$row_products[4])
+                                $class = "<span style='background:transparent;font-size:9pt'>Not Available</span>";
+                            echo "<li>$row_products[Name]
+                            $class
                             </li>";
                         }
                     echo"

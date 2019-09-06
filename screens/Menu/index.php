@@ -1,26 +1,5 @@
 <?php
     session_start();
-    if( ( (isset($_COOKIE['user'])) && (isset($_COOKIE['pass'])) ) ){
-        if( !( isset($_SESSION['user']) && isset($_SESSION['pass']) && isset($_SESSION['role']) ) ){
-            require_once '../../LoginAuth.php';
-            $auth = new authenticate($_COOKIE['user'],$_COOKIE['pass'],false,true);
-            if(!$auth->authenticated) header('Location: ../../');
-            else{
-                header('Location: ../../');
-                exit();
-            }
-        }else{
-            if(! ($_SESSION['role'] == "Chef") ){
-                header('Location: ../../');
-            }
-        }
-    }else{
-        header('Location: ../../');
-        exit();
-    }
-    include "../../config.php";
-    $mycon = new config();
-    $con = $mycon->db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home : Chef</title>
+    <title>Menu</title>
     <link rel="icon" href="https://image.flaticon.com/icons/png/512/65/65155.png">
     <link rel="stylesheet" href="../../assets/css/header.css">
     <script src="../../assets/js/script.js"></script>
@@ -49,23 +28,24 @@
 
   
     <div id="main-page" class="container">
-        <div id="loader">
-            <img src="../../assets/images/loader.gif" width=100px alt="Loading..">
+        <center><br/><h3><i class='fas fa-cocktail'></i> Menu</h3></center>
+        <br/>
+        <div class="row search-box-row">
+            <div class="col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-offset-1 col-xs-10">
+                <!-- <select class="mdb-select md-form filter-box">
+                    <option value="" disabled selected>Filter</option>
+                    <option value="1">All</option>
+                    <option value="2">Category</option>
+                    <option value="3">Recipes</option>
+                </select> -->
+                <input class="search-box" id="searchBox" type="text" tabindex=0 placeholder="Search Recipes / Category" aria-label="Search">
+            </div>
         </div>
-        <div class="wrapper">
-            <table class="table table-striped">
-                <thead >
-                    <tr >
-                        <th>Dish</th>
-                        <th>Pending</th>
-                        <th>Action</th>
-                        <!-- <th>Table</th> -->
-                    </tr>
-                </thead>
-                <tbody id="content"> </tbody>
-            </table>
+        <hr/>
+        <div class="row result-row">
+
         </div>
-    </div> <!-- #main-page .container .row -->
+    </div>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

@@ -13,9 +13,20 @@ body{
     padding: 5px;
     font-size: 10pt;    
 }
-#header .logout-btn:hover{
-    color: #8E2DE2;
-    background: #f5f5f5;
+#header .logout-btn:hover,.login-btn:hover{
+    color: #8E2DE2 !important;
+    background: #f5f5f5 !important;
+}
+#header .login-btn{
+    background: rgba(0,0,0,0);
+    border: 2px solid #fff;
+    float:right;
+    border-radius:5px;
+    font-weight: bold;
+    margin-top: 0px;
+    padding: 5px;
+    font-size: 11pt; 
+    color: #fff;   
 }
 
 body {margin: 0; padding: 0;}
