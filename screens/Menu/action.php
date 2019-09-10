@@ -18,10 +18,7 @@
         $data = mysqli_query($con,"SELECT categories.Name,products.Name AS PName,products.Price,products.IsAvailable FROM products JOIN categories ON products.CatId=categories.Id WHERE products.Name LIKE '$query%' OR categories.Name LIKE '$query%' ORDER BY CatId");
 
         if($data == null)
-        {
-            echo "No search results";
             return;
-        }
         $categories = array(array());
         while($row = mysqli_fetch_array($data)){
             $categories[$row['Name']][] = array($row['PName'],$row["Price"],$row["IsAvailable"]);

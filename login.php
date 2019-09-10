@@ -1,13 +1,8 @@
 <?php
-    $ok=false;
-    if( (isset($_COOKIE['user'])) && ( isset($_COOKIE['pass']) ) ){
-        $user=$_COOKIE['user'];
-        $pass=$_COOKIE['pass'];
-        require_once "auth.php";
-        $auth=new authenticate($user,$pass,false,true);
-        if($auth->authenticated) $ok=true;
+    session_start();
+    if(isset($_SESSION['user']) && isset($_SESSION['pass']) && isset($_SESSION['role']) ){
+        header("location:index.php");
     }
-    if($ok) header('Location: index.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
