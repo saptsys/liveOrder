@@ -1,4 +1,12 @@
 <!-- <span>Creating Database : <div id="lab" style="height:20px;width:100%;background:green;"><div></span> -->
+
+<?php
+$ok=false;
+if( (isset($_COOKIE['user'])) && ( isset($_COOKIE['pass']) ) ){
+	echo "You need to <a href='../lib/logout.php?flag=dbini'>Logout</a> first !";	
+}
+else
+{?>
 <html lang="en">
 <head>
 	<title>Database Management</title>
@@ -19,9 +27,6 @@
 </body>
 </html>
 <?php
-$ok=false;
-if( (isset($_COOKIE['user'])) && ( isset($_COOKIE['pass']) ) ){
-	echo "You need to <a href='../lib/logout.php?flag=dbini'>Logout</a> first !";	
 }
 
 if(isset($_POST["initialize_btn"]))

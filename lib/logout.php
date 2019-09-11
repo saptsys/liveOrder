@@ -7,7 +7,6 @@
     if(isset($_GET['flag']))
     {
         $flag = $_GET['flag'];
-        echo $flag;
         if($flag == "dbini") header('location: ../Database/initialize.php');
     }
     else
