@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
     session_start();
     include "../../config.php";
     $mycon = new config();
@@ -93,8 +94,6 @@
     {
         mysqli_query($con,"UPDATE `tables` SET `IsOccupied`=1 WHERE `Id`=$tableId") or die("error to set is occupied = 1");
         foreach ($items as $productId => $productQuantity) {
-
-       
             $data = mysqli_query($con,"SELECT `Id` FROM `kitchen` WHERE `ProductId`=$productId AND `TableId`=$tableId LIMIT 1");
             if(mysqli_num_rows($data)>0)
             {   
@@ -103,9 +102,11 @@
             }
             else
             {
-                mysqli_query($con,"INSERT INTO `kitchen`(`Id`, `TableId`, `ProductId`, `Quantity`, `Pending`, `isReady`) VALUES (null,$tableId,$productId,0,$productQuantity,0)") or die("error to insert data in kitchen");
+                mysqli_query($con,"INSERT INTO `kitchen`(`Id`, `TableId`, `ProductId`, `Pending`) VALUES (null,$tableId,$productId,$productQuantity)") or die("error to insert data in kitchen");
             }
         }
+        print_r($items);
+        echo $tableId;
     }
 
     function getOrderedList($con,$tableId)
