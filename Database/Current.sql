@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 06, 2019 at 10:19 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.1.28
+-- Host: localhost:3306
+-- Generation Time: Dec 08, 2019 at 04:21 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,8 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `liveorder`
+-- Database: `id8558475_liveorder`
 --
+CREATE DATABASE IF NOT EXISTS `liveorder` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `liveorder`;
 
 -- --------------------------------------------------------
 
@@ -28,26 +30,31 @@ SET time_zone = "+00:00";
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
-  `Id` int(3) NOT NULL,
-  `Name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `Id` int(3) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `categories`
+--
+
+TRUNCATE TABLE `categories`;
 --
 -- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`Id`, `Name`) VALUES
-(2, 'Capricosa'),
-(3, 'Garlic'),
-(4, 'Kathiyawadi'),
-(5, 'Panjabi'),
-(6, 'Gujarati'),
-(7, 'Pizza'),
 (8, 'Chinees'),
-(9, 'Amarican'),
-(10, 'Sauth'),
-(11, 'Tropical');
+(14, 'Drink Soda'),
+(15, 'Amarican'),
+(16, 'Pizza'),
+(17, 'Gujarati'),
+(18, 'Panjabi'),
+(19, 'Kathiyawadi'),
+(20, 'Garlic'),
+(21, 'South Indian');
 
 -- --------------------------------------------------------
 
@@ -55,15 +62,21 @@ INSERT INTO `categories` (`Id`, `Name`) VALUES
 -- Table structure for table `invoiceitems`
 --
 
-CREATE TABLE `invoiceitems` (
-  `Id` int(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `invoiceitems` (
+  `Id` int(3) NOT NULL AUTO_INCREMENT,
   `InvoiceId` int(3) NOT NULL,
   `ProductId` int(3) NOT NULL,
   `Quantity` int(2) NOT NULL,
   `Rate` double NOT NULL,
-  `Amount` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Amount` double NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `invoiceitems`
+--
+
+TRUNCATE TABLE `invoiceitems`;
 --
 -- Dumping data for table `invoiceitems`
 --
@@ -168,7 +181,12 @@ INSERT INTO `invoiceitems` (`Id`, `InvoiceId`, `ProductId`, `Quantity`, `Rate`, 
 (118, 10, 34, 3, 35, 105),
 (119, 10, 35, 2, 99, 198),
 (120, 11, 6, 5, 35, 175),
-(121, 11, 8, 3, 105, 315);
+(121, 11, 8, 3, 105, 315),
+(122, 12, 11, 2, 70, 140),
+(123, 12, 12, 1, 85, 85),
+(124, 12, 16, 1, 150, 150),
+(125, 12, 34, 2, 35, 70),
+(126, 12, 35, 2, 99, 198);
 
 -- --------------------------------------------------------
 
@@ -176,17 +194,23 @@ INSERT INTO `invoiceitems` (`Id`, `InvoiceId`, `ProductId`, `Quantity`, `Rate`, 
 -- Table structure for table `invoices`
 --
 
-CREATE TABLE `invoices` (
-  `Id` int(3) NOT NULL,
-  `Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `invoices` (
+  `Id` int(3) NOT NULL AUTO_INCREMENT,
+  `Time` timestamp NOT NULL DEFAULT current_timestamp(),
   `TableId` int(2) NOT NULL,
   `GrossAmount` double NOT NULL,
   `GSTP` double NOT NULL,
   `GSTRs` double NOT NULL,
   `TotalAmount` double NOT NULL,
-  `Waiter` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Waiter` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `invoices`
+--
+
+TRUNCATE TABLE `invoices`;
 --
 -- Dumping data for table `invoices`
 --
@@ -202,7 +226,8 @@ INSERT INTO `invoices` (`Id`, `Time`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`,
 (8, '2019-08-20 17:42:52', 1, 0, 18, 0, 0, 'tonystark'),
 (9, '2019-08-27 12:54:36', 1, 105, 18, 18.9, 123.9, 'tonystark'),
 (10, '2019-08-27 12:56:49', 1, 1143, 18, 205.74, 1348.74, 'tonystark'),
-(11, '2019-09-05 04:30:48', 1, 490, 18, 88.2, 578.2, 'tonystark');
+(11, '2019-09-05 04:30:48', 1, 490, 18, 88.2, 578.2, 'tonystark'),
+(12, '2019-12-08 15:33:07', 6, 643, 18, 115.74, 758.74, 'tonystark');
 
 -- --------------------------------------------------------
 
@@ -210,76 +235,81 @@ INSERT INTO `invoices` (`Id`, `Time`, `TableId`, `GrossAmount`, `GSTP`, `GSTRs`,
 -- Table structure for table `kitchen`
 --
 
-CREATE TABLE `kitchen` (
-  `Id` int(3) NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `kitchen` (
+  `Id` int(3) NOT NULL AUTO_INCREMENT,
+  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `TableId` int(3) NOT NULL,
   `ProductId` int(3) NOT NULL,
   `Quantity` int(2) NOT NULL,
   `Pending` int(2) NOT NULL,
-  `isReady` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `isReady` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `kitchen`
+--
+
+TRUNCATE TABLE `kitchen`;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `products`
 --
 
-CREATE TABLE `products` (
-  `Id` int(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `products` (
+  `Id` int(3) NOT NULL AUTO_INCREMENT,
   `CatId` int(3) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Price` double NOT NULL,
-  `IsAvailable` enum('1','0') NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `IsAvailable` enum('1','0') NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `products`
+--
+
+TRUNCATE TABLE `products`;
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`Id`, `CatId`, `Name`, `Price`, `IsAvailable`) VALUES
-(6, 2, 'Chees', 35, '1'),
-(7, 2, 'Olive Oil', 55, '1'),
-(8, 2, 'Bacon', 105, '1'),
-(9, 2, 'Chees', 70, '1'),
-(10, 2, 'Olive Oil', 56, '1'),
-(11, 3, 'Chees', 70, '1'),
-(12, 3, 'Oil', 85, '1'),
-(13, 3, 'Bread', 80, '1'),
-(14, 3, 'Regular', 35, '1'),
-(15, 3, 'Paubhaji', 99, '1'),
-(16, 3, 'Double Chees', 150, '1'),
-(17, 4, 'Souce', 85, '1'),
-(18, 4, 'Oil', 20, '1'),
-(19, 4, 'Bread', 80, '1'),
-(20, 4, 'Regular Panir tika', 35, '1'),
-(21, 5, 'Chees', 30, '1'),
-(22, 5, 'Sauce', 15, '1'),
-(23, 5, 'Ham', 45, '1'),
-(24, 6, 'Bacon', 20, '1'),
-(25, 6, 'Pineapple', 75, '1'),
-(26, 7, 'Chees', 35, '1'),
-(27, 7, 'Olive Oil', 55, '1'),
-(28, 7, 'Bacon', 105, '1'),
-(29, 7, 'Chees', 70, '1'),
 (30, 8, 'Olive Oil', 56, '1'),
 (31, 8, 'Chees', 70, '1'),
 (32, 8, 'Oil', 85, '1'),
 (33, 8, 'Bread', 80, '1'),
-(34, 9, 'Regular', 35, '1'),
-(35, 9, 'Paubhaji', 99, '1'),
-(36, 10, 'Double Chees', 150, '1'),
-(37, 10, 'Souce', 85, '1'),
-(38, 10, 'Oil', 20, '1'),
-(39, 10, 'Bread', 80, '1'),
-(40, 10, 'Regular Panir tika', 35, '1'),
-(41, 11, 'Chees', 30, '1'),
-(42, 11, 'Sauce', 15, '1'),
-(43, 11, 'Ham', 45, '1'),
-(44, 11, 'Bacon', 20, '1'),
-(45, 11, 'Pineapple', 75, '1'),
-(46, 11, 'Dosa', 60, '1');
+(56, 14, 'Cock', 15, '1'),
+(57, 14, 'Thumbsup', 17, '1'),
+(58, 14, 'Sprite', 20, '1'),
+(59, 14, 'Maza', 20, '1'),
+(60, 14, 'Fanta', 20, '1'),
+(61, 15, 'Burger', 35, '1'),
+(62, 15, 'Paubhaji', 99, '1'),
+(63, 16, 'Peppy Paneer', 35, '1'),
+(64, 16, 'Margherita', 55, '1'),
+(65, 16, 'Deluxe Veggie', 105, '1'),
+(66, 17, 'Dhokla', 40, '1'),
+(67, 17, 'Gujarati Samosa', 75, '1'),
+(68, 17, 'Undhiyu', 80, '1'),
+(69, 17, 'Aam Shrikhand with Mango Salad', 150, '1'),
+(70, 17, 'Patra', 70, '1'),
+(71, 18, 'Dal Makhani', 30, '1'),
+(72, 18, 'Dhaba Dal', 15, '1'),
+(73, 18, 'Paneer Tikka', 45, '1'),
+(74, 19, 'Thepla', 85, '1'),
+(75, 19, 'Khandvi', 20, '1'),
+(76, 19, 'Fafda-Jalebi', 80, '1'),
+(77, 19, 'Kachori', 35, '1'),
+(78, 20, 'Cheese', 70, '1'),
+(79, 20, 'Oil', 85, '1'),
+(80, 20, 'Bread', 80, '1'),
+(81, 20, 'Double Chees', 150, '1'),
+(82, 21, 'Dosa', 90, '1'),
+(83, 21, 'Mendu Wada', 50, '1'),
+(84, 21, 'Dal wada', 60, '1'),
+(85, 21, 'Idli sambar', 50, '1');
 
 -- --------------------------------------------------------
 
@@ -287,13 +317,19 @@ INSERT INTO `products` (`Id`, `CatId`, `Name`, `Price`, `IsAvailable`) VALUES
 -- Table structure for table `tables`
 --
 
-CREATE TABLE `tables` (
-  `Id` int(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tables` (
+  `Id` int(3) NOT NULL AUTO_INCREMENT,
   `Name` varchar(10) DEFAULT NULL,
   `Capacity` int(2) DEFAULT NULL,
-  `IsOccupied` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `IsOccupied` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `tables`
+--
+
+TRUNCATE TABLE `tables`;
 --
 -- Dumping data for table `tables`
 --
@@ -319,15 +355,21 @@ INSERT INTO `tables` (`Id`, `Name`, `Capacity`, `IsOccupied`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `Id` int(2) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `Id` int(2) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(50) DEFAULT NULL,
   `LastName` varchar(50) DEFAULT NULL,
   `Username` varchar(50) NOT NULL,
   `Password` varchar(255) NOT NULL,
-  `Role` enum('Waiter','Chef','Admin') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Role` enum('Waiter','Chef','Admin') NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
+--
+-- Truncate table before insert `users`
+--
+
+TRUNCATE TABLE `users`;
 --
 -- Dumping data for table `users`
 --
@@ -336,98 +378,6 @@ INSERT INTO `users` (`Id`, `FirstName`, `LastName`, `Username`, `Password`, `Rol
 (1, 'tony', 'stark', 'tonystark', '9c16b045a32525f294494e95b3bc44ba36016c8e', 'Waiter'),
 (2, 'bat', 'man', 'batman', '48e7a6364bdfa17a1d8627f043347e293abfc271', 'Chef'),
 (3, 'super', 'man', 'superman', '25564cc3fe5b4cf47f1eba6029e58067290ee03d', 'Admin');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `invoiceitems`
---
-ALTER TABLE `invoiceitems`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `invoices`
---
-ALTER TABLE `invoices`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `kitchen`
---
-ALTER TABLE `kitchen`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `tables`
---
-ALTER TABLE `tables`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`Id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `invoiceitems`
---
-ALTER TABLE `invoiceitems`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
-
---
--- AUTO_INCREMENT for table `invoices`
---
-ALTER TABLE `invoices`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `kitchen`
---
-ALTER TABLE `kitchen`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
---
--- AUTO_INCREMENT for table `tables`
---
-ALTER TABLE `tables`
-  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `Id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
