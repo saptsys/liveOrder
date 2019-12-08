@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h3><b>Concept</b></h3>
-                    <h4>Perpose of this site to make digitalize working of restaurant by smart phones or tablets so workers of restaurant can done things in less efforts in less time.</h4>
+                    <h4>Perpose to make "Digitalize Working of Restaurants" by smart phones or tablets so workers of restaurant can do things in less efforts and less time.</h4>
             </div>
         </div>
 
