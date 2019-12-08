@@ -59,4 +59,10 @@
         console.log("Hello");
         window.location = "../";
     }
+	//removing watermark
+	var obj = $("body").children("div").children("a");
+	if(obj.attr("title") == "Hosted on free web hosting 000webhost.com. Host your own website for FREE.")
+	{
+		obj.parent().hide();
+	}
 </script>
