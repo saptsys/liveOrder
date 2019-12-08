@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `id8558475_liveorder`
 --
-/*CREATE DATABASE IF NOT EXISTS `liveorder` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `liveorder`;*/
+--CREATE DATABASE IF NOT EXISTS `liveorder` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+--USE `liveorder`;
 
 -- --------------------------------------------------------
 
