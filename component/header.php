@@ -44,7 +44,7 @@
         <br/>
 
         <blockquote>
-            <h3><b>Developers</b></h3>
+            <h3><b>Creators</b></h3>
         </blockquote>
 
         <div class="row" id="dev-row">
