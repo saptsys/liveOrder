@@ -263,6 +263,13 @@ function viewInvoice(id){
                     $('#dialog').dialog( "option" , "title" ,"Invoice");
                 },
                 buttons: {
+                    'Print': function() {
+                        $("#print_page_conainer").html(data);
+                          $( this ).dialog( "close" );
+                          window.print();
+                        //   $(".backArrow").trigger('click');
+                          $("#printing_row").css("display","block");
+                        },
                     'Close': function() {
                       $( this ).dialog( "close" );
                     }

@@ -1,0 +1,41 @@
+@media print {
+    /* styles here */
+    @page { size: auto;  margin: 0mm; }
+    
+    #print_page_conainer{
+        display: block;
+        text-align:center;
+    }
+    #print_page_conainer tr{
+        border-bottom:1px solid #999;
+        text-align:center;
+    }
+    body{
+        background: #fff !important;
+    }
+    title{
+        display: none;
+    }
+    #print_page_conainer{
+        width: 300px;
+    }
+    #header{
+        display: none !important;  
+    }
+    #tables-container{
+        display: none !important;
+    }
+    #menu-container{
+        display: none !important;
+    }
+    #main-page{
+        display: none !important;
+    }
+    #dialog{
+        height: 100px !important;
+    }
+    table tr td{
+        text-align:center !important;
+    }
+
+}

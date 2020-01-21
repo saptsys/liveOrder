@@ -44,6 +44,7 @@
 
     <link rel="stylesheet" href="../../assets/css/header.css">
     <link rel="stylesheet" href="../../assets/css/Index-style.css">
+    <link rel="stylesheet" href="assets/css/print.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
@@ -183,6 +184,7 @@
           </div>
         <div id="dialog"> </div>
     </div>
+    <div id="print_page_conainer"></div>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
