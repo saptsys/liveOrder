@@ -30,6 +30,33 @@ body{
     color: #fff;   
 }
 
+
+#header_user{
+    float: right;
+}
+
+#header_user img{
+    border-radius: 1000px;
+    width: 45px;
+    border: 3px solid #f5f5f5;
+    cursor: pointer;
+}
+
+#header_user div{
+    display: none;
+    font-size: 16pt;
+    padding: 5px;
+    color: lightslategrey;
+    border: 1px solid #ddd;
+    border-radius: 5px 0px 5px 5px;
+    background-color: #fff;
+    position: fixed;
+    right: 0;
+    margin: 3px;
+    cursor: default;
+    box-shadow: -1px 1px 5px #aaa;
+}
+
 body {margin: 0; padding: 0;}
 
 #header {

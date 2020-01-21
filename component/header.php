@@ -9,8 +9,18 @@
                     echo "<button onclick='login()' class='login-btn btn'>Login";
                 }
                 else
-                {
-                    echo "<button onclick='logout()' class='logout-btn btn'>Logout <br>".ucwords(@$_SESSION['fullName']);
+                {?>
+                    <span id="header_user">
+                        <img src="../../assets/images/vaitul.jpg" alt="vaitul" id="header_user_img">
+                        <div id="header_user_div">
+                            <p><?php echo ucwords(@$_SESSION['fullName']); ?> 
+                                <i style="font-size:10pt; ">(<?php echo ucwords(@$_SESSION['role']); ?>)</i> <br> 
+                                <i style="font-size:11pt;">Logout <a style="cursor:pointer;" onclick='logout()'>@<?php echo @$_SESSION['user']; ?></a></i>
+                            </p>
+                        </div>
+                    </span>
+                <?php 
+                    // echo "<button onclick='logout()' class='logout-btn btn'>Logout <br>".ucwords(@$_SESSION['fullName']);
                 }
             ?>
 

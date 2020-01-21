@@ -31,7 +31,7 @@
     <title>Home : Chef</title>
     <link rel="icon" href="https://image.flaticon.com/icons/png/512/65/65155.png">
     <link rel="stylesheet" href="../../assets/css/header.css">
-    <script src="../../assets/js/script.js"></script>
+    <!-- <script src="../../assets/js/script.js"></script> -->
     <link rel="stylesheet" href="./assets/css/style.css">
 
     <link rel="stylesheet" href="../../assets/css/Index-style.css">

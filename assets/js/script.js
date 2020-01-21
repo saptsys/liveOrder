@@ -14,7 +14,16 @@ $(document).ready(function(){
 	if(obj.attr("title") == "Hosted on free web hosting 000webhost.com. Host your own website for FREE.")
 	{
 		obj.parent().hide();
-	}
+    }
+    
+    $("#header_user_img").click(function()
+    {
+        $("#header_user_div").fadeToggle(200);
+    });
+
+    $("#header").mouseleave(function(){
+        $("#header_user_div").fadeOut(200)
+    });
 
     // $("#iBtn").hover(function(){
     //     $("#iBtn").css("opacity","1");

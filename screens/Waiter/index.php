@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="assets/css/Index-Media-Query.css">
     <link rel="stylesheet" href="../../assets/css/header.css">
 
-    <script src="../../assets/js/script.js"></script>
+    <!-- <script src="../../assets/js/script.js"></script> -->
 </head>
 <body>
     

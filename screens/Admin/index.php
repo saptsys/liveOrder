@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/script.js"></script>
+    <!-- <script src="../../assets/js/script.js"></script> -->
 
     <link rel="stylesheet" href="../../assets/js/JQueryUi/jquery-ui.css">
     <link rel="stylesheet" href="../../assets/js/jquery-ui.structure.css">
