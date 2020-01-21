@@ -48,7 +48,7 @@ TRUNCATE TABLE `categories`;
 INSERT INTO `categories` (`Id`, `Name`) VALUES
 (8, 'Chinees'),
 (14, 'Drink Soda'),
-(15, 'Amarican'),
+(15, 'American'),
 (16, 'Pizza'),
 (17, 'Gujarati'),
 (18, 'Panjabi'),
