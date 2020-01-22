@@ -267,6 +267,7 @@ function viewInvoice(id){
                         $("#print_page_conainer").html(data);
                           $( this ).dialog( "close" );
                           window.print();
+                          $("#print_page_conainer").html("");
                         //   $(".backArrow").trigger('click');
                           $("#printing_row").css("display","block");
                         },
