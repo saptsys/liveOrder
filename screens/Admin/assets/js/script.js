@@ -3,13 +3,13 @@ $(document).ready(function () {
     getTables();
     getInvoices(); 
     getProducts();
-    setInterval(() => {
-        getUsers();
-        getTables();
-    }, 5000);
-    setInterval(() => {
-        getInvoices();
-    }, 10000);
+    // setInterval(() => {
+    //     getUsers();
+    //     getTables();
+    // }, 5000);
+    // setInterval(() => {
+    //     getInvoices();
+    // }, 10000);
 });
 
 $("#modelBody").on('click', '#productInputWrapper .removeProductInputForm', function(e){
@@ -300,19 +300,37 @@ function editUser(id){
             },
             buttons: {
                 Submit: function() {
-                    $.post("action.php", {
-                        flag:"updateUser",
-                        id:id,
-                        firstName:$("#firstName").val(),
-                        lastName:$("#lastName").val(),
-                        role:$("#role").find(":selected").text(),
-                        password:$("#password").val(),
-                        userName:$("#userName").val()
-                    },
-                        function (data) {
+                    
+
+
+
+                    var file = $('#photo').get(0).files[0];
+                    var fd = new FormData();
+
+                    fd.append('flag',"updateUser")
+                    fd.append('id',id)
+                    fd.append('firstName',$("#firstName").val())
+                    fd.append('lastName',$("#lastName").val())
+                    fd.append('role',$("#role").find(":selected").text())
+                    fd.append('password',$("#password").val())
+                    fd.append('userName',$("#userName").val())
+                    fd.append('file', file);
+                    $.ajax({
+                        url: "action.php",
+                        error: function (e) {
+                          console.log('error ' + e.message);
+                        },
+                        data: fd,
+                        type: 'POST',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success:function(data){
                             if(data=="true") $("#dialog").dialog( "close" );
-                        }
-                    );
+                        }   
+                     });
+
+                    
                 }
             }
         });
@@ -352,18 +370,32 @@ function addUser (showDialog=true){
             },
             buttons: {
                 Submit: function() {
-                    $.post("action.php", {
-                            flag:"addUserDB",
-                            firstName:$("#firstName").val(),
-                            lastName:$("#lastName").val(),
-                            role:$("#role").find(":selected").text(),
-                            password:$("#password").val(),
-                            userName:$("#userName").val()
+                    var file = $('#photo').get(0).files[0];
+                    var fd = new FormData();
+
+                    fd.append('flag',"addUserDB")
+                    fd.append('firstName',$("#firstName").val())
+                    fd.append('lastName',$("#lastName").val())
+                    fd.append('role',$("#role").find(":selected").text())
+                    fd.append('password',$("#password").val())
+                    fd.append('userName',$("#userName").val())
+                    fd.append('file', file);
+                    $.ajax({
+                        url: "action.php",
+                        error: function (e) {
+                          console.log('error ' + e.message);
                         },
-                        function (data) {
+                        data: fd,
+                        type: 'POST',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success:function(data){
                             if(data=="true") $("#dialog").dialog( "close" );
-                        }
-                    );
+                        }   
+                     });
+
+
                 }
             }
             });

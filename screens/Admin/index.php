@@ -154,7 +154,7 @@
             </div>
             
           <!-- Modal -->
-          <div class="modal fade" id="modal" role="dialog">
+          <div class="modal fade" id="modal" role="dialog" style="z-index: 100000; margin-top:10rem ">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">

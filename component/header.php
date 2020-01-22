@@ -11,7 +11,7 @@
                 else
                 {?>
                     <span id="header_user">
-                        <img src="../../assets/images/vaitul.jpg" alt="vaitul" id="header_user_img">
+                        <img src="../../assets/uploads/<?php echo $_SESSION['role']."/".$_SESSION['user'] .".jpg"?>" alt="vaitul" id="header_user_img" onerror="this.onerror=null;this.src='../../assets/images/avatar.png'">
                         <div id="header_user_div">
                             <p><?php echo ucwords(@$_SESSION['fullName']); ?> 
                                 <i style="font-size:10pt; ">(<?php echo ucwords(@$_SESSION['role']); ?>)</i> <br> 

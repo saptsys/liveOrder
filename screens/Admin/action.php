@@ -276,6 +276,51 @@
             ';
         }
     }
+    function uploadPhoto($file,$role,$userName,$update=false){
+        if(empty($file['file'])){
+            return true;
+        }
+        $target_dir = "../../assets/uploads/".$role."/";
+        $imageFileType = strtolower(pathinfo($file["file"]["name"],PATHINFO_EXTENSION));
+        $target_file = $target_dir . $userName .".jpg";
+        $uploadOk = 1;
+        $check = getimagesize($file["file"]["tmp_name"]);
+
+        if($check !== false) { $uploadOk = 1; } 
+        else { $uploadOk = 0; }
+
+ 
+
+        if ($file["file"]["size"] > 500000) { $uploadOk = 0; }
+
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+            $uploadOk = 0;
+        }
+        if (file_exists($target_file)) { 
+            if($update){
+                deleteFile($userName,$role);
+            }
+        }else{ @mkdir($target_dir, 0755, true); }
+        
+        if ($uploadOk == 0) {
+            return false;
+            
+        } else {
+            if (move_uploaded_file($file["file"]["tmp_name"], $target_file)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    function deleteFile($user,$role){
+        $target_dir = "../../assets/uploads/".$role."/".$user .".jpg";
+        if (!unlink($target_dir)) {
+            return false;
+          } else {
+            return true;
+          }
+    }
     function addUser($con, $db=false,$update=false){
         if($db){
             $firstName=$_POST['firstName'];
@@ -285,10 +330,13 @@
             $userName=$_POST['userName'];
             if($update) {
                 $id=$_POST['id'];
+                uploadPhoto($_FILES,$role,$userName,true);
                 $sql="UPDATE `users` SET `FirstName` = '$firstName',`LastName` = '$lastName', `Username` = '$userName', `Password` = '$password', `Role` = '$role' WHERE `users`.`Id` = $id"; 
             }else{
+                uploadPhoto($_FILES,$role,$userName);
                 $sql="INSERT INTO `users` (FirstName,LastName,Username,Password,Role)
-                 VALUES('$firstName','$lastName','$userName','$password','$role')";
+                VALUES('$firstName','$lastName','$userName','$password','$role')";
+
             }
             if(mysqli_query($con,$sql)){
                 echo "true";
@@ -297,7 +345,7 @@
             }
         }else{
            echo"
-                <form>
+                <form enctype='multipart/form-data' id='createUserForm'>
                     <fieldset>
                         <input required placeholder='First Name' type='text' name='firstName' id='firstName' class='text ui-widget-content ui-corner-all'>
                         <input required placeholder='Last Name' type='text' name='lastName' id='lastName'  class='text ui-widget-content ui-corner-all'>
@@ -308,7 +356,11 @@
                             <option value='Chef'>Chef</option>
                             <option value='Waiter'>Waiter</option>
                         </select> 
+                        
                         <input required type='password' name='password' id='password' placeholder='*******' class='text ui-widget-content ui-corner-all'>
+                        
+                        <label for='photo'>Upload Photo</label>
+                        <input type='file' name='photo' id='photo'>
                     </fieldset>
                 </form>
             "; 
@@ -345,7 +397,7 @@
         $sql=mysqli_query($con,"SELECT * FROM `users` WHERE Id=$id LIMIT 1");
         $fetch=mysqli_fetch_assoc($sql);
         echo"
-            <form>
+            <form enctype='multipart/form-data' id='editUserForm'>
             <fieldset>
                 <input required value='$fetch[FirstName]' type='text' name='firstName' id='firstName' placeholder='firstName' class='text ui-widget-content ui-corner-all'>
                 <input required value='$fetch[LastName]' type='text' name='lastName' id='lastName'  placeholder='Last Name' class='text ui-widget-content ui-corner-all'>
@@ -357,7 +409,9 @@
                     <option value='Waiter'>Waiter</option>
                 </select> 
                 <input placeholder='password' required type='password' name='password' id='password' class='text ui-widget-content ui-corner-all'>
-            </fieldset>
+                <label for='photo'>Upload Photo</label>
+                <input type='file' name='photo' id='photo'>
+                </fieldset>
             </form>
         ";
     }
@@ -374,6 +428,11 @@
         ";
     }
     function deleteUser($con,$id){
+        $query=mysqli_query($con,"SELECT * FROM users WHERE id=$id LIMIT 1");
+        if($query){
+            $fetch=mysqli_fetch_assoc($query);
+            if(deleteFile($fetch['Username'],$fetch['Role']));
+        }
         if(mysqli_query($con,"DELETE FROM `users` WHERE id=$id")) echo "1";
         else echo "0";
     }
