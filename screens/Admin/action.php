@@ -406,7 +406,7 @@
                     <!-- <option disabled selected>Select Role</option>-->
                     <option value='Admin'".($fetch["Role"]=="Admin"?"selected":"").">Admin</option>
                     <option value='Chef'".($fetch["Role"]=="Chef"?"selected":"").">Chef</option>
-                    <option value='Waiter' ".($fetch["Role"]=="Chef"?"selected":"").">Waiter</option>
+                    <option value='Waiter' ".($fetch["Role"]=="Waiter"?"selected":"").">Waiter</option>
                 </select> 
                 <input placeholder='password' required type='password' name='password' id='password' class='text ui-widget-content ui-corner-all'>
                 <label for='photo'>Upload Photo</label>
