@@ -403,10 +403,10 @@
                 <input required value='$fetch[LastName]' type='text' name='lastName' id='lastName'  placeholder='Last Name' class='text ui-widget-content ui-corner-all'>
                 <input required value='$fetch[Username]' type='text' name='userName' id='userName'  placeholder='User Name' class='text ui-widget-content ui-corner-all'>
                 <select required name='role' id='role'>
-                    <option disabled selected>Select Role</option>
-                    <option value='Admin'>Admin</option>
-                    <option value='Chef'>Chef</option>
-                    <option value='Waiter'>Waiter</option>
+                    <!-- <option disabled selected>Select Role</option>-->
+                    <option value='Admin'".($fetch["Role"]=="Admin"?"selected":"").">Admin</option>
+                    <option value='Chef'".($fetch["Role"]=="Chef"?"selected":"").">Chef</option>
+                    <option value='Waiter' ".($fetch["Role"]=="Chef"?"selected":"").">Waiter</option>
                 </select> 
                 <input placeholder='password' required type='password' name='password' id='password' class='text ui-widget-content ui-corner-all'>
                 <label for='photo'>Upload Photo</label>

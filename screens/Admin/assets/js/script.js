@@ -3,13 +3,13 @@ $(document).ready(function () {
     getTables();
     getInvoices(); 
     getProducts();
-    // setInterval(() => {
-    //     getUsers();
-    //     getTables();
-    // }, 5000);
-    // setInterval(() => {
-    //     getInvoices();
-    // }, 10000);
+    setInterval(() => {
+        getUsers();
+        getTables();
+    }, 5000);
+    setInterval(() => {
+        getInvoices();
+    }, 10000);
 });
 
 $("#modelBody").on('click', '#productInputWrapper .removeProductInputForm', function(e){
