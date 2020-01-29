@@ -331,7 +331,8 @@
             if($update) {
                 $id=$_POST['id'];
                 uploadPhoto($_FILES,$role,$userName,true);
-                $sql="UPDATE `users` SET `FirstName` = '$firstName',`LastName` = '$lastName', `Username` = '$userName', `Password` = '$password', `Role` = '$role' WHERE `users`.`Id` = $id"; 
+                // $sql="UPDATE `users` SET `FirstName` = '$firstName',`LastName` = '$lastName', `Username` = '$userName', `Password` = '$password', `Role` = '$role' WHERE `users`.`Id` = $id"; 
+                $sql="UPDATE `users` SET `FirstName` = '$firstName',`LastName` = '$lastName', `Username` = '$userName', `Role` = '$role' WHERE `users`.`Id` = $id"; 
             }else{
                 uploadPhoto($_FILES,$role,$userName);
                 $sql="INSERT INTO `users` (FirstName,LastName,Username,Password,Role)
@@ -408,7 +409,7 @@
                     <option value='Chef'".($fetch["Role"]=="Chef"?"selected":"").">Chef</option>
                     <option value='Waiter' ".($fetch["Role"]=="Waiter"?"selected":"").">Waiter</option>
                 </select> 
-                <input placeholder='password' required type='password' name='password' id='password' class='text ui-widget-content ui-corner-all'>
+                <!--<input placeholder='password' required type='password' name='password' id='password' class='text ui-widget-content ui-corner-all'>-->
                 <label for='photo'>Upload Photo</label>
                 <input type='file' name='photo' id='photo'>
                 </fieldset>
