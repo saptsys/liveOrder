@@ -79,6 +79,7 @@ body {margin: 0; padding: 0;}
     position: fixed;
     overflow-x: hidden;
     top: 0;
+    box-shadow: 0px 2px 4px #888;
 }
 
 @-webkit-keyframes errorBg {

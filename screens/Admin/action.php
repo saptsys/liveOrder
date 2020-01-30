@@ -361,6 +361,7 @@
                         <input required type='password' name='password' id='password' placeholder='*******' class='text ui-widget-content ui-corner-all'>
                         
                         <label for='photo'>Upload Photo</label>
+                        <span class='text-secondary' style='font-size:8pt; color:#aaa'> Size of photo is less than 500kb</span>
                         <input type='file' name='photo' id='photo'>
                     </fieldset>
                 </form>
@@ -411,8 +412,9 @@
                 </select> 
                 <!--<input placeholder='password' required type='password' name='password' id='password' class='text ui-widget-content ui-corner-all'>-->
                 <label for='photo'>Upload Photo</label>
+                <span class='text-secondary' style='font-size:8pt; color:#aaa'> Size of photo is less than 500kb</span>
                 <input type='file' name='photo' id='photo'>
-                </fieldset>
+            </fieldset>
             </form>
         ";
     }
