@@ -71,7 +71,7 @@ $('#products').on('click','td .productDelete', function(e) {
 });
 
 function showEditProductModal(obj){
-    console.log(obj)
+    // console.log(obj)
     $.get('addProductModal.html', function(markup) {
         markup = $(markup)
         $('#ExtraBtnModal button').attr('id', 'submitEditProductsBtn');
@@ -97,7 +97,7 @@ function showEditProductModal(obj){
 
         $("#modal #modelBody").html(markup)
         $("#modal").modal('show')
-        $("#modal #modelHeader").html("Add Product")
+        $("#modal #modelHeader").html("Edit Product")
     });
 }
 

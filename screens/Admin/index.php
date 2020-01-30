@@ -154,8 +154,8 @@
             </div>
             
           <!-- Modal -->
-          <div class="modal fade" id="modal" role="dialog" style="z-index: 100000; margin-top:10rem ">
-            <div class="modal-dialog modal-lg">
+          <div class="modal fade" id="modal" role="dialog" style="padding-top:10rem ">
+            <div class="modal-dialog modal-md">
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -167,14 +167,15 @@
                 <div class="modal-footer" id="modelFooter">
                     <div class="input-group">
                         <span id="ExtraBtnModal">
-                            <button id="submitProductsBtn"  type="button"  class="btn-block btn btn-success">
-                            Sumbit
+                            <button id="submitProductsBtn"  type="button"  class="btn btn-success">
+                            Submit
                                 <i class="fa fa-sm fa-check-circle"></i>
                             </button>
                         </span>
                         <span class="input-group-btn">
-                            <button type="button" class="btn-block btn btn-danger" data-dismiss="modal">
-                                Close
+                            <button type="button" class=" btn btn-danger" data-dismiss="modal">
+                                Cancel
+                                <i class="fa fa-sm fa-times-circle"></i>
                             </button>
                         </span>
                     </div>
